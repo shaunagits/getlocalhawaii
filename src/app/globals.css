@@ -28,12 +28,16 @@
   --color-cream-muted: rgba(251, 246, 233, 0.82);
   --color-mint-line: rgba(120, 199, 190, 0.42);
 
+  /* Mobile-first: the design is a 390px column, centered on desktop */
+  --container-column: 430px;
+}
+
+/* Inline so the next/font variables, which live on <body>, resolve at the
+   element using the utility instead of at :root where they do not exist. */
+@theme inline {
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
-
-  /* Mobile-first: the design is a 390px column, centered on desktop */
-  --container-column: 430px;
 }
 
 @layer base {
@@ -44,7 +48,7 @@
   body {
     background-color: var(--color-cream);
     color: var(--color-kai-800);
-    font-family: var(--font-sans);
+    font-family: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -58,7 +62,7 @@
 }
 
 @utility mono-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
   font-weight: 600;
   font-size: 11px;
   letter-spacing: 0.08em;
