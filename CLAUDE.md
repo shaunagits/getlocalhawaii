@@ -5,7 +5,7 @@ Directory site for finding local Hawaii vendors (lei stands, farmers markets, fi
 ## Key files
 
 - `docs/BUILD_SPEC.md` - full build spec: design tokens, page inventory, data model, business logic. Read this before building anything.
-- `docs/Get Local Hawaii - Home.dc.html` - original design mockups (4 mobile screens). Reference for exact visual detail. Do not copy its markup; rebuild as components.
+- `docs/Get Local Hawaii - Home.dc.html` - original design mockups: 4 screens, each with a 390px phone frame AND a 940px desktop frame. Reference for exact visual detail. Do not copy its markup; rebuild as components.
 
 ## Stack
 
@@ -15,7 +15,7 @@ Directory site for finding local Hawaii vendors (lei stands, farmers markets, fi
 
 ## Conventions
 
-- Mobile-first. The design is a 390px mobile layout; desktop is a centered column until designed otherwise.
+- Mobile-first, but every screen also has a designed 940px desktop layout in the canvas. Build both, breakpoint around 768px. See BUILD_SPEC section 4 desktop rules.
 - Never use em dashes in any user-facing copy, commit messages, or docs.
 - Do not credit Claude or AI in commits, code comments, or anywhere in the repo.
 - Hawaiian diacriticals (ʻokina, kahakō) must be preserved exactly: Oʻahu, Kalihi, Waimānalo, Kaimukī, lūʻau, GET LOCAL HAWAIʻI.

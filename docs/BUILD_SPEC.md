@@ -57,6 +57,14 @@ Define these in the Tailwind theme, not ad hoc.
 
 ## 4. Pages (first deploy scope: all four)
 
+Every screen has TWO mockups in the design canvas: a 390px phone frame and a 940px desktop browser frame. Build both, responsive at roughly a 768px breakpoint. The mobile layouts are described per page below; the desktop layouts share these rules, taken from the 940px frames:
+
+- Header: wordmark left, nav links (Browse all, Markets calendar, Add a listing) inline top-right in the dark header. The stacked footer nav is mobile-only.
+- Home hero: centered, max-width 760px, Bricolage 52px, letter-spacing -1.4px, the query words in coral-light AND underlined with a 3px coral-light border-bottom. Suggestion chips centered beneath.
+- Home results: cream rounded panel (18px radius, 24-28px padding) on the dark page background. Panel header row: "9 answers · 4 open now" left, "SORTED BY OPEN, THEN DISTANCE" mono right, hairline under. Cards in a 3-column grid, compact variant: "OPEN NOW" chip without the closes time, which folds into the description line ("1.2 mi · closes 2p").
+- Vendor and market detail: two-column hero inside the dark header, 42px Bricolage title and description left (max 58ch), action button stack right (coral-light primary button with dark text, translucent cream secondary buttons). Body below is a two-column grid: main content left, side rail (roughly 320px) right. Market vendors render as a 2-up card grid; "not here today" cards at 70% opacity.
+- Category results desktop follows the same two-column body pattern.
+
 ### 4.1 Home `/`
 
 Question-led search. Dark teal header with "GET LOCAL HAWAIʻI" wordmark, then a large natural-language prompt line styled as the hero: "I need lei near Kalihi this afternoon." followed by suggestion chips (poi, fish off the boat, mango, Saturday market, maile). Below: results summary ("9 answers · 4 open now"), sort note ("SORTED BY OPEN, THEN DISTANCE"), then result cards. Each card: status chip row, verification chip, name, one-line description, distance/close time/payment note, action buttons (Call, Directions, Text to preorder). Footer nav: Browse all, Markets calendar, In season, Add a listing.
