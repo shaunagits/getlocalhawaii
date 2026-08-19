@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  /* Palette - see docs/BUILD_SPEC.md section 3 */
+  --color-kai-900: #061d21;
+  --color-kai-800: #0a2e33;
+  --color-cream: #fbf6e9;
+  --color-sand: #e9e4d7;
+  --color-coral: #c2402c;
+  --color-coral-dark: #8e2a19;
+  --color-coral-light: #ff8a6b;
+  --color-coral-tint: #faddd3;
+  --color-green-700: #0b5b3e;
+  --color-green-500: #157a4e;
+  --color-mint: #7fd9be;
+  --color-mint-tint: #d8efe4;
+  --color-gold: #c98a1e;
+  --color-gold-dark: #8a5b0c;
+  --color-gold-tint: #fcebcb;
+  --color-slate: #5c716f;
+  --color-slate-light: #7e8d8b;
+
+  /* Derived surfaces, taken from the mockups */
+  --color-hairline: rgba(10, 46, 51, 0.14);
+  --color-hairline-soft: rgba(10, 46, 51, 0.1);
+  --color-kai-tint: rgba(10, 46, 51, 0.08);
+  --color-cream-dim: rgba(251, 246, 233, 0.72);
+  --color-cream-muted: rgba(251, 246, 233, 0.82);
+  --color-mint-line: rgba(120, 199, 190, 0.42);
+
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  /* Mobile-first: the design is a 390px column, centered on desktop */
+  --container-column: 430px;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-kai-800);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: var(--color-coral);
+  }
+
+  a:hover {
+    color: var(--color-coral-dark);
+  }
+}
+
+@utility mono-label {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
