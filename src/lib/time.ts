@@ -163,3 +163,9 @@ export function relativeAgo(then: Date, now: Date): string {
 export function toDate(value: string | Date): Date {
   return value instanceof Date ? value : new Date(value);
 }
+
+/** Header stamp showing when the page was computed: "WED AUG 19 · 9:41A". */
+export function clockLabel(instant: Date): string {
+  const clock = hawaiiClock(instant);
+  return `${dayName(clock.dayOfWeek).toUpperCase()} ${monthAbbr(clock.month)} ${clock.day} · ${shortTime(clock.minutes)}`;
+}
