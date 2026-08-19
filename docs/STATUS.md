@@ -3,15 +3,21 @@
 Current state. Overwritten each session, never appended to.
 
 ## What works
-- Repo initialized, remote set to shaunagits/getlocalhawaii, docs rules in place.
+- Next.js scaffold builds clean: TypeScript, Tailwind v4, App Router, design tokens and fonts wired.
+- Status and freshness logic in `src/lib/status.ts` and `src/lib/time.ts`, all in Pacific/Honolulu. 30 unit tests pass.
+- Shared components built and checked in the browser: StatusChip, VerificationChip, VendorCard, ActionButtons, SectionHeader, FilterChip, SiteHeader, SiteFooter.
+- Schema and seed migrations written in `supabase/migrations/`.
+- Home page renders a preview of the components against fixtures, replaced in phase 5.
 
 ## In progress
-- Phase 1 of the build order: Next.js scaffold, Tailwind theme tokens, fonts.
+- Nothing mid-edit. Phases 1 through 4 of the build order are complete.
 
 ## Next 3 steps
-1. Scaffold Next.js (TypeScript, Tailwind, App Router, src dir) and wire design tokens plus fonts.
-2. Phase 2: Supabase schema migration and seed SQL.
-3. Phase 3: shared components (StatusChip, VerificationChip, VendorCard, ActionButtons, SectionHeader, SiteHeader/Footer).
+1. Create the Supabase project, set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`, apply both migrations.
+2. Phase 5: build the four pages against Supabase, replacing the fixture home page.
+3. Phase 6: push to GitHub, import the repo in Vercel, verify getlocalhawaii.vercel.app.
 
 ## Known issues
-- None yet.
+- The migrations have never been run. No Postgres was available locally, so the SQL is unvalidated until phase 5.
+- Distances are seeded placeholders, so "also nearby" shows distance from the user, not from the vendor being viewed.
+- Nothing is pushed yet; the origin remote is set but has no commits.
