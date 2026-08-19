@@ -3,21 +3,21 @@
 Current state. Overwritten each session, never appended to.
 
 ## What works
-- Next.js scaffold builds clean: TypeScript, Tailwind v4, App Router, design tokens and fonts wired.
-- Status and freshness logic in `src/lib/status.ts` and `src/lib/time.ts`, all in Pacific/Honolulu. 30 unit tests pass.
-- Shared components built and checked in the browser: StatusChip, VerificationChip, VendorCard, ActionButtons, SectionHeader, FilterChip, SiteHeader, SiteFooter.
-- Schema and seed migrations written in `supabase/migrations/`.
-- Home page renders a preview of the components against fixtures, replaced in phase 5.
+- All four pages live against Supabase: home `/`, category `/oahu/lei`, vendor `/lei/napua-lei-stand`, market `/markets/kaimuki-neighborhood`.
+- Schema and seed applied to the `getlocalhawaii` Supabase project. Security advisors report no issues.
+- Status, freshness and countdown logic in Pacific/Honolulu. 34 unit tests pass. Production build is clean.
+- Category filters (Open now, product chips) work through the query string.
 
 ## In progress
-- Nothing mid-edit. Phases 1 through 4 of the build order are complete.
+- Nothing mid-edit. Phases 1 through 5 of the build order are complete.
 
 ## Next 3 steps
-1. Create the Supabase project, set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`, apply both migrations.
-2. Phase 5: build the four pages against Supabase, replacing the fixture home page.
-3. Phase 6: push to GitHub, import the repo in Vercel, verify getlocalhawaii.vercel.app.
+1. Phase 6: push to GitHub, import the repo in Vercel, add the two env vars there.
+2. Verify the build on getlocalhawaii.vercel.app.
+3. Check the market page during market hours to see the ON NOW countdown render live.
 
 ## Known issues
-- The migrations have never been run. No Postgres was available locally, so the SQL is unvalidated until phase 5.
+- Nothing pushed yet; the origin remote is set but has no commits.
+- Browse all, Markets calendar and In season nav links point at the nearest existing page, since those pages are out of scope for the first deploy.
 - Distances are seeded placeholders, so "also nearby" shows distance from the user, not from the vendor being viewed.
-- Nothing is pushed yet; the origin remote is set but has no commits.
+- The Airport-close filter chip from the mockup is not built; it needs geolocation.
