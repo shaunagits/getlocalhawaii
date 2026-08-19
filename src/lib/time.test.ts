@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 
 import {
   dayName,
+  hawaiiInstant,
+  icsStamp,
   duration,
   hawaiiClock,
   hawaiiDate,
@@ -67,6 +69,29 @@ describe("time labels", () => {
   it("formats dates and weekdays for mono labels", () => {
     expect(shortDate(hst("2026-08-12T16:10"))).toBe("AUG 12");
     expect(dayName(6)).toBe("Sat");
+  });
+});
+
+describe("hawaiiInstant", () => {
+  it("resolves a Hawaii wall-clock date and time to the right instant", () => {
+    expect(hawaiiInstant("2026-08-19", "06:30").toISOString()).toBe("2026-08-19T16:30:00.000Z");
+    expect(hawaiiInstant("2026-08-19", "06:30:00").toISOString()).toBe("2026-08-19T16:30:00.000Z");
+  });
+
+  it("round-trips back to the same Hawaii wall clock", () => {
+    const instant = hawaiiInstant("2026-08-19", "23:30");
+    const clock = hawaiiClock(instant);
+    expect(clock.date).toBe("2026-08-19");
+    expect(clock.minutes).toBe(23 * 60 + 30);
+  });
+
+  it("handles a time that lands on the previous UTC day", () => {
+    // Midnight in Hawaii is 10:00 UTC the same morning.
+    expect(hawaiiInstant("2026-08-19", "00:00").toISOString()).toBe("2026-08-19T10:00:00.000Z");
+  });
+
+  it("formats a calendar stamp", () => {
+    expect(icsStamp(hawaiiInstant("2026-08-19", "06:30"))).toBe("20260819T163000Z");
   });
 });
 

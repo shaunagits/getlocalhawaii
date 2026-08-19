@@ -14,6 +14,8 @@ export interface VendorSummary {
   paymentNotes: string | null;
   phone: string | null;
   contactMethod: ContactMethod;
+  /** Product labels, used by the category filter chips. */
+  productLabels: string[];
   status: VendorStatus;
   freshness: Freshness;
   /** Note from today's report, which replaces the description when present. */

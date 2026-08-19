@@ -169,3 +169,28 @@ export function clockLabel(instant: Date): string {
   const clock = hawaiiClock(instant);
   return `${dayName(clock.dayOfWeek).toUpperCase()} ${monthAbbr(clock.month)} ${clock.day} · ${shortTime(clock.minutes)}`;
 }
+
+/**
+ * The instant at which a Hawaii wall-clock date and time occurs.
+ *
+ * The offset is derived from the IANA zone rather than hardcoded to -10: guess
+ * at UTC, read what that instant looks like in Hawaii, then shift by the gap.
+ * One correction is enough while Hawaii keeps a fixed offset, and it stays
+ * correct if that ever changes.
+ */
+export function hawaiiInstant(date: string, time: string): Date {
+  const [hours, minutes = "00"] = time.split(":");
+  const target = Number(hours) * 60 + Number(minutes);
+
+  const guess = Date.parse(`${date}T${hours.padStart(2, "0")}:${minutes}:00Z`);
+  let delta = target - hawaiiClock(new Date(guess)).minutes;
+  if (delta > 720) delta -= 1440;
+  if (delta < -720) delta += 1440;
+
+  return new Date(guess + delta * 60_000);
+}
+
+/** Compact UTC stamp for calendar links: 20260819T163000Z. */
+export function icsStamp(instant: Date): string {
+  return `${instant.toISOString().replace(/[-:]/g, "").split(".")[0]}Z`;
+}
