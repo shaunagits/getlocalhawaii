@@ -41,12 +41,12 @@ export function VendorCard({ vendor, className }: VendorCardProps) {
       <div>
         <div className="flex items-center justify-between gap-2 md:justify-start md:gap-2.5">
           <StatusChip status={status} />
-          {status.note ? (
+          {status.note && freshness.isFresh ? (
             <span className="mono-chip font-medium text-slate-light">{status.note}</span>
           ) : (
             <VerificationChip freshness={freshness} short className="md:hidden" />
           )}
-          {status.note ? null : (
+          {status.note && freshness.isFresh ? null : (
             <VerificationChip freshness={freshness} className="hidden md:inline" />
           )}
         </div>

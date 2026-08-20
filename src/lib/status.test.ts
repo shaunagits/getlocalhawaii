@@ -177,12 +177,29 @@ describe("getStatus", () => {
     expect(status.isOpenNow).toBe(false);
   });
 
-  it("will not claim sold out for a listing it cannot vouch for", () => {
+  it("lets a same-day report outrank a lapsed verification", () => {
+    const input = {
+      hours: napuaHours,
+      verifications: [{ verifiedAt: hst("2026-07-01T08:00"), method: "called" as const }],
+      reports: [{ kind: "sold_out" as const, reportedAt: hst("2026-08-19T08:41") }],
+    };
+
+    // Somebody stood there today, which beats hours nobody has checked since July.
+    const status = getStatus(input, NOW);
+    expect(status.kind).toBe("sold_out");
+    expect(status.note).toBe("REPORTED 1H AGO");
+    expect(status.isOpenNow).toBe(false);
+
+    // Staleness does not vanish, it moves to the verification chip.
+    expect(getFreshness(input.verifications, NOW).isFresh).toBe(false);
+    expect(getFreshness(input.verifications, NOW).label).toBe("UNCONFIRMED");
+  });
+
+  it("still reads as unconfirmed when a lapsed listing has no report", () => {
     const status = getStatus(
       {
         hours: napuaHours,
         verifications: [{ verifiedAt: hst("2026-07-01T08:00"), method: "called" }],
-        reports: [{ kind: "sold_out", reportedAt: hst("2026-08-19T08:41") }],
       },
       NOW,
     );

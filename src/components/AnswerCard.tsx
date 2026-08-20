@@ -48,7 +48,7 @@ export function AnswerCard({ vendor, className }: { vendor: VendorSummary; class
     >
       <div className="flex items-center justify-between gap-2">
         <StatusChip status={status} label={SHORT_LABEL[status.kind]} className="shrink-0" />
-        {status.note ? (
+        {status.note && freshness.isFresh ? (
           <span className="mono-chip overflow-hidden text-ellipsis font-medium text-slate-light">
             {status.note}
           </span>

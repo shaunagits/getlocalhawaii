@@ -6,12 +6,15 @@ Directory site for finding local Hawaii vendors (lei stands, farmers markets, fi
 
 - `docs/BUILD_SPEC.md` - full build spec: design tokens, page inventory, data model, business logic. Read this before building anything.
 - `docs/Get Local Hawaii - Home.dc.html` - original design mockups: 4 screens, each with a 390px phone frame AND a 940px desktop frame. Reference for exact visual detail. Do not copy its markup; rebuild as components.
+- `src/lib/status.ts` - all status, freshness and countdown logic. `src/lib/time.ts` - all Hawaii clock math. `src/lib/queries.ts` - data access, returns objects with status already attached.
 
 ## Stack
 
-- Next.js (App Router, TypeScript, Tailwind CSS)
-- Supabase (Postgres) for vendors, markets, verification events
-- Deployed on Vercel; repo: https://github.com/shaunagits/getlocalhawaii.git
+- Next.js 16 (App Router, TypeScript, Tailwind v4), Vitest for unit tests.
+- Supabase (Postgres) project `getlocalhawaii`, ref `aqizthcpjohxsepbemjm`. Public read via RLS, anon key only, no writes from the app.
+- Repo https://github.com/shaunagits/getlocalhawaii.git, deployed on Vercel from `main`.
+- Live at https://getlocalhawaii.com (and www). Vercel temp domain: getlocalhawaii.vercel.app.
+- Env: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` in `.env.local`, see `.env.example`.
 
 ## Conventions
 
@@ -19,7 +22,9 @@ Directory site for finding local Hawaii vendors (lei stands, farmers markets, fi
 - Never use em dashes in any user-facing copy, commit messages, or docs.
 - Do not credit Claude or AI in commits, code comments, or anywhere in the repo.
 - Hawaiian diacriticals (ʻokina, kahakō) must be preserved exactly: Oʻahu, Kalihi, Waimānalo, Kaimukī, lūʻau, GET LOCAL HAWAIʻI.
-- All status logic (open now, closes 2p, verified today) computed from data in Pacific/Honolulu timezone.
+- All status logic (open now, closes 2p, verified today) computed from data in Pacific/Honolulu timezone. Never store a computed status.
+- Pages are `force-dynamic`: a cached "open now" is a wrong answer served fast.
+- `day_of_week` is 0=Sunday..6=Saturday everywhere, matching JavaScript `getDay()`.
 
 ## Documentation rules
 
@@ -34,3 +39,5 @@ Directory site for finding local Hawaii vendors (lei stands, farmers markets, fi
 - `npm run dev` - local dev server
 - `npm run build` - production build
 - `npm test` - unit tests (Vitest)
+- `npx tsc --noEmit && npx eslint src --max-warnings=0` - typecheck and lint
+- Deploys happen on push to `main`; no manual deploy step.

@@ -1,23 +1,20 @@
 # Status
 
-Current state. Overwritten each session, never appended to.
-
 ## What works
-- Live at https://getlocalhawaii.vercel.app, building from GitHub on every push to `main`.
-- All four pages render real Supabase data and now match both the 390px and 940px frames.
-- Desktop: inline header nav, centered underlined hero with cream results panel and 3-up grid on home, two-column heroes and side rails on the detail pages, two-column body on category.
-- Status, freshness and countdown logic in Pacific/Honolulu. 34 unit tests pass. Production build clean, no horizontal overflow at 375px.
+- Live at https://getlocalhawaii.com and www, TLS issued, building from GitHub on every push to `main`.
+- Four pages on real Supabase data, matching the 390px and 940px frames: home `/`, category `/oahu/lei`, vendor `/lei/napua-lei-stand`, market `/markets/kaimuki-neighborhood`.
+- Status, freshness, countdown and sorting in Pacific/Honolulu, matching the DECISIONS entries. 35 unit tests pass, build and lint clean.
 
 ## In progress
-- Nothing. Phases 1 through 6 complete, plus the desktop layouts from the corrected spec.
+- Nothing mid-edit. Working tree clean, everything pushed.
 
 ## Next 3 steps
-1. Point getlocalhawaii.com at Vercel: both apex and www are on the project, but the Cloudflare DNS records are not created yet.
-2. Add the two Supabase env vars to the Preview environment in the Vercel dashboard.
-3. Reconcile the recorded report-vs-unconfirmed decision with `getStatus`, which still checks freshness first.
+1. Add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` to the Preview environment in the Vercel dashboard.
+2. Pick the next feature: real search parsing, geolocation and distances, or the report-a-change flow. All three are out of scope in BUILD_SPEC section 9.
+3. Check the market page during market hours to see the ON NOW countdown render live.
 
 ## Known issues
-- getlocalhawaii.com and www are attached to the Vercel project but unverified: Cloudflare still has no A or CNAME record for them.
-- DECISIONS.md records that a same-day report should drive the status chip, but `src/lib/status.ts` still returns unconfirmed first. The code and the log disagree.
-- Preview deployments have no Supabase env vars, so any branch build will fail. Vercel CLI 50.40.0 rejects its own documented all-branches command, so this needs the dashboard.
+- Preview deployments have no Supabase env vars, so branch builds fail. Vercel CLI 50.40.0 rejects its own documented all-branches command; use the dashboard.
 - Distances are seeded placeholders, so "also nearby" shows distance from the user, not from the vendor being viewed.
+- The stale-plus-reported chip row is unit tested but never seen in a browser: no seeded listing is both lapsed and reported.
+- Browse all, Markets calendar and In season nav links point at the nearest existing page; those pages are not built.

@@ -210,27 +210,14 @@ export interface VendorStatusInput {
 /**
  * The status chip for a vendor.
  *
- * Order matters. Freshness is checked first: an unverified listing is not
- * trusted enough to claim it is open, or to claim it sold out, so it reads as
- * unconfirmed regardless of what the hours say. Then a same-day report, which
- * is newer information than the hours table. Only then the hours themselves.
+ * Order matters. A same-day report wins outright, even on a listing nobody has
+ * verified in 30 days: somebody stood there today and told us the stand sold
+ * out, and that beats our own stale hours table. Staleness does not disappear,
+ * it moves to the verification chip, which still reads UNCONFIRMED beside the
+ * report. Only when there is no report does freshness gate the hours, because
+ * without it we have nothing newer than a table we no longer trust.
  */
 export function getStatus(input: VendorStatusInput, now: Date): VendorStatus {
-  const freshness = getFreshness(input.verifications, now);
-
-  if (!freshness.isFresh) {
-    return {
-      kind: "unconfirmed",
-      label: "UNCONFIRMED",
-      detail: null,
-      closesAt: null,
-      opensAt: null,
-      opensDay: null,
-      note: null,
-      isOpenNow: false,
-    };
-  }
-
   const report = todaysReport(input.reports ?? [], now);
   if (report) {
     const isSoldOut = report.kind === "sold_out";
@@ -242,6 +229,21 @@ export function getStatus(input: VendorStatusInput, now: Date): VendorStatus {
       opensAt: null,
       opensDay: null,
       note: `REPORTED ${relativeAgo(toDate(report.reportedAt), now)}`,
+      isOpenNow: false,
+    };
+  }
+
+  const freshness = getFreshness(input.verifications, now);
+
+  if (!freshness.isFresh) {
+    return {
+      kind: "unconfirmed",
+      label: "UNCONFIRMED",
+      detail: null,
+      closesAt: null,
+      opensAt: null,
+      opensDay: null,
+      note: null,
       isOpenNow: false,
     };
   }

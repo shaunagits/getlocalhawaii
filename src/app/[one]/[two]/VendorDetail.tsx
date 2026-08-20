@@ -59,7 +59,7 @@ export async function VendorDetail({
                 }
                 onDark
               />
-              {vendor.status.note ? (
+              {vendor.status.note && vendor.freshness.isFresh ? (
                 <span className="mono-chip font-medium text-[11.5px] text-coral-light">
                   {vendor.status.note}
                 </span>
