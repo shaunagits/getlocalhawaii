@@ -13,14 +13,16 @@ import { mailto } from "@/lib/site";
  */
 
 /**
- * The dedicated browse, calendar and in-season pages are out of scope for the
- * first deploy, so these point at the closest page that actually exists rather
- * than at a 404.
+ * Nav points only at pages meant to be found. The market calendar and the
+ * produce listing used to sit here, which meant a third of the site chrome
+ * linked to a noindexed placeholder and to four unsourced vendors. Both come
+ * back when they have real data behind them.
  */
 export const NAV_LINKS = [
-  { href: "/oahu/lei", label: "Browse all" },
-  { href: "/markets/kaimuki-neighborhood", label: "Markets calendar" },
-  { href: "/oahu/produce", label: "In season" },
+  { href: "/oahu/lei", label: "All lei shops" },
+  { href: "/oahu/lei/chinatown", label: "Chinatown" },
+  { href: "/guides/graduation-lei", label: "Graduation" },
+  { href: "/oahu/lei/delivery", label: "Delivery" },
   { href: mailto("Add a listing"), label: "Add a listing" },
 ];
 

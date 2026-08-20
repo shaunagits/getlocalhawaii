@@ -20,6 +20,8 @@ import {
   getMarketStatus,
   getStatus,
 } from "./status";
+import { LEI_TYPES } from "../content/lei-types";
+import { asciiSlug } from "./slug";
 import { supabase } from "./supabase";
 import { hawaiiDaysBetween, isSameHawaiiDay, toDate } from "./time";
 import type { ContactMethod, VendorSummary } from "./types";
@@ -247,11 +249,14 @@ function statsFor(vendors: VendorSummary[]): ListingStats {
 async function fetchVendors(filter: {
   categorySlug?: string;
   islandSlug?: string;
+  /** Exclude placeholder listings that carry no source. */
+  sourcedOnly?: boolean;
 }): Promise<VendorRow[]> {
   let query = supabase.from("vendors").select(VENDOR_FIELDS).eq("is_active", true);
 
   if (filter.categorySlug) query = query.eq("categories.slug", filter.categorySlug);
   if (filter.islandSlug) query = query.eq("islands.slug", filter.islandSlug);
+  if (filter.sourcedOnly) query = query.not("source_url", "is", null);
 
   const { data, error } = await query;
   if (error) throw error;
@@ -311,32 +316,143 @@ function topProducts(vendors: VendorSummary[], limit = 3): string[] {
 export interface AnswerList {
   vendors: VendorSummary[];
   stats: ListingStats;
+  /** What the query was understood to mean, for the results copy. */
+  match: QueryMatch;
+  /** Every area with listings, for the location control. */
+  areas: { slug: string; name: string; count: number }[];
+  /** Categories and product labels, for the subject control's suggestions. */
+  subjects: string[];
 }
 
 /**
- * Home page answers. Real natural language parsing is out of scope, so the
- * query is matched against category slugs and names and falls back to
- * everything when nothing matches.
+ * What a typed query resolved to.
+ *
+ * "none" matters: the old behaviour returned the entire directory when nothing
+ * matched, which is invisible while nobody can type but reads as a broken
+ * search the moment there is a box on the page.
  */
-export async function getAnswers(query: string | undefined, now: Date): Promise<AnswerList> {
-  const categorySlug = await resolveCategory(query);
-  const rows = await fetchVendors(categorySlug ? { categorySlug } : {});
-  const vendors = await summarize(rows, now);
-  return { vendors, stats: statsFor(vendors) };
+export type QueryMatch =
+  | { kind: "all" }
+  | { kind: "category"; slug: string; label: string }
+  | { kind: "leiType"; slug: string; label: string }
+  | { kind: "product"; label: string }
+  | { kind: "none"; term: string };
+
+export interface AnswerQuery {
+  /** What they are looking for. */
+  q?: string;
+  /** Area slug, from the location control. */
+  near?: string;
+  /** "open" narrows to what is open right now. */
+  when?: string;
 }
 
-async function resolveCategory(query: string | undefined): Promise<string | null> {
-  if (!query) return null;
-  const needle = query.toLowerCase();
+/**
+ * Home page answers.
+ *
+ * Real natural language parsing is still out of scope. The subject is matched
+ * against lei types first, then categories, then product labels, so "pikake"
+ * finds the shops that list it and can also point at the page written about
+ * it. An unmatched subject returns nothing rather than everything.
+ */
+export async function getAnswers(input: AnswerQuery, now: Date): Promise<AnswerList> {
+  const [labels, categories] = await Promise.all([productLabels(), categoryList()]);
 
+  const match = resolveQuery(input.q, categories, labels);
+
+  // Search answers only from listings that carry a source. The placeholder
+  // market vendors are noindexed for the same reason and should not be the
+  // answer to anything a person typed.
+  const rows = await fetchVendors({
+    sourcedOnly: true,
+    ...(match.kind === "category" ? { categorySlug: match.slug } : {}),
+  });
+  let vendors = await summarize(rows, now);
+
+  // Everything with listings, counted before the filters narrow it, so the
+  // location control still offers areas the current query has ruled out.
+  const areas = areaOptions(vendors);
+
+  if (match.kind === "none") vendors = [];
+  if (match.kind === "leiType" || match.kind === "product") {
+    const wanted = match.kind === "leiType" ? match.slug : asciiSlug(match.label);
+    vendors = vendors.filter((vendor) =>
+      vendor.productLabels.some((label) => asciiSlug(label) === wanted),
+    );
+  }
+
+  if (input.near) {
+    vendors = vendors.filter((vendor) => asciiSlug(vendor.area) === input.near);
+  }
+  if (input.when === "open") {
+    vendors = vendors.filter((vendor) => vendor.status.isOpenNow);
+  }
+
+  return {
+    vendors,
+    stats: statsFor(vendors),
+    match,
+    areas,
+    subjects: [...categories.map((category) => category.name), ...labels].sort((a, b) =>
+      a.localeCompare(b),
+    ),
+  };
+}
+
+function areaOptions(vendors: VendorSummary[]) {
+  const counts = new Map<string, { name: string; count: number }>();
+  for (const vendor of vendors) {
+    const slug = asciiSlug(vendor.area);
+    const entry = counts.get(slug) ?? { name: vendor.area, count: 0 };
+    entry.count += 1;
+    counts.set(slug, entry);
+  }
+  return [...counts.entries()]
+    .map(([slug, entry]) => ({ slug, ...entry }))
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+}
+
+/** Matched most specific first, so a lei type beats the category it sits in. */
+function resolveQuery(
+  query: string | undefined,
+  categories: { slug: string; name: string }[],
+  labels: string[],
+): QueryMatch {
+  const term = query?.trim();
+  if (!term) return { kind: "all" };
+
+  const needle = asciiSlug(term);
+  if (!needle) return { kind: "all" };
+
+  const leiType = LEI_TYPES.find(
+    (type) => needle === type.slug || needle.split("-").includes(type.slug),
+  );
+  if (leiType) return { kind: "leiType", slug: leiType.slug, label: leiType.name };
+
+  const category = categories.find(
+    (entry) => needle === entry.slug || needle.split("-").includes(entry.slug),
+  );
+  if (category) return { kind: "category", slug: category.slug, label: category.name };
+
+  const label = labels.find((entry) => {
+    const slug = asciiSlug(entry);
+    return needle === slug || needle.includes(slug) || slug.includes(needle);
+  });
+  if (label) return { kind: "product", label };
+
+  return { kind: "none", term };
+}
+
+async function categoryList(): Promise<{ slug: string; name: string }[]> {
   const { data, error } = await supabase.from("categories").select("slug, name");
   if (error) throw error;
+  return data ?? [];
+}
 
-  const match = (data ?? []).find(
-    (category) =>
-      needle.includes(category.slug) || needle.includes(category.name.toLowerCase()),
-  );
-  return match?.slug ?? null;
+async function productLabels(): Promise<string[]> {
+  const { data, error } = await supabase.from("vendor_products").select("label");
+  if (error) throw error;
+  return [...new Set((data ?? []).map((row) => row.label))].sort((a, b) => a.localeCompare(b));
 }
 
 // Vendor detail ---------------------------------------------------------------

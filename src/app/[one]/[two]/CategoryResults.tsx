@@ -7,6 +7,7 @@ import { FilterChip } from "@/components/FilterChip";
 import { SectionHeader } from "@/components/SectionHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { TypeLinks } from "@/components/TypeLinks";
 import { VendorCard } from "@/components/VendorCard";
 import { JsonLd } from "@/components/JsonLd";
 import { loadCategory } from "@/lib/queries";
@@ -122,6 +123,8 @@ export async function CategoryResults({
           <Group title="Open now" vendors={openNow} />
           <Group title="Later today" vendors={laterToday} />
           <Group title="Listed" vendors={unconfirmed} />
+
+          <TypeLinks base={base} className="mt-8 border-t border-hairline pt-6" />
         </main>
 
         <aside className="md:border-l md:border-hairline md:pl-6">

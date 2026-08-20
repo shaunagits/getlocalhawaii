@@ -44,3 +44,8 @@ Append-only. One line per entry: date, decision, one-phrase reason.
 2026-08-19: Lin's website column cleared, source_url points at hiChinatown - linsleishop.com and linsleishophawaii.com both return HTTP 500, and linking customers to a dead site helps nobody.
 2026-08-19: Content read from a web archive is imported with the event dated to the snapshot, not to today - the log then shows how old that claim really is, and the freshness chip still follows the newest source.
 2026-08-19: Lin's founding year is not recorded; "since 1987" appears only on scraped aggregator sites and their own archived site says "over 20 years" undated - no permitted source states a year.
+2026-08-19: An unmatched search returns nothing with a named reason, not the whole directory - the old fallback was invisible until there was a box to type in, at which point it reads as a search that ignores you.
+2026-08-19: Home search answers only from listings with a source_url - the placeholder vendors are noindexed, and they should not be the answer to something a person typed either.
+2026-08-19: The hero's third term is now open-now rather than the mockup's "this afternoon" - a live control in a sentence of live controls, and open-now is the only time filter the data supports.
+2026-08-19: "near" is area equality, not proximity, and is kept anyway on Shauna's call - no vendor has coordinates, so near Kalihi returns Kalihi only.
+2026-08-19: Nav drops the markets calendar and the produce listing - they pointed at a noindexed placeholder and at four unsourced vendors, which is a third of the chrome spent on suppressed content.
