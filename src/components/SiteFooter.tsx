@@ -1,6 +1,6 @@
 import { NAV_LINKS, NavLink } from "@/components/SiteHeader";
 import { cn } from "@/lib/cn";
-import { FRESHNESS_WINDOW_DAYS } from "@/lib/status";
+import { mailto } from "@/lib/site";
 
 /**
  * Phone-only nav. On desktop the same links sit inline in the header, so the
@@ -15,9 +15,12 @@ export function SiteFooter({ className }: { className?: string }) {
         ))}
       </nav>
       <p className="mx-auto mt-4 max-w-(--container-column) text-[12px] leading-[1.5] text-cream-dim">
-        Every listing gets a call or a visit. If nobody has checked it in{" "}
-        {FRESHNESS_WINDOW_DAYS} days, it drops out of &ldquo;open now&rdquo; and shows as
-        unconfirmed.
+        Built from public listings. Hours and products come from each vendor&rsquo;s own posted
+        information, and each listing shows when we last read it.{" "}
+        <a href={mailto("Correction")} className="font-medium text-coral-light">
+          Spot something wrong? Tell us
+        </a>
+        .
       </p>
     </footer>
   );

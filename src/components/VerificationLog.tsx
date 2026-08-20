@@ -4,6 +4,7 @@ import { mailto } from "@/lib/site";
 import { sentenceDate } from "@/lib/time";
 
 const METHOD_COPY: Record<string, string> = {
+  source_check: "checked the vendor's posted information",
   called: "called",
   visited: "visited",
   organizer_confirmed: "organizer confirmed",
@@ -15,7 +16,7 @@ export function VerificationLog({ entries, onDark = false }: { entries: LogEntry
   if (entries.length === 0) {
     return (
       <p className={cn("text-[13px]", onDark ? "text-cream-dim" : "text-slate")}>
-        Nobody has checked this listing yet.
+        We have not read this listing&rsquo;s source yet.
       </p>
     );
   }
@@ -54,7 +55,7 @@ export function VerificationPanel({
 }) {
   return (
     <section className="md:rounded-[14px] md:bg-kai-800 md:p-[18px]">
-      <h2 className="mono-label text-slate md:text-[11.5px] md:text-mint">Verification log</h2>
+      <h2 className="mono-label text-slate md:text-[11.5px] md:text-mint">Where this came from</h2>
       <div className="mt-3 md:mt-2.5">
         <VerificationLog entries={entries} />
       </div>
@@ -63,7 +64,7 @@ export function VerificationPanel({
           className="mt-3 inline-block text-[13.5px] font-medium md:mt-0 md:font-semibold md:text-coral-light"
           href={mailto(`Something wrong: ${subject}`)}
         >
-          Something changed? Tell us →
+          Spot something wrong? Tell us →
         </a>
       </div>
     </section>

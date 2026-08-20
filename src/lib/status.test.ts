@@ -20,6 +20,10 @@ const verifiedToday: VerificationEvent[] = [
   { verifiedAt: hst("2026-08-19T08:10"), method: "called", note: "hours confirmed" },
 ];
 
+const checkedToday: VerificationEvent[] = [
+  { verifiedAt: hst("2026-08-19T08:10"), method: "source_check", note: "read the shop's site" },
+];
+
 // Nāpua Lei Stand: Mon-Fri 7a-2p, Sat 6a-12p, closed Sun.
 const napuaHours: OpeningHours[] = [
   { dayOfWeek: 1, opens: "07:00", closes: "14:00" },
@@ -81,6 +85,23 @@ describe("getFreshness", () => {
 
   it("treats a listing that was never checked as unconfirmed", () => {
     expect(getFreshness([], NOW).kind).toBe("never");
+  });
+
+  it("says checked, not verified, when the source was only read", () => {
+    const today = getFreshness(checkedToday, NOW);
+    expect(today.label).toBe("CHECKED TODAY");
+    expect(today.shortLabel).toBe("CHECKED TODAY");
+    expect(today.method).toBe("source_check");
+
+    const older = getFreshness(
+      [{ verifiedAt: hst("2026-08-12T09:00"), method: "source_check" }],
+      NOW,
+    );
+    expect(older.label).toBe("CHECKED AUG 12");
+  });
+
+  it("reserves the word verified for someone making contact", () => {
+    expect(getFreshness(verifiedToday, NOW).label).toBe("VERIFIED TODAY 8:10A");
   });
 });
 
@@ -204,6 +225,33 @@ describe("getStatus", () => {
       NOW,
     );
     expect(status.kind).toBe("unconfirmed");
+  });
+});
+
+describe("getStatus with no posted hours", () => {
+  it("reads as listed rather than closed", () => {
+    const status = getStatus({ hours: [], verifications: checkedToday }, NOW);
+    expect(status.kind).toBe("unconfirmed");
+    expect(status.label).toBe("LISTED");
+    expect(status.isOpenNow).toBe(false);
+  });
+
+  it("never guesses an opening time from an empty week", () => {
+    const status = getStatus({ hours: [], verifications: checkedToday }, NOW);
+    expect(status.opensAt).toBeNull();
+    expect(status.closesAt).toBeNull();
+  });
+
+  it("still lets a same-day report speak for a listing with no hours", () => {
+    const status = getStatus(
+      {
+        hours: [],
+        verifications: checkedToday,
+        reports: [{ kind: "sold_out", reportedAt: hst("2026-08-19T08:41") }],
+      },
+      NOW,
+    );
+    expect(status.kind).toBe("sold_out");
   });
 });
 

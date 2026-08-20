@@ -24,7 +24,13 @@ import {
 /** A listing drops out of "open now" once nobody has checked it in this long. */
 export const FRESHNESS_WINDOW_DAYS = 30;
 
-export type VerificationMethod = "called" | "visited" | "organizer_confirmed" | "no_answer";
+export type VerificationMethod =
+  | "called"
+  | "visited"
+  | "organizer_confirmed"
+  | "no_answer"
+  /** Posted information read from the vendor's own site or an official page. */
+  | "source_check";
 export type ReportKind = "sold_out" | "closed" | "changed";
 
 export interface OpeningHours {
@@ -53,14 +59,25 @@ export type FreshnessKind = "today" | "dated" | "stale" | "never";
 
 export interface Freshness {
   kind: FreshnessKind;
-  /** Full chip text: "VERIFIED TODAY 8:10A", "VERIFIED AUG 12", "UNCONFIRMED". */
+  /** Full chip text: "CHECKED AUG 19", "VERIFIED TODAY 8:10A", "UNCONFIRMED". */
   label: string;
-  /** Same chip without the time, for narrow cards: "VERIFIED TODAY". */
+  /** Same chip without the time, for narrow cards: "CHECKED AUG 19". */
   shortLabel: string;
   verifiedAt: Date | null;
   daysAgo: number | null;
+  /** How that newest check was made, which decides the verb on the chip. */
+  method: VerificationMethod | null;
   /** False once the newest check is outside the freshness window. */
   isFresh: boolean;
+}
+
+/**
+ * Reading a vendor's posted hours is not the same as ringing them up, and the
+ * chip has to say which one happened. Only a person making contact earns the
+ * word verified.
+ */
+function freshnessVerb(method: VerificationMethod): string {
+  return method === "source_check" ? "CHECKED" : "VERIFIED";
 }
 
 /**
@@ -68,10 +85,10 @@ export interface Freshness {
  * matters; the rest of the log is history shown on the detail page.
  */
 export function getFreshness(events: VerificationEvent[], now: Date): Freshness {
-  const newest = events.reduce<Date | null>((latest, event) => {
-    const at = toDate(event.verifiedAt);
-    if (at > now) return latest;
-    return latest === null || at > latest ? at : latest;
+  const newest = events.reduce<VerificationEvent | null>((latest, event) => {
+    if (toDate(event.verifiedAt) > now) return latest;
+    if (latest === null) return event;
+    return toDate(event.verifiedAt) > toDate(latest.verifiedAt) ? event : latest;
   }, null);
 
   if (newest === null) {
@@ -81,42 +98,52 @@ export function getFreshness(events: VerificationEvent[], now: Date): Freshness 
       shortLabel: "UNCONFIRMED",
       verifiedAt: null,
       daysAgo: null,
+      method: null,
       isFresh: false,
     };
   }
 
-  const daysAgo = hawaiiDaysBetween(newest, now);
+  const at = toDate(newest.verifiedAt);
+  const verb = freshnessVerb(newest.method);
+  const daysAgo = hawaiiDaysBetween(at, now);
 
   if (daysAgo > FRESHNESS_WINDOW_DAYS) {
     return {
       kind: "stale",
       label: "UNCONFIRMED",
       shortLabel: "UNCONFIRMED",
-      verifiedAt: newest,
+      verifiedAt: at,
       daysAgo,
+      method: newest.method,
       isFresh: false,
     };
   }
 
-  if (isSameHawaiiDay(newest, now)) {
-    const at = hawaiiClock(newest);
+  if (isSameHawaiiDay(at, now)) {
+    // A source check has no meaningful time of day, only the date it was read.
+    const label =
+      newest.method === "source_check"
+        ? `${verb} TODAY`
+        : `${verb} TODAY ${shortTime(hawaiiClock(at).minutes)}`;
     return {
       kind: "today",
-      label: `VERIFIED TODAY ${shortTime(at.minutes)}`,
-      shortLabel: "VERIFIED TODAY",
-      verifiedAt: newest,
+      label,
+      shortLabel: `${verb} TODAY`,
+      verifiedAt: at,
       daysAgo: 0,
+      method: newest.method,
       isFresh: true,
     };
   }
 
-  const label = `VERIFIED ${shortDate(newest)}`;
+  const label = `${verb} ${shortDate(at)}`;
   return {
     kind: "dated",
     label,
     shortLabel: label,
-    verifiedAt: newest,
+    verifiedAt: at,
     daysAgo,
+    method: newest.method,
     isFresh: true,
   };
 }
@@ -210,6 +237,10 @@ export interface VendorStatusInput {
 /**
  * The status chip for a vendor.
  *
+ * Most listings come from public sources that publish no hours at all. Those
+ * read as LISTED: we have the stand, we do not have its hours, and inventing
+ * an opening time would be the one thing this site exists not to do.
+ *
  * Order matters. A same-day report wins outright, even on a listing nobody has
  * verified in 30 days: somebody stood there today and told us the stand sold
  * out, and that beats our own stale hours table. Staleness does not disappear,
@@ -229,6 +260,20 @@ export function getStatus(input: VendorStatusInput, now: Date): VendorStatus {
       opensAt: null,
       opensDay: null,
       note: `REPORTED ${relativeAgo(toDate(report.reportedAt), now)}`,
+      isOpenNow: false,
+    };
+  }
+
+  // No posted hours means nothing to compute, whatever the log says.
+  if (input.hours.length === 0) {
+    return {
+      kind: "unconfirmed",
+      label: "LISTED",
+      detail: null,
+      closesAt: null,
+      opensAt: null,
+      opensDay: null,
+      note: null,
       isOpenNow: false,
     };
   }
@@ -466,11 +511,20 @@ export const STATUS_RANK: Record<VendorStatusKind, number> = {
 export interface Sortable {
   status: VendorStatus;
   distanceMi?: number | null;
+  name?: string;
 }
 
-/** Sort order used by every result list: open first, then distance. */
+/**
+ * Sort order used by every result list: open first, then distance. Most real
+ * listings have no distance yet, so name breaks the tie and the order stays
+ * stable between renders instead of following whatever the database returned.
+ */
 export function byStatusThenDistance(a: Sortable, b: Sortable): number {
   const rank = STATUS_RANK[a.status.kind] - STATUS_RANK[b.status.kind];
   if (rank !== 0) return rank;
-  return (a.distanceMi ?? Infinity) - (b.distanceMi ?? Infinity);
+
+  const distance = (a.distanceMi ?? Infinity) - (b.distanceMi ?? Infinity);
+  if (distance !== 0 && Number.isFinite(distance)) return distance;
+
+  return (a.name ?? "").localeCompare(b.name ?? "");
 }

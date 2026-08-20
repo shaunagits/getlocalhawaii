@@ -26,3 +26,6 @@ Append-only. One line per entry: date, decision, one-phrase reason.
 2026-08-19: Home answers use AnswerCard, category uses VendorCard - the home chip states only the status and folds the timing into the meta line, which is a different card, not a variant.
 2026-08-19: getlocalhawaii.com keeps its DNS at Cloudflare with an A record to Vercel, rather than moving nameservers to vercel-dns - nameserver migration would take every other record on the domain with it.
 2026-08-19: On a lapsed listing with a same-day report the chip row shows the report as the status and UNCONFIRMED as the verification, not the report age - both facts have to stay on screen, and the report age is the one already implied by "today".
+2026-08-19: Freshness chip verb follows the method: source_check renders CHECKED, contact methods render VERIFIED - reading a posted page is not the same as reaching a person.
+2026-08-19: A vendor with no posted hours gets status LISTED, not CLOSED - absent hours are unknown hours, and the empty week must never be read as shut.
+2026-08-19: Result sorting breaks distance ties on name - real listings have no distance yet, so without it the order follows whatever Postgres returned.
