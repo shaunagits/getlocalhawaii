@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
+
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -24,9 +26,21 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Get Local Hawaiʻi",
+  // Every canonical and Open Graph URL on the site resolves against this.
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME}: lei stands, markets and local produce`,
+    template: `%s | ${SITE_NAME}`,
+  },
   description:
-    "Find local Hawaiʻi lei stands, farmers markets, fish and produce, with every listing showing when it was last verified.",
+    "A directory of Hawaiʻi lei stands and local food sellers, built from public listings, with each listing showing where its information came from and when it was last checked.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    locale: "en_US",
+    url: SITE_URL,
+  },
 };
 
 export const viewport: Viewport = {

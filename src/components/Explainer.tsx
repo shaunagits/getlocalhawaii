@@ -1,4 +1,4 @@
-import { FRESHNESS_WINDOW_DAYS } from "@/lib/status";
+import { mailto } from "@/lib/site";
 
 /** The 30-day rule, stated plainly wherever results are listed. */
 export function Explainer() {
@@ -17,7 +17,7 @@ export function Explainer() {
         </p>
         <a
           className="mt-3 inline-block rounded-[10px] bg-kai-800 px-4 py-2.5 text-[13.5px] font-semibold text-cream"
-          href="mailto:aloha@getlocalhawaii.org?subject=Add%20a%20listing"
+          href={mailto("Add a listing")}
         >
           Add a listing
         </a>

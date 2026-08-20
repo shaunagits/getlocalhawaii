@@ -6,6 +6,8 @@ Directory site for finding local Hawaii vendors (lei stands, farmers markets, fi
 
 - `docs/BUILD_SPEC.md` - full build spec: design tokens, page inventory, data model, business logic. Read this before building anything.
 - `docs/Get Local Hawaii - Home.dc.html` - original design mockups: 4 screens, each with a 390px phone frame AND a 940px desktop frame. Reference for exact visual detail. Do not copy its markup; rebuild as components.
+- `docs/SEO_TARGETS.md` - keyword targets from Shauna's Keyword Planner data; drives which pages exist.
+- `data/lei-vendors-oahu.csv` - real vendor dataset from public sources, each row carries source URLs and a confidence rating.
 - `src/lib/status.ts` - all status, freshness and countdown logic. `src/lib/time.ts` - all Hawaii clock math. `src/lib/queries.ts` - data access, returns objects with status already attached.
 
 ## Stack

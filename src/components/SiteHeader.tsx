@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { cn } from "@/lib/cn";
+import { mailto } from "@/lib/site";
 
 /**
  * Dark teal chrome at the top of every page: wordmark, inline nav on desktop,
@@ -20,7 +21,7 @@ export const NAV_LINKS = [
   { href: "/oahu/lei", label: "Browse all" },
   { href: "/markets/kaimuki-neighborhood", label: "Markets calendar" },
   { href: "/oahu/produce", label: "In season" },
-  { href: "mailto:aloha@getlocalhawaii.org?subject=Add%20a%20listing", label: "Add a listing" },
+  { href: mailto("Add a listing"), label: "Add a listing" },
 ];
 
 export function NavLink({ href, label, className }: { href: string; label: string; className?: string }) {

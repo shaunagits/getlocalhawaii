@@ -1,5 +1,6 @@
 import type { LogEntry } from "@/lib/queries";
 import { cn } from "@/lib/cn";
+import { mailto } from "@/lib/site";
 import { sentenceDate } from "@/lib/time";
 
 const METHOD_COPY: Record<string, string> = {
@@ -60,9 +61,7 @@ export function VerificationPanel({
       <div className="md:mt-3.5 md:border-t md:border-mint-rule md:pt-3.5">
         <a
           className="mt-3 inline-block text-[13.5px] font-medium md:mt-0 md:font-semibold md:text-coral-light"
-          href={`mailto:aloha@getlocalhawaii.org?subject=${encodeURIComponent(
-            `Something changed: ${subject}`,
-          )}`}
+          href={mailto(`Something wrong: ${subject}`)}
         >
           Something changed? Tell us →
         </a>

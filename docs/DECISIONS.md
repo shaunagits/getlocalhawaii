@@ -15,6 +15,10 @@ Append-only. One line per entry: date, decision, one-phrase reason.
 2026-08-19: Supabase project aqizthcpjohxsepbemjm in us-west-1, $10/mo - closest region to Hawaii, both migrations applied clean.
 2026-08-19: Reversed the unconfirmed-vs-report call: a same-day report drives the status chip, verification chip shows unconfirmed - Shauna's pick, freshest data wins while staleness stays visible.
 2026-08-19: Spec correction: the design canvas includes 940px desktop layouts for all four screens, not mobile-only - the centered-column desktop convention was a spec extraction error, desktop rules now in BUILD_SPEC section 4.
+2026-08-19: Real data comes from public sources, no vendor calls in this phase - Shauna's call; calls become a later enrichment layer.
+2026-08-19: Trust copy must reframe before real vendors ship: default state unconfirmed, chips show source-based freshness, drop "every listing gets a call or a visit" - cannot claim verification that did not happen.
+2026-08-19: Never import Google Maps or Yelp content; vendors' own sites, official pages, and directories only - platform ToS prohibit republication.
+2026-08-19: Slugs and meta titles use ASCII (pikake, puakenikeni), page copy keeps diacriticals - matches how people search without breaking the diacriticals convention.
 2026-08-19: /oahu/lei and /lei/napua-lei-stand share one [one]/[two] route that dispatches on whether the first segment is an island or a category - Next allows only one dynamic segment name per level and both URL shapes are in the spec.
 2026-08-19: Pages are force-dynamic - "open now" and the market countdown are wrong the moment they are cached.
 2026-08-19: Env var stays NEXT_PUBLIC_SUPABASE_ANON_KEY holding the legacy anon key, per the spec and the Vercel step; the modern sb_publishable_ key is the upgrade path.
