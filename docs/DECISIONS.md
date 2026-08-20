@@ -18,3 +18,5 @@ Append-only. One line per entry: date, decision, one-phrase reason.
 2026-08-19: /oahu/lei and /lei/napua-lei-stand share one [one]/[two] route that dispatches on whether the first segment is an island or a category - Next allows only one dynamic segment name per level and both URL shapes are in the spec.
 2026-08-19: Pages are force-dynamic - "open now" and the market countdown are wrong the moment they are cached.
 2026-08-19: Env var stays NEXT_PUBLIC_SUPABASE_ANON_KEY holding the legacy anon key, per the spec and the Vercel step; the modern sb_publishable_ key is the upgrade path.
+2026-08-19: Detail heroes live inside the dark header at both widths, with the action row rendered twice for the dark hero and the cream mobile shelf - both frames put the hero on teal, and one render cannot carry both palettes.
+2026-08-19: Home answers use AnswerCard, category uses VendorCard - the home chip states only the status and folds the timing into the meta line, which is a different card, not a variant.

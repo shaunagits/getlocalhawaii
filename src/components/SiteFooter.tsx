@@ -1,33 +1,18 @@
-import Link from "next/link";
-
-import { NAV_LINKS } from "@/components/SiteHeader";
+import { NAV_LINKS, NavLink } from "@/components/SiteHeader";
 import { cn } from "@/lib/cn";
 import { FRESHNESS_WINDOW_DAYS } from "@/lib/status";
 
-/** Bottom nav. On a phone this is the only nav, so it carries every link. */
+/**
+ * Phone-only nav. On desktop the same links sit inline in the header, so the
+ * stacked footer would just repeat them.
+ */
 export function SiteFooter({ className }: { className?: string }) {
   return (
-    <footer className={cn("mt-10 bg-kai-900 px-5 py-6", className)}>
+    <footer className={cn("mt-10 bg-kai-900 px-5 py-6 md:hidden", className)}>
       <nav className="mx-auto flex max-w-(--container-column) flex-wrap gap-x-5 gap-y-2.5">
-        {NAV_LINKS.map((link) =>
-          link.href.startsWith("mailto:") ? (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-[13.5px] font-medium text-cream-muted hover:text-cream"
-            >
-              {link.label}
-            </a>
-          ) : (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-[13.5px] font-medium text-cream-muted hover:text-cream"
-            >
-              {link.label}
-            </Link>
-          ),
-        )}
+        {NAV_LINKS.map((link) => (
+          <NavLink key={link.href} {...link} />
+        ))}
       </nav>
       <p className="mx-auto mt-4 max-w-(--container-column) text-[12px] leading-[1.5] text-cream-dim">
         Every listing gets a call or a visit. If nobody has checked it in{" "}

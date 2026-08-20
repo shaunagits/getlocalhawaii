@@ -27,21 +27,25 @@ const TONE: Record<ChipKind, string> = {
   unconfirmed: "bg-kai-tint text-slate-light",
 };
 
+/**
+ * On the dark hero the chip goes solid rather than translucent, so it still
+ * reads as the loudest thing on the page.
+ */
 const TONE_ON_DARK: Record<ChipKind, string> = {
-  open: "bg-mint/18 text-mint",
-  on_now: "bg-gold/22 text-gold-tint",
-  opens_later: "bg-gold/22 text-gold-tint",
-  starts_later: "bg-gold/22 text-gold-tint",
-  sold_out: "bg-coral-light/20 text-coral-light",
-  closed: "bg-cream/12 text-cream-dim",
-  unconfirmed: "bg-cream/12 text-cream-dim",
+  open: "bg-mint text-mint-ink",
+  on_now: "bg-gold-tint text-gold-ink",
+  opens_later: "bg-gold-tint text-gold-ink",
+  starts_later: "bg-gold-tint text-gold-ink",
+  sold_out: "bg-coral-tint text-coral-dark",
+  closed: "bg-cream-panel text-cream-dim",
+  unconfirmed: "bg-cream-panel text-cream-dim",
 };
 
 export interface StatusChipProps {
   status: VendorStatus | MarketStatus;
-  /** Override the default chip text, for example "OPEN NOW · CLOSES 2P". */
+  /** Override the default chip text, for example "OPEN NOW". */
   label?: string;
-  /** Use the translucent palette for chips sitting on the dark teal header. */
+  /** Use the solid palette for chips sitting on the dark teal hero. */
   onDark?: boolean;
   className?: string;
 }
@@ -51,7 +55,14 @@ export function StatusChip({ status, label, onDark = false, className }: StatusC
   const tone = onDark ? TONE_ON_DARK[status.kind] : TONE[status.kind];
 
   return (
-    <span className={cn("mono-label inline-flex items-center gap-1.5 rounded-md px-2 py-1", tone, className)}>
+    <span
+      className={cn(
+        "mono-label inline-flex items-center gap-1 rounded-md px-2 py-1",
+        onDark && "px-2.5 py-[5px] text-[11.5px]",
+        tone,
+        className,
+      )}
+    >
       {marker ? <span aria-hidden="true">{marker}</span> : null}
       {label ?? status.label}
     </span>

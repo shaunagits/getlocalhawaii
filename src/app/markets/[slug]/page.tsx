@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { StatusChip } from "@/components/StatusChip";
 import { VerificationChip } from "@/components/VerificationChip";
-import { VerificationLog } from "@/components/VerificationLog";
+import { VerificationPanel } from "@/components/VerificationLog";
 import { type MarketVendor, type Popup, getMarketDetail, productSentence } from "@/lib/queries";
 import { nextMarketDates } from "@/lib/status";
 import {
@@ -21,6 +21,8 @@ import {
 import { directionsUrl } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
+
+const BUTTON = "rounded-[11px] px-3 py-[13px] text-center text-[14.5px] font-semibold md:py-[14px]";
 
 export default async function MarketPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -41,126 +43,153 @@ export default async function MarketPage({ params }: { params: Promise<{ slug: s
     .filter(Boolean)
     .join(" · ");
 
+  // Rendered twice: once in the dark hero on desktop, once on the cream shelf
+  // under the header on a phone. The secondaries need opposite palettes.
+  const actions = (onDark: boolean) => (
+    <>
+      <a
+        className={`${BUTTON} block bg-coral-light text-coral-ink`}
+        href={directionsUrl(market.name, market.area)}
+        target="_blank"
+        rel="noreferrer"
+      >
+        Directions
+      </a>
+      <div className="flex gap-2.5">
+        {market.instagram ? (
+          <a
+            className={`${BUTTON} flex-1 ${onDark ? "bg-cream-panel text-cream" : "bg-kai-tint text-kai-800"}`}
+            href={`https://instagram.com/${market.instagram}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Instagram
+          </a>
+        ) : null}
+        {next ? (
+          <a
+            className={`${BUTTON} flex-1 ${onDark ? "bg-cream-panel text-cream" : "bg-kai-tint text-kai-800"}`}
+            href={calendarUrl(market.name, market.area, next.date, next.starts, next.ends)}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Add to calendar
+          </a>
+        ) : null}
+      </div>
+    </>
+  );
+
   return (
     <>
-      <SiteHeader clock={clockLabel(now)} back={{ href: "/", label: "Markets" }} />
-
-      <main className="mx-auto max-w-(--container-column) px-4">
-        <section className="pt-5">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <StatusChip status={market.status} />
-            <VerificationChip freshness={market.freshness} />
+      <SiteHeader
+        clock={clockLabel(now)}
+        back={{ href: "/", label: "Markets" }}
+        actions={
+          <div className="flex gap-3.5 text-[13px] font-medium text-cream-muted">
+            <span>Share</span>
+            <span>✦ Save</span>
           </div>
+        }
+      >
+        <div className="md:grid md:grid-cols-[minmax(0,1fr)_330px] md:items-end md:gap-[34px]">
+          <div>
+            <div className="flex flex-wrap items-center gap-2.5">
+              <StatusChip status={market.status} onDark />
+              <VerificationChip freshness={market.freshness} onDark />
+            </div>
 
-          <h1 className="mt-3 font-display text-[32px] leading-[1.08] tracking-[-0.8px] text-kai-800">
-            {market.name}
-          </h1>
-          <p className="mt-1.5 text-[13.5px] text-slate">{meta}</p>
+            <h1 className="mt-3 font-display text-[30px] leading-[1.1] tracking-[-0.7px] text-cream md:text-[42px] md:leading-[1.05] md:tracking-[-1.2px]">
+              {market.name}
+            </h1>
 
-          {market.description ? (
-            <p className="mt-3 text-[15px] leading-[1.5] text-kai-800">{market.description}</p>
-          ) : null}
+            <p className="mt-1.5 text-[13.5px] leading-[1.5] text-cream-dim md:text-[15px]">
+              {meta}
+            </p>
 
-          <div className="mt-4 flex gap-2">
-            <a
-              className="flex-1 rounded-[11px] bg-kai-800 px-3 py-[13px] text-center text-[14.5px] font-semibold text-cream"
-              href={directionsUrl(market.name, market.area)}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Directions
-            </a>
-            {market.instagram ? (
-              <a
-                className="flex-1 rounded-[11px] bg-kai-tint px-3 py-[13px] text-center text-[14.5px] font-semibold text-kai-800"
-                href={`https://instagram.com/${market.instagram}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Instagram
-              </a>
-            ) : null}
-            {next ? (
-              <a
-                className="flex-1 rounded-[11px] bg-kai-tint px-3 py-[13px] text-center text-[14.5px] font-semibold text-kai-800"
-                href={calendarUrl(market.name, market.area, next.date, next.starts, next.ends)}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Add to calendar
-              </a>
+            {market.description ? (
+              <p className="mt-2 text-[13.5px] leading-[1.5] text-cream-dim md:max-w-[58ch] md:text-[15px] md:leading-[1.55]">
+                {market.description}
+              </p>
             ) : null}
           </div>
-        </section>
 
-        <section className="mt-7">
-          <SectionHeader
-            title="Here today"
-            count={`${here.length} of ${market.vendors.length} vendors`}
-            rule
-          />
-          <div className="mt-3 flex flex-col gap-3">
-            {market.vendors.map((vendor) => (
-              <MarketVendorRow key={vendor.slug} vendor={vendor} />
-            ))}
-          </div>
-        </section>
+          <div className="mt-4 hidden flex-col gap-2.5 md:flex">{actions(true)}</div>
+        </div>
+      </SiteHeader>
 
-        {market.popups.length > 0 ? (
-          <section className="mt-7">
-            <SectionHeader title="Pop-ups this week" rule />
-            <div className="mt-3 flex flex-col gap-3">
-              {market.popups.map((popup) => (
-                <PopupRow key={`${popup.name}-${popup.startsAt.toISOString()}`} popup={popup} />
+      <div className="mx-auto flex max-w-(--container-column) flex-col gap-2.5 px-4 pt-3.5 md:hidden">
+        {actions(false)}
+      </div>
+
+      <div className="mx-auto max-w-(--container-column) px-4 md:grid md:max-w-(--container-shell) md:grid-cols-[minmax(0,1fr)_320px] md:gap-[30px] md:px-8 md:pt-7 md:pb-9">
+        <main>
+          <section className="mt-7 md:mt-0">
+            <SectionHeader
+              title="Here today"
+              count={`${here.length} of ${market.vendors.length} vendors`}
+              rule
+            />
+            <div className="mt-3 flex flex-col gap-3 md:grid md:grid-cols-2 md:gap-3">
+              {market.vendors.map((vendor) => (
+                <MarketVendorRow key={vendor.slug} vendor={vendor} />
               ))}
             </div>
           </section>
-        ) : null}
 
-        <section className="mt-7">
-          <SectionHeader title="Next dates" rule />
-          <ul>
-            {dates.map((date) => (
-              <li
-                key={`${date.date}-${date.starts}`}
-                className={`flex items-baseline justify-between gap-4 border-b border-hairline-soft py-2.5 text-[13.5px] ${
-                  date.isToday ? "font-semibold text-kai-800" : "text-slate"
-                }`}
-              >
-                <span>{date.label}</span>
-                <span>
-                  {longTime(date.starts)} to {longTime(date.ends)}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
+          {market.popups.length > 0 ? (
+            <section className="mt-7">
+              <SectionHeader title="Pop-ups this week" rule />
+              <div className="mt-3 flex flex-col gap-3 md:mt-1 md:gap-0">
+                {market.popups.map((popup) => (
+                  <PopupRow key={`${popup.name}-${popup.startsAt.toISOString()}`} popup={popup} />
+                ))}
+              </div>
+            </section>
+          ) : null}
+        </main>
 
-        <section className="mt-7">
-          <SectionHeader title="Verification log" rule />
-          <div className="mt-3">
-            <VerificationLog entries={market.log} />
-          </div>
-          <a
-            className="mt-3 inline-block text-[13.5px] font-medium"
-            href={`mailto:aloha@getlocalhawaii.org?subject=${encodeURIComponent(
-              `Something changed: ${market.name}`,
-            )}`}
-          >
-            Something changed? Tell us →
-          </a>
-        </section>
-
-        {market.gettingThere ? (
-          <section className="mt-7">
-            <SectionHeader title="Getting there" rule />
-            <p className="mt-3 text-[14px] leading-[1.55] text-kai-800">{market.gettingThere}</p>
-            {market.locationNotes ? (
-              <p className="mt-2 text-[13.5px] text-slate">{market.locationNotes}</p>
-            ) : null}
+        <aside className="md:border-l md:border-hairline md:pl-[26px]">
+          <section className="mt-7 md:mt-0">
+            <SectionHeader title="Next dates" rule />
+            <ul className="md:mt-2.5 md:overflow-hidden md:rounded-[14px] md:border md:border-hairline md:bg-white">
+              {dates.map((date) => (
+                <li
+                  key={`${date.date}-${date.starts}`}
+                  className={`flex items-baseline justify-between gap-4 border-b border-hairline-soft py-2.5 text-[13.5px] md:border-b-0 md:border-t md:px-4 md:py-3 md:first:border-t-0 ${
+                    date.isToday
+                      ? "font-semibold text-kai-800 md:bg-gold-tint md:text-gold-ink"
+                      : "text-slate"
+                  }`}
+                >
+                  <span>{date.label}</span>
+                  <span className="md:font-mono md:text-[13px]">
+                    {longTime(date.starts)} to {longTime(date.ends)}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </section>
-        ) : null}
-      </main>
+
+          <div className="mt-7 md:mt-5">
+            <VerificationPanel entries={market.log} subject={market.name} />
+          </div>
+
+          {market.gettingThere ? (
+            <section className="mt-7 md:mt-6">
+              <SectionHeader title="Getting there" rule />
+              <p className="mt-3 text-[14px] leading-[1.55] text-kai-800 md:mt-2 md:text-[13.5px] md:leading-[1.65]">
+                {market.gettingThere}
+              </p>
+              {market.locationNotes ? (
+                <p className="mt-2 text-[13.5px] text-slate md:text-[13px]">
+                  {market.locationNotes}
+                </p>
+              ) : null}
+            </section>
+          ) : null}
+        </aside>
+      </div>
 
       <SiteFooter />
     </>
@@ -176,9 +205,16 @@ function MarketVendorRow({ vendor }: { vendor: MarketVendor }) {
   const inSeason = vendor.products.find((product) => product.inSeasonUntil !== null);
 
   return (
-    <article className="rounded-2xl border border-hairline bg-white p-3.5">
-      <div className="flex items-baseline justify-between gap-2">
-        <h3 className="text-[16px] leading-tight font-semibold text-kai-800">{vendor.name}</h3>
+    <article
+      className={`rounded-2xl border border-hairline bg-white p-3.5 md:rounded-[14px] md:p-4 ${
+        // Not here today, so it should not compete with the stalls that are.
+        vendor.isHereToday ? "" : "md:opacity-70"
+      }`}
+    >
+      <div className="flex items-baseline justify-between gap-3">
+        <h3 className="min-w-0 text-[16px] leading-tight font-semibold text-kai-800 md:text-[17px]">
+          {vendor.name}
+        </h3>
         {vendor.isHereToday && vendor.confirmedAt ? (
           <span className="mono-label font-medium text-green-700">
             CONFIRMED {shortTime(hawaiiClock(vendor.confirmedAt).minutes)}
@@ -188,12 +224,12 @@ function MarketVendorRow({ vendor }: { vendor: MarketVendor }) {
         )}
       </div>
 
-      <p className="mt-1 text-[13px] leading-[1.45] text-slate">
+      <p className="mt-1 text-[13px] leading-[1.45] text-slate md:text-[13.5px] md:leading-[1.5]">
         {vendor.isHereToday ? details : `Usually ${vendor.usualDays ?? "not scheduled"} · ${details}`}
       </p>
 
       {inSeason && vendor.isHereToday ? (
-        <span className="mono-label mt-2 inline-flex items-center gap-1.5 rounded-md bg-gold-tint px-2 py-1 text-gold-dark">
+        <span className="mono-label mt-2.5 inline-flex items-center gap-1.5 rounded-md bg-gold-tint px-2 py-1 text-gold-dark">
           <span aria-hidden="true">◆</span>
           {inSeason.label.toUpperCase()} IN SEASON · THRU{" "}
           {monthAbbr(Number(inSeason.inSeasonUntil!.slice(5, 7)))}
@@ -216,19 +252,32 @@ function PopupRow({ popup }: { popup: Popup }) {
     : `${dayName(start.dayOfWeek).toUpperCase()} TBC`;
 
   return (
-    <article className="rounded-2xl border border-hairline bg-white p-3.5">
-      <div className="flex items-baseline justify-between gap-2">
-        <span className="mono-label text-kai-800">{when}</span>
-        {popup.status === "verified" ? (
-          <VerificationChip freshness={popup.freshness} />
-        ) : (
-          <span className="mono-label font-medium text-slate-light">UNCONFIRMED</span>
-        )}
+    <article className="rounded-2xl border border-hairline bg-white p-3.5 md:grid md:grid-cols-[110px_minmax(0,1fr)_150px] md:items-center md:gap-4 md:rounded-none md:border-0 md:border-b md:border-hairline-soft md:bg-transparent md:px-0 md:py-3.5">
+      <div className="flex items-baseline justify-between gap-2 md:contents">
+        <span
+          className={`mono-label md:text-[14px] ${
+            isTimeKnown ? "text-kai-800" : "text-gold-dark"
+          }`}
+        >
+          {when}
+        </span>
+        <span className="md:order-last">
+          {popup.status === "verified" ? (
+            <VerificationChip freshness={popup.freshness} className="md:text-[11.5px]" />
+          ) : (
+            <span className="mono-label font-medium text-gold-dark md:text-[11.5px]">
+              UNCONFIRMED
+            </span>
+          )}
+        </span>
       </div>
-      <h3 className="mt-1.5 text-[16px] leading-tight font-semibold text-kai-800">{popup.name}</h3>
-      {popup.locationNote ? (
-        <p className="mt-0.5 text-[13px] leading-[1.45] text-slate">{popup.locationNote}</p>
-      ) : null}
+
+      <div className="mt-1.5 md:mt-0">
+        <h3 className="text-[16px] leading-tight font-semibold text-kai-800">{popup.name}</h3>
+        {popup.locationNote ? (
+          <p className="mt-0.5 text-[13px] leading-[1.45] text-slate">{popup.locationNote}</p>
+        ) : null}
+      </div>
     </article>
   );
 }

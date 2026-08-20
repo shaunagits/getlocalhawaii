@@ -54,65 +54,78 @@ export async function CategoryResults({
     return query ? `${base}?${query}` : base;
   };
 
+  const stats = `${listing.stats.total} ${
+    listing.stats.total === 1 ? "seller" : "sellers"
+  } · ${listing.stats.openNow} open now · ${listing.stats.verifiedThisWeek} verified this week`;
+
   return (
     <>
-      <SiteHeader
-        clock={clockLabel(now)}
-        back={{ href: "/", label: "Back" }}
-        title={`${listing.categoryName} on ${listing.islandName}`}
-        subtitle={`${listing.stats.total} ${
-          listing.stats.total === 1 ? "seller" : "sellers"
-        } · ${listing.stats.openNow} open now · ${listing.stats.verifiedThisWeek} verified this week`}
-      >
-        <div className="flex flex-wrap gap-2">
-          <FilterChip
-            label="Open now"
-            active={openOnly}
-            href={chipHref({ filter: openOnly ? undefined : "open" })}
-          />
-          {listing.products.map((label) => (
+      <SiteHeader clock={clockLabel(now)} back={{ href: "/", label: "Back" }}>
+        <div className="md:flex md:items-end md:justify-between md:gap-8">
+          <div>
+            <p className="mono-label hidden text-mint md:block">{clockLabel(now)}</p>
+            <h1 className="font-display text-[28px] leading-[1.1] tracking-[-0.6px] text-cream md:mt-2 md:text-[42px] md:leading-[1.05] md:tracking-[-1.2px]">
+              {listing.categoryName} on {listing.islandName}
+            </h1>
+            <p className="mt-1.5 text-[13px] leading-[1.45] text-cream-dim md:text-[14.5px]">
+              {stats}
+            </p>
+          </div>
+
+          <div className="mt-3.5 flex flex-wrap gap-2 md:mt-0 md:shrink-0">
             <FilterChip
-              key={label}
-              label={label}
-              active={product === label}
-              href={chipHref({ product: product === label ? undefined : label })}
+              label="Open now"
+              active={openOnly}
+              href={chipHref({ filter: openOnly ? undefined : "open" })}
             />
-          ))}
+            {listing.products.map((label) => (
+              <FilterChip
+                key={label}
+                label={label}
+                active={product === label}
+                href={chipHref({ product: product === label ? undefined : label })}
+              />
+            ))}
+          </div>
         </div>
       </SiteHeader>
 
-      <main className="mx-auto max-w-(--container-column) px-4 pb-4">
-        {visible.length === 0 ? (
-          <p className="py-8 text-[14px] text-slate">
-            Nothing matches those filters right now.{" "}
-            <a href={base} className="font-medium">
-              Clear them
-            </a>{" "}
-            to see everything.
-          </p>
-        ) : null}
+      <div className="mx-auto max-w-(--container-column) px-4 pb-4 md:grid md:max-w-(--container-shell) md:grid-cols-[minmax(0,1fr)_300px] md:gap-7 md:px-8 md:pt-6 md:pb-9">
+        <main>
+          {visible.length === 0 ? (
+            <p className="py-8 text-[14px] text-slate">
+              Nothing matches those filters right now.{" "}
+              <a href={base} className="font-medium">
+                Clear them
+              </a>{" "}
+              to see everything.
+            </p>
+          ) : null}
 
-        <Group title="Open now" vendors={openNow} />
-        <Group title="Later today" vendors={laterToday} />
-        <Group title="Unconfirmed" vendors={unconfirmed} />
+          <Group title="Open now" vendors={openNow} />
+          <Group title="Later today" vendors={laterToday} />
+          <Group title="Unconfirmed" vendors={unconfirmed} />
+        </main>
 
-        <Explainer />
+        <aside className="md:border-l md:border-hairline md:pl-6">
+          <Explainer />
 
-        <section className="mt-8">
-          <SectionHeader title="By area" rule />
-          <ul className="mt-1">
-            {listing.areas.map((entry) => (
-              <li
-                key={entry.area}
-                className="flex items-baseline justify-between border-b border-hairline-soft py-2.5 text-[13.5px] text-kai-800"
-              >
-                <span>{entry.area}</span>
-                <span className="font-mono text-[12px] text-slate">{entry.count}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </main>
+          <section className="mt-8 md:mt-6">
+            <SectionHeader title="By area" rule />
+            <ul className="mt-1">
+              {listing.areas.map((entry) => (
+                <li
+                  key={entry.area}
+                  className="flex items-baseline justify-between border-b border-hairline-soft py-2.5 text-[13.5px] text-kai-800"
+                >
+                  <span>{entry.area}</span>
+                  <span className="font-mono text-[12px] text-slate">{entry.count}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </aside>
+      </div>
 
       <SiteFooter />
     </>
@@ -124,8 +137,8 @@ function Group({ title, vendors }: { title: string; vendors: VendorSummary[] }) 
 
   return (
     <section>
-      <SectionHeader title={title} count={vendors.length} />
-      <div className="flex flex-col gap-2.5">
+      <SectionHeader title={title} count={vendors.length} rule />
+      <div className="flex flex-col gap-2.5 md:mt-4 md:gap-3">
         {vendors.map((vendor) => (
           <VendorCard key={vendor.slug} vendor={vendor} />
         ))}

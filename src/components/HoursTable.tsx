@@ -3,7 +3,8 @@ import { dayName, longTime, minutesFromTime } from "@/lib/time";
 
 /**
  * The week at a glance, with today on its own row so it is never buried in a
- * range. Days are ordered Monday first, matching the mockups.
+ * range. Days are ordered Monday first, matching the mockups. On desktop the
+ * rows become a bordered card and today is picked out in mint.
  */
 
 const WEEK = [1, 2, 3, 4, 5, 6, 0];
@@ -38,9 +39,10 @@ export function HoursTable({ hours, today }: { hours: OpeningHours[]; today: num
   }
 
   return (
-    <dl className="flex flex-col">
+    <dl className="flex flex-col md:mt-2.5 md:overflow-hidden md:rounded-[14px] md:border md:border-hairline md:bg-white">
       {rows.map((row) => {
         const isToday = row.days.includes(today);
+        const isClosed = row.label === "closed";
         const days =
           row.days.length === 1
             ? dayName(row.days[0])
@@ -49,15 +51,28 @@ export function HoursTable({ hours, today }: { hours: OpeningHours[]; today: num
         return (
           <div
             key={days}
-            className={`flex items-baseline justify-between gap-4 border-b border-hairline-soft py-2.5 ${
-              isToday ? "font-semibold text-kai-800" : "text-slate"
-            }`}
+            className={[
+              "flex items-baseline justify-between gap-4 border-b border-hairline-soft py-2.5",
+              "md:border-b-0 md:border-t md:px-[18px] md:py-3 md:first:border-t-0",
+              isToday
+                ? "font-semibold text-kai-800 md:bg-mint-tint md:text-green-700"
+                : isClosed
+                  ? "text-slate md:text-slate-light"
+                  : "text-slate md:text-kai-800",
+            ].join(" ")}
           >
-            <dt className="text-[13.5px]">
+            <dt className="text-[13.5px] md:text-[14.5px]">
               {days}
-              {isToday ? <span className="text-coral">, today</span> : null}
+              {isToday ? <span className="text-coral md:text-green-700">, today</span> : null}
             </dt>
-            <dd className="text-[13.5px]">{row.label}</dd>
+            <dd
+              className={[
+                "text-[13.5px] md:font-mono md:text-[14px]",
+                isToday ? "md:text-green-700" : isClosed ? "md:text-slate-light" : "md:text-slate",
+              ].join(" ")}
+            >
+              {row.label}
+            </dd>
           </div>
         );
       })}

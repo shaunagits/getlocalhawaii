@@ -9,14 +9,25 @@ export interface VerificationChipProps {
   freshness: Freshness;
   /** Drop the time of day, for narrow cards: "VERIFIED TODAY". */
   short?: boolean;
+  /** Mint on the dark hero, where slate would disappear. */
+  onDark?: boolean;
   className?: string;
 }
 
-export function VerificationChip({ freshness, short = false, className }: VerificationChipProps) {
-  const tone = freshness.kind === "today" ? "text-green-700" : "text-slate-light";
+export function VerificationChip({
+  freshness,
+  short = false,
+  onDark = false,
+  className,
+}: VerificationChipProps) {
+  const tone = onDark
+    ? "text-mint"
+    : freshness.kind === "today"
+      ? "text-green-700"
+      : "text-slate-light";
 
   return (
-    <span className={cn("mono-label font-medium", tone, className)}>
+    <span className={cn("mono-label font-medium", onDark && "text-[11.5px]", tone, className)}>
       {short ? freshness.shortLabel : freshness.label}
     </span>
   );

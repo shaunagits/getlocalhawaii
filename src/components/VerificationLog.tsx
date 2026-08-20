@@ -1,4 +1,5 @@
 import type { LogEntry } from "@/lib/queries";
+import { cn } from "@/lib/cn";
 import { sentenceDate } from "@/lib/time";
 
 const METHOD_COPY: Record<string, string> = {
@@ -9,16 +10,26 @@ const METHOD_COPY: Record<string, string> = {
 };
 
 /** The proof behind the status chip: what was done, when, and what was found. */
-export function VerificationLog({ entries }: { entries: LogEntry[] }) {
+export function VerificationLog({ entries, onDark = false }: { entries: LogEntry[]; onDark?: boolean }) {
   if (entries.length === 0) {
-    return <p className="text-[13px] text-slate">Nobody has checked this listing yet.</p>;
+    return (
+      <p className={cn("text-[13px]", onDark ? "text-cream-dim" : "text-slate")}>
+        Nobody has checked this listing yet.
+      </p>
+    );
   }
 
   return (
-    <ul className="flex flex-col gap-2">
+    <ul className="flex flex-col gap-2 md:gap-0">
       {entries.map((entry, index) => (
-        <li key={index} className="text-[13px] leading-[1.45] text-slate">
-          <span className="font-mono text-[12px] font-medium text-kai-800">
+        <li
+          key={index}
+          className={cn(
+            "text-[13px] leading-[1.45] md:text-[13.5px] md:leading-[1.7]",
+            "text-slate md:text-cream-muted",
+          )}
+        >
+          <span className="font-mono text-[12px] font-medium text-kai-800 md:font-sans md:text-[13.5px] md:font-normal md:text-cream-muted">
             {sentenceDate(entry.verifiedAt)}
           </span>
           {" · "}
@@ -26,5 +37,36 @@ export function VerificationLog({ entries }: { entries: LogEntry[] }) {
         </li>
       ))}
     </ul>
+  );
+}
+
+/**
+ * The log as it appears in the desktop side rail: a dark card with the report
+ * link under a rule. On a phone it flattens back to plain text on cream.
+ */
+export function VerificationPanel({
+  entries,
+  subject,
+}: {
+  entries: LogEntry[];
+  subject: string;
+}) {
+  return (
+    <section className="md:rounded-[14px] md:bg-kai-800 md:p-[18px]">
+      <h2 className="mono-label text-slate md:text-[11.5px] md:text-mint">Verification log</h2>
+      <div className="mt-3 md:mt-2.5">
+        <VerificationLog entries={entries} />
+      </div>
+      <div className="md:mt-3.5 md:border-t md:border-mint-rule md:pt-3.5">
+        <a
+          className="mt-3 inline-block text-[13.5px] font-medium md:mt-0 md:font-semibold md:text-coral-light"
+          href={`mailto:aloha@getlocalhawaii.org?subject=${encodeURIComponent(
+            `Something changed: ${subject}`,
+          )}`}
+        >
+          Something changed? Tell us →
+        </a>
+      </div>
+    </section>
   );
 }
