@@ -12,12 +12,12 @@ Current state. Overwritten each session, never appended to.
 - Nothing. Phases 1 through 6 complete, plus the desktop layouts from the corrected spec.
 
 ## Next 3 steps
-1. Add the two Supabase env vars to the Preview environment in the Vercel dashboard.
-2. Reconcile the recorded report-vs-unconfirmed decision with `getStatus`, which still checks freshness first.
-3. Check the market page during market hours to confirm the ON NOW countdown renders live.
+1. Point getlocalhawaii.com at Vercel: both apex and www are on the project, but the Cloudflare DNS records are not created yet.
+2. Add the two Supabase env vars to the Preview environment in the Vercel dashboard.
+3. Reconcile the recorded report-vs-unconfirmed decision with `getStatus`, which still checks freshness first.
 
 ## Known issues
+- getlocalhawaii.com and www are attached to the Vercel project but unverified: Cloudflare still has no A or CNAME record for them.
 - DECISIONS.md records that a same-day report should drive the status chip, but `src/lib/status.ts` still returns unconfirmed first. The code and the log disagree.
 - Preview deployments have no Supabase env vars, so any branch build will fail. Vercel CLI 50.40.0 rejects its own documented all-branches command, so this needs the dashboard.
-- Also-nearby renders as cards in the rail; the 940px frame uses a plain rule-separated list.
 - Distances are seeded placeholders, so "also nearby" shows distance from the user, not from the vendor being viewed.
