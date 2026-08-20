@@ -41,3 +41,6 @@ Append-only. One line per entry: date, decision, one-phrase reason.
 2026-08-19: A vendor with no posted hours shows a sentence saying so instead of the week table - the table renders every empty day as "closed", which is a claim we have no basis for.
 2026-08-19: The related-listings block is titled "More lei shops", not "Also nearby", and prefers the same area - imported vendors have no distance, so proximity cannot be claimed.
 2026-08-19: Airport now has an area page, written; the rule from the earlier entry stands, an area becomes a page only once it has prose, and Kalihi still 404s on one vendor and nothing written.
+2026-08-19: Lin's website column cleared, source_url points at hiChinatown - linsleishop.com and linsleishophawaii.com both return HTTP 500, and linking customers to a dead site helps nobody.
+2026-08-19: Content read from a web archive is imported with the event dated to the snapshot, not to today - the log then shows how old that claim really is, and the freshness chip still follows the newest source.
+2026-08-19: Lin's founding year is not recorded; "since 1987" appears only on scraped aggregator sites and their own archived site says "over 20 years" undated - no permitted source states a year.

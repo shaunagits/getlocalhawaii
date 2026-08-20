@@ -128,10 +128,16 @@ export function shortDate(instant: Date): string {
   return `${monthAbbr(clock.month)} ${clock.day}`;
 }
 
-/** Sentence-case month and day for body copy: "Aug 12". */
-export function sentenceDate(instant: Date): string {
+/**
+ * Sentence-case month and day for body copy: "Aug 12". Older entries carry the
+ * year, because a verification log that reads "Jan 25" for something read in
+ * 2021 is worse than useless.
+ */
+export function sentenceDate(instant: Date, now: Date = new Date()): string {
   const clock = hawaiiClock(instant);
-  return `${monthAbbr(clock.month, false)} ${clock.day}`;
+  const thisYear = hawaiiClock(now).year;
+  const stamp = `${monthAbbr(clock.month, false)} ${clock.day}`;
+  return clock.year === thisYear ? stamp : `${stamp} ${clock.year}`;
 }
 
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];

@@ -12,6 +12,7 @@ import {
   longTime,
   minutesFromTime,
   relativeAgo,
+  sentenceDate,
   shortDate,
   shortTime,
 } from "./time";
@@ -64,6 +65,12 @@ describe("time labels", () => {
     expect(longTime("07:00")).toBe("7:00a");
     expect(longTime("12:00")).toBe("12:00p");
     expect(longTime("18:30")).toBe("6:30p");
+  });
+
+  it("adds the year to a date from an earlier year", () => {
+    const now = hst("2026-08-19T09:41");
+    expect(sentenceDate(hst("2026-01-25T09:00"), now)).toBe("Jan 25");
+    expect(sentenceDate(hst("2021-01-25T09:00"), now)).toBe("Jan 25 2021");
   });
 
   it("formats dates and weekdays for mono labels", () => {
