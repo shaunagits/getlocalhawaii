@@ -32,3 +32,6 @@ Append-only. One line per entry: date, decision, one-phrase reason.
 2026-08-19: vendors gains address and website columns - LocalBusiness schema needs a postal address and a URL, and neither was in the original data model.
 2026-08-19: Airport stands carry the state airports page's general 6a-10p hours, with the caveat printed in good_to_know - it is sourced and official, but it describes the row of stands, not each stand's own posting.
 2026-08-19: Harriet's Yelp-listed hours were not imported, only the airports.hawaii.gov range - the no-Yelp rule covers hours as much as reviews.
+2026-08-19: Capture pages share one /[island]/[category]/[slug] route resolving to a lei type, the delivery page, or an area - they are the same shape, prose plus a filtered list, and three routes would be three copies of it.
+2026-08-19: Only Chinatown gets an area page; Airport and Kalihi resolve to 404 until someone writes prose for them - a page with a list and no writing is the thin content this whole exercise is meant to avoid.
+2026-08-19: A type page with no matching vendors still ships, saying no source names that flower yet - the puakenikeni term is worth capturing and the honest empty state is better than omitting the page.
