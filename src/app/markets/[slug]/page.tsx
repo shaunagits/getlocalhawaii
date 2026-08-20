@@ -28,9 +28,18 @@ export const dynamic = "force-dynamic";
  * mockups, so it stays out of the index until it carries real vendor data.
  * It is also excluded from the sitemap.
  */
-export const metadata: Metadata = {
-  robots: { index: false, follow: true },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  return {
+    robots: { index: false, follow: true },
+    // Without this the page would inherit the site-root canonical.
+    alternates: { canonical: `/markets/${slug}` },
+  };
+}
 
 const BUTTON = "rounded-[11px] px-3 py-[13px] text-center text-[14.5px] font-semibold md:py-[14px]";
 

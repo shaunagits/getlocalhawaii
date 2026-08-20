@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Explainer } from "@/components/Explainer";
@@ -6,7 +7,10 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { VendorCard } from "@/components/VendorCard";
-import { getCategoryListing } from "@/lib/queries";
+import { JsonLd } from "@/components/JsonLd";
+import { loadCategory } from "@/lib/queries";
+import { breadcrumbSchema, itemListSchema } from "@/lib/schema";
+import { asciiSlug } from "@/lib/slug";
 import { clockLabel } from "@/lib/time";
 import type { VendorSummary } from "@/lib/types";
 
@@ -23,8 +27,7 @@ export async function CategoryResults({
   filter,
   product,
 }: CategoryResultsProps) {
-  const now = new Date();
-  const listing = await getCategoryListing(islandSlug, categorySlug, now);
+  const { now, listing } = await loadCategory(islandSlug, categorySlug);
   if (!listing) notFound();
 
   const base = `/${islandSlug}/${categorySlug}`;
@@ -56,10 +59,23 @@ export async function CategoryResults({
 
   const stats = `${listing.stats.total} ${
     listing.stats.total === 1 ? "seller" : "sellers"
-  } · ${listing.stats.openNow} open now · ${listing.stats.verifiedThisWeek} verified this week`;
+  } · ${listing.stats.openNow} open now · ${listing.stats.verifiedThisWeek} checked this week`;
 
   return (
     <>
+      <JsonLd
+        data={itemListSchema(listing.vendors, {
+          name: `${listing.categoryName} on ${listing.islandName}`,
+          path: base,
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: `${listing.categoryName} on ${listing.islandName}`, path: base },
+        ])}
+      />
+
       <SiteHeader clock={clockLabel(now)} back={{ href: "/", label: "Back" }}>
         <div className="md:flex md:items-end md:justify-between md:gap-8">
           <div>
@@ -104,7 +120,7 @@ export async function CategoryResults({
 
           <Group title="Open now" vendors={openNow} />
           <Group title="Later today" vendors={laterToday} />
-          <Group title="Unconfirmed" vendors={unconfirmed} />
+          <Group title="Listed" vendors={unconfirmed} />
         </main>
 
         <aside className="md:border-l md:border-hairline md:pl-6">
@@ -113,15 +129,27 @@ export async function CategoryResults({
           <section className="mt-8 md:mt-6">
             <SectionHeader title="By area" rule />
             <ul className="mt-1">
-              {listing.areas.map((entry) => (
-                <li
-                  key={entry.area}
-                  className="flex items-baseline justify-between border-b border-hairline-soft py-2.5 text-[13.5px] text-kai-800"
-                >
-                  <span>{entry.area}</span>
-                  <span className="font-mono text-[12px] text-slate">{entry.count}</span>
-                </li>
-              ))}
+              {listing.areas.map((entry) => {
+                // Only areas that have their own written page are linked.
+                const areaSlug = asciiSlug(entry.area);
+                const hasPage = areaSlug === "chinatown";
+
+                return (
+                  <li
+                    key={entry.area}
+                    className="flex items-baseline justify-between border-b border-hairline-soft py-2.5 text-[13.5px] text-kai-800"
+                  >
+                    {hasPage ? (
+                      <Link href={`${base}/${areaSlug}`} className="text-kai-800 hover:text-coral">
+                        {entry.area}
+                      </Link>
+                    ) : (
+                      <span>{entry.area}</span>
+                    )}
+                    <span className="font-mono text-[12px] text-slate">{entry.count}</span>
+                  </li>
+                );
+              })}
             </ul>
           </section>
         </aside>

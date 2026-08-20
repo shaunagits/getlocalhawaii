@@ -49,9 +49,14 @@ export function VerificationLog({ entries, onDark = false }: { entries: LogEntry
 export function VerificationPanel({
   entries,
   subject,
+  sourceUrl,
+  website,
 }: {
   entries: LogEntry[];
   subject: string;
+  /** The page this listing was read from, shown so the reader can check it. */
+  sourceUrl?: string | null;
+  website?: string | null;
 }) {
   return (
     <section className="md:rounded-[14px] md:bg-kai-800 md:p-[18px]">
@@ -59,6 +64,33 @@ export function VerificationPanel({
       <div className="mt-3 md:mt-2.5">
         <VerificationLog entries={entries} />
       </div>
+
+      {sourceUrl ? (
+        <p className="mt-2 text-[13px] leading-[1.5] text-slate md:text-[13.5px] md:text-cream-muted">
+          Source:{" "}
+          <a
+            href={sourceUrl}
+            target="_blank"
+            rel="noreferrer nofollow"
+            className="md:text-coral-light"
+          >
+            {new URL(sourceUrl).hostname.replace(/^www\./, "")}
+          </a>
+          {website && website !== sourceUrl ? (
+            <>
+              {" · "}
+              <a
+                href={website}
+                target="_blank"
+                rel="noreferrer nofollow"
+                className="md:text-coral-light"
+              >
+                their site
+              </a>
+            </>
+          ) : null}
+        </p>
+      ) : null}
       <div className="md:mt-3.5 md:border-t md:border-mint-rule md:pt-3.5">
         <a
           className="mt-3 inline-block text-[13.5px] font-medium md:mt-0 md:font-semibold md:text-coral-light"

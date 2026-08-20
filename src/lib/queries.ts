@@ -4,6 +4,8 @@
  * math themselves and every chip on a page agrees on the time.
  */
 
+import { cache } from "react";
+
 import {
   type Freshness,
   type MarketSession,
@@ -410,12 +412,16 @@ export async function getVendorDetail(
   };
 }
 
-export async function getVendorSlugs(): Promise<{ category: string; slug: string }[]> {
-  const { data, error } = await supabase
-    .from("vendors")
-    .select("slug, categories ( slug )")
-    .eq("is_active", true);
+export async function getVendorSlugs(
+  options: { sourcedOnly?: boolean } = {},
+): Promise<{ category: string; slug: string }[]> {
+  let query = supabase.from("vendors").select("slug, categories ( slug )").eq("is_active", true);
 
+  // A listing without a source is a placeholder, and placeholders stay out of
+  // the sitemap for the same reason they are noindexed.
+  if (options.sourcedOnly) query = query.not("source_url", "is", null);
+
+  const { data, error } = await query;
   if (error) throw error;
 
   return (data ?? [])
@@ -637,3 +643,21 @@ export async function getSlugSets(): Promise<{ islands: Set<string>; categories:
     categories: new Set((categories.data ?? []).map((row) => row.slug)),
   };
 }
+
+/**
+ * Request-scoped loaders.
+ *
+ * generateMetadata and the page body both need the same row, and a Supabase
+ * call is not deduplicated the way fetch() is. These memoise per request, and
+ * they own the `now` they render against so both callers agree on the instant
+ * rather than each taking its own clock reading.
+ */
+export const loadVendor = cache(async (categorySlug: string, slug: string) => {
+  const now = new Date();
+  return { now, vendor: await getVendorDetail(categorySlug, slug, now) };
+});
+
+export const loadCategory = cache(async (islandSlug: string, categorySlug: string) => {
+  const now = new Date();
+  return { now, listing: await getCategoryListing(islandSlug, categorySlug, now) };
+});

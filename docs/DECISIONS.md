@@ -35,3 +35,6 @@ Append-only. One line per entry: date, decision, one-phrase reason.
 2026-08-19: Capture pages share one /[island]/[category]/[slug] route resolving to a lei type, the delivery page, or an area - they are the same shape, prose plus a filtered list, and three routes would be three copies of it.
 2026-08-19: Only Chinatown gets an area page; Airport and Kalihi resolve to 404 until someone writes prose for them - a page with a list and no writing is the thin content this whole exercise is meant to avoid.
 2026-08-19: A type page with no matching vendors still ships, saying no source names that flower yet - the puakenikeni term is worth capturing and the honest empty state is better than omitting the page.
+2026-08-19: Vendor pages emit schema.org Florist rather than bare LocalBusiness - it is a valid subtype and says what kind of shop it is; fields are omitted entirely when the data is missing.
+2026-08-19: loadVendor and loadCategory are React cache() wrappers that own their own `now` - generateMetadata and the page body would otherwise query twice and read two different clocks.
+2026-08-19: A vendor earns a sitemap entry and an indexable page by having source_url - the placeholder market vendors have none, so the rule is data-driven rather than a hardcoded slug list.

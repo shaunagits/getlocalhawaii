@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { ActionButtons } from "@/components/ActionButtons";
 import { HoursTable } from "@/components/HoursTable";
+import { JsonLd } from "@/components/JsonLd";
 import { SectionHeader } from "@/components/SectionHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -10,7 +11,8 @@ import { StatusChip } from "@/components/StatusChip";
 import { NearbyList } from "@/components/NearbyList";
 import { VerificationChip } from "@/components/VerificationChip";
 import { VerificationPanel } from "@/components/VerificationLog";
-import { getVendorDetail } from "@/lib/queries";
+import { loadVendor } from "@/lib/queries";
+import { breadcrumbSchema, floristSchema } from "@/lib/schema";
 import { clockLabel, hawaiiClock } from "@/lib/time";
 
 export async function VendorDetail({
@@ -20,11 +22,11 @@ export async function VendorDetail({
   categorySlug: string;
   slug: string;
 }) {
-  const now = new Date();
-  const vendor = await getVendorDetail(categorySlug, slug, now);
+  const { now, vendor } = await loadVendor(categorySlug, slug);
   if (!vendor) notFound();
 
   const listingHref = `/${vendor.islandSlug}/${categorySlug}`;
+  const path = `/${categorySlug}/${slug}`;
 
   const meta = [
     vendor.categoryName,
@@ -38,6 +40,15 @@ export async function VendorDetail({
 
   return (
     <>
+      <JsonLd data={floristSchema(vendor, path)} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: `${vendor.categoryName} on Oʻahu`, path: listingHref },
+          { name: vendor.name, path },
+        ])}
+      />
+
       {/* Answer first: the hero lives inside the dark header on both frames. */}
       <SiteHeader
         clock={clockLabel(now)}
@@ -133,7 +144,12 @@ export async function VendorDetail({
 
         <aside className="md:border-l md:border-hairline md:pl-[26px]">
           <div className="mt-6 md:mt-0">
-            <VerificationPanel entries={vendor.log} subject={vendor.name} />
+            <VerificationPanel
+              entries={vendor.log}
+              subject={vendor.name}
+              sourceUrl={vendor.sourceUrl}
+              website={vendor.website}
+            />
           </div>
 
           {vendor.nearby.length > 0 ? (
