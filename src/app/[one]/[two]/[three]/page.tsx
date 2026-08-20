@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { ListingPage } from "@/components/ListingPage";
-import { CHINATOWN, DELIVERY, type PageCopy } from "@/content/pages";
+import { AREA_PAGES, DELIVERY, type PageCopy } from "@/content/pages";
 import { findLeiType } from "@/content/lei-types";
 import { getCategoryListing, getSlugSets } from "@/lib/queries";
 import { asciiSlug } from "@/lib/slug";
@@ -13,7 +13,9 @@ import type { VendorSummary } from "@/lib/types";
  *
  * One route serves three kinds of page because they share a shape: prose plus
  * a filtered list of the same vendors. The third segment resolves to a lei
- * type, to the delivery page, or to an area page, in that order.
+ * type, to the delivery page, or to an area page, in that order. An area only
+ * becomes a page once someone has written prose for it, so AREA_PAGES is the
+ * list rather than the set of areas present in the data.
  */
 
 export const dynamic = "force-dynamic";
@@ -52,11 +54,12 @@ function resolve(three: string): Resolved | null {
     };
   }
 
-  if (three === CHINATOWN.slug) {
+  const area = AREA_PAGES.find((page) => page.slug === three);
+  if (area) {
     return {
-      copy: CHINATOWN,
-      filter: (vendor) => asciiSlug(vendor.area) === CHINATOWN.slug,
-      emptyMessage: "No Chinatown shops are listed yet.",
+      copy: area,
+      filter: (vendor) => asciiSlug(vendor.area) === area.slug,
+      emptyMessage: `No shops are listed in this area yet.`,
     };
   }
 

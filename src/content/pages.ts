@@ -46,6 +46,22 @@ export const DELIVERY: PageCopy = {
   ],
 };
 
+export const AIRPORT: PageCopy = {
+  slug: "airport",
+  heading: "Lei stands at Honolulu airport",
+  title: "Honolulu airport lei stands: where to buy at HNL",
+  description:
+    "The lei stands on the airport road at Honolulu, listed with addresses and hours where they are posted. Built from public listings.",
+  intro:
+    "A row of independent lei stands sits on the airport road, outside the terminals.",
+  body: [
+    "The lei stands at Honolulu airport are not shops inside the terminal. They are a row of separate stands along the airport approach on Rodgers Boulevard, near Lagoon Drive, and you reach them by pulling in on the way to or from the terminal building rather than by walking there from your gate. That matters for planning: once you are through security there is no getting back out to them, so a lei for a departing passenger has to be bought before you drop them off.",
+    "Several of these stands are old family businesses that have been on this stretch of road for decades, in some cases since the 1940s, passed down through the family and still trading under the name of the woman who started them. They exist because of the two things that happen at an airport: greeting people who have just landed, and sending people home with something fresh.",
+    "The flower that dominates here is orchid, and for good reason. It is the sturdiest of the common lei, it survives being carried around a terminal and sat on a plane, and it is available all year. If the lei is going into a suitcase or onto a mainland flight, that is what to ask for. Pīkake and plumeria are lovely and will not enjoy the journey.",
+    "None of these stands publishes its own opening hours. The state airports page describes the lei stands as generally open from early morning until late evening, which is what the listings below carry, with that caveat stated on each one. If you are meeting a specific flight, particularly a large party, it is worth calling ahead where a phone number is listed.",
+  ],
+};
+
 export const GRADUATION: PageCopy = {
   slug: "graduation-lei",
   heading: "Graduation lei on Oʻahu: what to buy and when to order",
@@ -64,9 +80,12 @@ export const GRADUATION: PageCopy = {
   ],
 };
 
+/** Areas that have written prose. An area without one is not a page. */
+export const AREA_PAGES: PageCopy[] = [CHINATOWN, AIRPORT];
+
 /** Every slug served under /[island]/[category]/, for the sitemap. */
 export const CAPTURE_SLUGS: string[] = [
   ...LEI_TYPES.map((type) => type.slug),
   DELIVERY.slug,
-  CHINATOWN.slug,
+  ...AREA_PAGES.map((area) => area.slug),
 ];

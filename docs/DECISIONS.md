@@ -40,3 +40,4 @@ Append-only. One line per entry: date, decision, one-phrase reason.
 2026-08-19: A vendor earns a sitemap entry and an indexable page by having source_url - the placeholder market vendors have none, so the rule is data-driven rather than a hardcoded slug list.
 2026-08-19: A vendor with no posted hours shows a sentence saying so instead of the week table - the table renders every empty day as "closed", which is a claim we have no basis for.
 2026-08-19: The related-listings block is titled "More lei shops", not "Also nearby", and prefers the same area - imported vendors have no distance, so proximity cannot be claimed.
+2026-08-19: Airport now has an area page, written; the rule from the earlier entry stands, an area becomes a page only once it has prose, and Kalihi still 404s on one vendor and nothing written.

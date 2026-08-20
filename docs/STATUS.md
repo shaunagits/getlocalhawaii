@@ -4,7 +4,7 @@
 - Live at https://getlocalhawaii.com, building from GitHub on every push to `main`.
 - 14 real Oʻahu lei vendors imported from public sources, each carrying its source URL and a source_check dated on import. No fictional lei listings remain.
 - Trust model: default state LISTED, chip says CHECKED (source) or VERIFIED (contact). TBC fields render blank, never guessed.
-- Capture pages: six lei type pages, Chinatown, delivery, and a graduation guide, each with original prose. Florist and ItemList JSON-LD, sitemap.xml (25 urls), robots.txt. 44 tests pass.
+- Capture pages: six lei type pages, Chinatown, Airport, delivery, and a graduation guide, each with original prose. Florist and ItemList JSON-LD, sitemap.xml (26 urls), robots.txt. 44 tests pass.
 
 ## In progress
 - Nothing mid-edit. Working tree clean, everything pushed and deployed.

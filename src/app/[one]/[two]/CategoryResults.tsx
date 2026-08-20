@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Explainer } from "@/components/Explainer";
+import { AREA_PAGES } from "@/content/pages";
 import { FilterChip } from "@/components/FilterChip";
 import { SectionHeader } from "@/components/SectionHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -132,7 +133,7 @@ export async function CategoryResults({
               {listing.areas.map((entry) => {
                 // Only areas that have their own written page are linked.
                 const areaSlug = asciiSlug(entry.area);
-                const hasPage = areaSlug === "chinatown";
+                const hasPage = AREA_PAGES.some((page) => page.slug === areaSlug);
 
                 return (
                   <li
