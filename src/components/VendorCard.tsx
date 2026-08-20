@@ -13,12 +13,10 @@ import type { VendorSummary } from "@/lib/types";
  */
 export interface VendorCardProps {
   vendor: VendorSummary;
-  /** Hide the call and directions buttons, as in the also-nearby list. */
-  compact?: boolean;
   className?: string;
 }
 
-export function VendorCard({ vendor, compact = false, className }: VendorCardProps) {
+export function VendorCard({ vendor, className }: VendorCardProps) {
   const { status, freshness } = vendor;
 
   // Today's report is the most useful line there is, so it takes the slot.
@@ -36,7 +34,7 @@ export function VendorCard({ vendor, compact = false, className }: VendorCardPro
         "rounded-2xl border border-hairline bg-white p-3.5 md:rounded-[14px] md:p-[18px]",
         // A sold-out listing is still useful, but it should not shout.
         status.kind === "sold_out" && "md:opacity-70",
-        !compact && "md:grid md:grid-cols-[minmax(0,1fr)_236px] md:items-center md:gap-6",
+        "md:grid md:grid-cols-[minmax(0,1fr)_236px] md:items-center md:gap-6",
         className,
       )}
     >
@@ -67,7 +65,7 @@ export function VendorCard({ vendor, compact = false, className }: VendorCardPro
         </p>
       </div>
 
-      {compact ? null : <ActionButtons vendor={vendor} className="mt-3 md:mt-0" />}
+      <ActionButtons vendor={vendor} className="mt-3 md:mt-0" />
     </article>
   );
 }

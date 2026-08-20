@@ -7,7 +7,7 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { StatusChip } from "@/components/StatusChip";
-import { VendorCard } from "@/components/VendorCard";
+import { NearbyList } from "@/components/NearbyList";
 import { VerificationChip } from "@/components/VerificationChip";
 import { VerificationPanel } from "@/components/VerificationLog";
 import { getVendorDetail } from "@/lib/queries";
@@ -139,11 +139,7 @@ export async function VendorDetail({
           {vendor.nearby.length > 0 ? (
             <section className="mt-6 md:mt-6">
               <SectionHeader title="Also nearby" rule />
-              <div className="mt-3 flex flex-col gap-2.5">
-                {vendor.nearby.map((neighbour) => (
-                  <VendorCard key={neighbour.slug} vendor={neighbour} compact />
-                ))}
-              </div>
+              <NearbyList vendors={vendor.nearby} />
               <Link href={listingHref} className="mt-3 inline-block text-[13.5px] font-medium">
                 See all {vendor.categoryName.toLowerCase()} on {vendor.islandName} →
               </Link>
