@@ -27,7 +27,7 @@ export function VerificationChip({
       : "text-slate-light";
 
   return (
-    <span className={cn("mono-label font-medium", onDark && "text-[11.5px]", tone, className)}>
+    <span className={cn("mono-chip font-medium", onDark && "text-[11.5px]", tone, className)}>
       {short ? freshness.shortLabel : freshness.label}
     </span>
   );

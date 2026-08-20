@@ -57,7 +57,7 @@ export function StatusChip({ status, label, onDark = false, className }: StatusC
   return (
     <span
       className={cn(
-        "mono-label inline-flex items-center gap-1 rounded-md px-2 py-1",
+        "mono-chip inline-flex items-center gap-1 rounded-md px-2 py-1",
         onDark && "px-2.5 py-[5px] text-[11.5px]",
         tone,
         className,

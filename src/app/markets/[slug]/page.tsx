@@ -216,11 +216,11 @@ function MarketVendorRow({ vendor }: { vendor: MarketVendor }) {
           {vendor.name}
         </h3>
         {vendor.isHereToday && vendor.confirmedAt ? (
-          <span className="mono-label font-medium text-green-700">
+          <span className="mono-chip font-medium text-green-700">
             CONFIRMED {shortTime(hawaiiClock(vendor.confirmedAt).minutes)}
           </span>
         ) : (
-          <span className="mono-label font-medium text-slate-light">NOT HERE TODAY</span>
+          <span className="mono-chip font-medium text-slate-light">NOT HERE TODAY</span>
         )}
       </div>
 
@@ -229,7 +229,7 @@ function MarketVendorRow({ vendor }: { vendor: MarketVendor }) {
       </p>
 
       {inSeason && vendor.isHereToday ? (
-        <span className="mono-label mt-2.5 inline-flex items-center gap-1.5 rounded-md bg-gold-tint px-2 py-1 text-gold-dark">
+        <span className="mono-chip mt-2.5 inline-flex items-center gap-1.5 rounded-md bg-gold-tint px-2 py-1 text-gold-dark">
           <span aria-hidden="true">◆</span>
           {inSeason.label.toUpperCase()} IN SEASON · THRU{" "}
           {monthAbbr(Number(inSeason.inSeasonUntil!.slice(5, 7)))}
@@ -255,7 +255,7 @@ function PopupRow({ popup }: { popup: Popup }) {
     <article className="rounded-2xl border border-hairline bg-white p-3.5 md:grid md:grid-cols-[110px_minmax(0,1fr)_150px] md:items-center md:gap-4 md:rounded-none md:border-0 md:border-b md:border-hairline-soft md:bg-transparent md:px-0 md:py-3.5">
       <div className="flex items-baseline justify-between gap-2 md:contents">
         <span
-          className={`mono-label md:text-[14px] ${
+          className={`mono-chip md:text-[14px] ${
             isTimeKnown ? "text-kai-800" : "text-gold-dark"
           }`}
         >
@@ -265,7 +265,7 @@ function PopupRow({ popup }: { popup: Popup }) {
           {popup.status === "verified" ? (
             <VerificationChip freshness={popup.freshness} className="md:text-[11.5px]" />
           ) : (
-            <span className="mono-label font-medium text-gold-dark md:text-[11.5px]">
+            <span className="mono-chip font-medium text-gold-dark md:text-[11.5px]">
               UNCONFIRMED
             </span>
           )}
