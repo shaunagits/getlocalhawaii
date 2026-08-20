@@ -25,6 +25,7 @@ import type { ContactMethod, VendorSummary } from "./types";
 const VENDOR_FIELDS = `
   id, slug, name, area, description, story, distance_mi, phone,
   contact_method, payment_notes, good_to_know,
+  address, website, ships_mainland, source_url,
   categories ( slug, name ),
   islands ( slug, name ),
   vendor_hours ( day_of_week, opens, closes ),
@@ -43,6 +44,10 @@ interface VendorRow {
   contact_method: string;
   payment_notes: string | null;
   good_to_know: string | null;
+  address: string | null;
+  website: string | null;
+  ships_mainland: boolean | null;
+  source_url: string | null;
   categories: { slug: string; name: string } | null;
   islands: { slug: string; name: string } | null;
   vendor_hours: { day_of_week: number; opens: string; closes: string }[];
@@ -186,6 +191,7 @@ function toSummary(
     paymentNotes: row.payment_notes,
     phone: row.phone,
     contactMethod: row.contact_method as ContactMethod,
+    shipsMainland: row.ships_mainland,
     productLabels: row.vendor_products.map((product) => product.label),
     status,
     freshness: getFreshness(events, now),
@@ -336,6 +342,9 @@ async function resolveCategory(query: string | undefined): Promise<string | null
 export interface VendorDetail extends VendorSummary {
   story: string | null;
   goodToKnow: string | null;
+  address: string | null;
+  website: string | null;
+  sourceUrl: string | null;
   islandSlug: string;
   islandName: string;
   categoryName: string;
@@ -384,6 +393,9 @@ export async function getVendorDetail(
     ...summary,
     story: row.story,
     goodToKnow: row.good_to_know,
+    address: row.address,
+    website: row.website,
+    sourceUrl: row.source_url,
     islandSlug: row.islands?.slug ?? "",
     islandName: row.islands?.name ?? "",
     categoryName: row.categories?.name ?? "",

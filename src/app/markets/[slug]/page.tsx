@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { SectionHeader } from "@/components/SectionHeader";
@@ -21,6 +22,15 @@ import {
 import { directionsUrl } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
+
+/**
+ * The only market on the site is still the seeded placeholder from the design
+ * mockups, so it stays out of the index until it carries real vendor data.
+ * It is also excluded from the sitemap.
+ */
+export const metadata: Metadata = {
+  robots: { index: false, follow: true },
+};
 
 const BUTTON = "rounded-[11px] px-3 py-[13px] text-center text-[14.5px] font-semibold md:py-[14px]";
 

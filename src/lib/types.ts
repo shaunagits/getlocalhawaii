@@ -14,7 +14,9 @@ export interface VendorSummary {
   paymentNotes: string | null;
   phone: string | null;
   contactMethod: ContactMethod;
-  /** Product labels, used by the category filter chips. */
+  /** True where a source says the vendor ships lei to the mainland. */
+  shipsMainland: boolean | null;
+  /** Product labels, used by the category filter chips and the type pages. */
   productLabels: string[];
   status: VendorStatus;
   freshness: Freshness;

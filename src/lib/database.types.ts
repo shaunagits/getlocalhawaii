@@ -322,6 +322,7 @@ export type Database = {
       }
       vendors: {
         Row: {
+          address: string | null
           area: string
           category_id: string
           contact_method: string
@@ -337,10 +338,14 @@ export type Database = {
           name: string
           payment_notes: string | null
           phone: string | null
+          ships_mainland: boolean | null
           slug: string
+          source_url: string | null
           story: string | null
+          website: string | null
         }
         Insert: {
+          address?: string | null
           area: string
           category_id: string
           contact_method?: string
@@ -356,10 +361,14 @@ export type Database = {
           name: string
           payment_notes?: string | null
           phone?: string | null
+          ships_mainland?: boolean | null
           slug: string
+          source_url?: string | null
           story?: string | null
+          website?: string | null
         }
         Update: {
+          address?: string | null
           area?: string
           category_id?: string
           contact_method?: string
@@ -375,8 +384,11 @@ export type Database = {
           name?: string
           payment_notes?: string | null
           phone?: string | null
+          ships_mainland?: boolean | null
           slug?: string
+          source_url?: string | null
           story?: string | null
+          website?: string | null
         }
         Relationships: [
           {

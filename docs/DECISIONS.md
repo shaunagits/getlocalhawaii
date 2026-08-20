@@ -29,3 +29,6 @@ Append-only. One line per entry: date, decision, one-phrase reason.
 2026-08-19: Freshness chip verb follows the method: source_check renders CHECKED, contact methods render VERIFIED - reading a posted page is not the same as reaching a person.
 2026-08-19: A vendor with no posted hours gets status LISTED, not CLOSED - absent hours are unknown hours, and the empty week must never be read as shut.
 2026-08-19: Result sorting breaks distance ties on name - real listings have no distance yet, so without it the order follows whatever Postgres returned.
+2026-08-19: vendors gains address and website columns - LocalBusiness schema needs a postal address and a URL, and neither was in the original data model.
+2026-08-19: Airport stands carry the state airports page's general 6a-10p hours, with the caveat printed in good_to_know - it is sourced and official, but it describes the row of stands, not each stand's own posting.
+2026-08-19: Harriet's Yelp-listed hours were not imported, only the airports.hawaii.gov range - the no-Yelp rule covers hours as much as reviews.
