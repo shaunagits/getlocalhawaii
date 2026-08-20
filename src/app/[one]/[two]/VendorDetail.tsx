@@ -85,6 +85,8 @@ export async function VendorDetail({
 
             <p className="mt-1.5 text-[13.5px] leading-[1.5] text-cream-dim md:mt-2 md:max-w-[56ch] md:text-[15px] md:leading-[1.55]">
               {meta}
+              {vendor.address ? <br /> : null}
+              {vendor.address}
               {story ? <br className="md:hidden" /> : null}
               {story ? <span className="hidden md:inline">. </span> : null}
               {story}
@@ -108,7 +110,14 @@ export async function VendorDetail({
         <main>
           <section className="mt-6 md:mt-0">
             <SectionHeader title="This week" rule />
-            <HoursTable hours={vendor.hours} today={hawaiiClock(now).dayOfWeek} />
+            {vendor.hours.length > 0 ? (
+              <HoursTable hours={vendor.hours} today={hawaiiClock(now).dayOfWeek} />
+            ) : (
+              <p className="mt-3 text-[14px] leading-[1.55] text-slate">
+                This shop does not post its hours, so we have none to show.{" "}
+                {vendor.phone ? "Call before you go." : "Check with the shop before you go."}
+              </p>
+            )}
           </section>
 
           {vendor.products.length > 0 ? (
@@ -154,7 +163,7 @@ export async function VendorDetail({
 
           {vendor.nearby.length > 0 ? (
             <section className="mt-6 md:mt-6">
-              <SectionHeader title="Also nearby" rule />
+              <SectionHeader title={`More ${vendor.categoryName.toLowerCase()} shops`} rule />
               <NearbyList vendors={vendor.nearby} />
               <Link href={listingHref} className="mt-3 inline-block text-[13.5px] font-medium">
                 See all {vendor.categoryName.toLowerCase()} on {vendor.islandName} →

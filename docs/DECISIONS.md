@@ -38,3 +38,5 @@ Append-only. One line per entry: date, decision, one-phrase reason.
 2026-08-19: Vendor pages emit schema.org Florist rather than bare LocalBusiness - it is a valid subtype and says what kind of shop it is; fields are omitted entirely when the data is missing.
 2026-08-19: loadVendor and loadCategory are React cache() wrappers that own their own `now` - generateMetadata and the page body would otherwise query twice and read two different clocks.
 2026-08-19: A vendor earns a sitemap entry and an indexable page by having source_url - the placeholder market vendors have none, so the rule is data-driven rather than a hardcoded slug list.
+2026-08-19: A vendor with no posted hours shows a sentence saying so instead of the week table - the table renders every empty day as "closed", which is a claim we have no basis for.
+2026-08-19: The related-listings block is titled "More lei shops", not "Also nearby", and prefers the same area - imported vendors have no distance, so proximity cannot be claimed.

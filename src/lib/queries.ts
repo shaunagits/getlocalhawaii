@@ -382,13 +382,21 @@ export async function getVendorDetail(
 
   const summary = toSummary(row, vendorEvents, reports.get(row.id) ?? [], now);
 
-  // Also nearby: same island and category, closest first, excluding this one.
+  // Related listings: same island and category, excluding this one. Imported
+  // vendors carry no distance, so proximity cannot be claimed; same area is
+  // the closest honest proxy, and name keeps the order stable after that.
   const siblings = await fetchVendors({
     categorySlug,
     islandSlug: row.islands?.slug,
   });
   const nearby = (await summarize(siblings.filter((sibling) => sibling.id !== row.id), now))
-    .sort((a, b) => (a.distanceMi ?? Infinity) - (b.distanceMi ?? Infinity))
+    .sort((a, b) => {
+      const sameArea = Number(b.area === row.area) - Number(a.area === row.area);
+      if (sameArea !== 0) return sameArea;
+      const distance = (a.distanceMi ?? Infinity) - (b.distanceMi ?? Infinity);
+      if (distance !== 0 && Number.isFinite(distance)) return distance;
+      return a.name.localeCompare(b.name);
+    })
     .slice(0, 2);
 
   return {
