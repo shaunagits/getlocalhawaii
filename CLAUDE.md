@@ -9,6 +9,7 @@ Directory site for finding local Hawaii vendors (lei stands, farmers markets, fi
 - `docs/SEO_TARGETS.md` - keyword targets from Shauna's Keyword Planner data; drives which pages exist.
 - `data/lei-vendors-oahu.csv` - real vendor dataset from public sources, each row carries source URLs and a confidence rating.
 - `src/lib/status.ts` - all status, freshness and countdown logic. `src/lib/time.ts` - all Hawaii clock math. `src/lib/queries.ts` - data access, returns objects with status already attached.
+- `src/content/` - page prose for the lei type, area, delivery and guide pages. `src/lib/schema.ts` - JSON-LD builders. `src/lib/site.ts` - origin, site name, contact address.
 
 ## Stack
 
@@ -24,7 +25,9 @@ Directory site for finding local Hawaii vendors (lei stands, farmers markets, fi
 - Never use em dashes in any user-facing copy, commit messages, or docs.
 - Do not credit Claude or AI in commits, code comments, or anywhere in the repo.
 - Hawaiian diacriticals (ʻokina, kahakō) must be preserved exactly: Oʻahu, Kalihi, Waimānalo, Kaimukī, lūʻau, GET LOCAL HAWAIʻI.
-- All status logic (open now, closes 2p, verified today) computed from data in Pacific/Honolulu timezone. Never store a computed status.
+- All status logic (open now, closes 2p, checked today) computed from data in Pacific/Honolulu timezone. Never store a computed status.
+- Listings come from public sources. Never claim a listing was called or visited unless it was: source_check renders CHECKED, contact methods render VERIFIED.
+- A field the source did not give imports as NULL and renders blank. Never guess hours, addresses or products.
 - Pages are `force-dynamic`: a cached "open now" is a wrong answer served fast.
 - `day_of_week` is 0=Sunday..6=Saturday everywhere, matching JavaScript `getDay()`.
 
