@@ -49,3 +49,8 @@ Append-only. One line per entry: date, decision, one-phrase reason.
 2026-08-19: The hero's third term is now open-now rather than the mockup's "this afternoon" - a live control in a sentence of live controls, and open-now is the only time filter the data supports.
 2026-08-19: "near" is area equality, not proximity, and is kept anyway on Shauna's call - no vendor has coordinates, so near Kalihi returns Kalihi only.
 2026-08-19: Nav drops the markets calendar and the produce listing - they pointed at a noindexed placeholder and at four unsourced vendors, which is a third of the chrome spent on suppressed content.
+2026-08-26: Fish is the second real category, importing fish markets and poke-by-the-pound counters together under 'fish' - Shauna's call; a split into product labels can come later.
+2026-08-26: Tamashiro Market is not listed; it closed permanently 2026-04-30 per Hawaii News Now - never list a business known to be closed.
+2026-08-26: Conflicting or stale third-party hours import as no hours with a call-ahead note in good_to_know (Blue Seafood, Kahuku Superette, Ono Seafood, K.Bay Bros) - a wrong open-now is worse than a blank.
+2026-08-26: Honolulu Fish Company imports with ships_mainland true and no hours - its posted range reads as operating hours and walk-in retail is unconfirmed.
+2026-08-26: Multi-location vendors get one row per location (Fresh Catch, Maguro Brothers, Tamura's) - hours and open-now are per location.
