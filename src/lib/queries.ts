@@ -15,15 +15,17 @@ import {
   type VendorStatus,
   type VerificationEvent,
   type VerificationMethod,
+  type WeekDay,
   byStatusThenDistance,
   getFreshness,
   getMarketStatus,
   getStatus,
+  hawaiiWeek,
 } from "./status";
 import { LEI_TYPES } from "../content/lei-types";
 import { asciiSlug } from "./slug";
 import { supabase } from "./supabase";
-import { hawaiiDaysBetween, isSameHawaiiDay, toDate } from "./time";
+import { hawaiiClock, hawaiiDaysBetween, isSameHawaiiDay, minutesFromTime, toDate } from "./time";
 import type { ContactMethod, VendorSummary } from "./types";
 
 const VENDOR_FIELDS = `
@@ -556,6 +558,186 @@ export async function getVendorSlugs(
     .filter((entry) => entry.category !== "");
 }
 
+// Market listing --------------------------------------------------------------
+
+const MARKET_FIELDS = `
+  id, slug, name, area, description, location_notes, getting_there,
+  instagram, distance_mi, lat, lng, operator, ebt_tokens, source_url,
+  islands ( slug, name ),
+  market_sessions ( day_of_week, starts, ends )
+`;
+
+interface MarketListRow {
+  id: string;
+  slug: string;
+  name: string;
+  area: string;
+  description: string | null;
+  location_notes: string | null;
+  getting_there: string | null;
+  instagram: string | null;
+  distance_mi: number | string | null;
+  lat: number | string | null;
+  lng: number | string | null;
+  operator: string | null;
+  ebt_tokens: boolean | null;
+  source_url: string | null;
+  islands: { slug: string; name: string } | null;
+  market_sessions: { day_of_week: number; starts: string; ends: string }[];
+}
+
+export interface MarketSummary {
+  slug: string;
+  name: string;
+  area: string;
+  description: string | null;
+  locationNotes: string | null;
+  gettingThere: string | null;
+  operator: string | null;
+  /** Only some People's Open Market sites hand out EBT tokens. */
+  ebtTokens: boolean | null;
+  lat: number | null;
+  lng: number | null;
+  sourceUrl: string | null;
+  distanceMi: number | null;
+  status: MarketStatus;
+  freshness: Freshness;
+  sessions: MarketSession[];
+}
+
+/** One market on one day of the week, which is what the listing renders. */
+export interface MarketOccurrence {
+  market: MarketSummary;
+  starts: string;
+  ends: string;
+  /** Today only: this session has already finished. */
+  hasEnded: boolean;
+}
+
+export interface MarketDayGroup extends WeekDay {
+  occurrences: MarketOccurrence[];
+}
+
+export interface MarketListing {
+  islandName: string;
+  markets: MarketSummary[];
+  week: MarketDayGroup[];
+  stats: { total: number; onNow: number; today: number };
+  /** The next day that has a market, for when today has none left. */
+  nextDay: MarketDayGroup | null;
+}
+
+function toMarketSummary(row: MarketListRow, events: VerificationEvent[], now: Date): MarketSummary {
+  const sessions: MarketSession[] = row.market_sessions.map((session) => ({
+    dayOfWeek: session.day_of_week,
+    starts: session.starts,
+    ends: session.ends,
+  }));
+
+  return {
+    slug: row.slug,
+    name: row.name,
+    area: row.area,
+    description: row.description,
+    locationNotes: row.location_notes,
+    gettingThere: row.getting_there,
+    operator: row.operator,
+    ebtTokens: row.ebt_tokens,
+    lat: toNumber(row.lat),
+    lng: toNumber(row.lng),
+    sourceUrl: row.source_url,
+    distanceMi: toNumber(row.distance_mi),
+    status: getMarketStatus({ sessions, verifications: events }, now),
+    freshness: getFreshness(events, now),
+    sessions,
+  };
+}
+
+/**
+ * The markets listing, grouped by day rather than by open or closed.
+ *
+ * A People's Open Market site is open for one hour a week, so an "open now"
+ * grouping would leave the page empty for all but a few hours of the week.
+ * The question a person actually has is which day to turn up on.
+ */
+export async function getMarketListing(
+  islandSlug: string,
+  now: Date,
+): Promise<MarketListing | null> {
+  const { data, error } = await supabase
+    .from("markets")
+    .select(MARKET_FIELDS)
+    .eq("is_active", true)
+    // A market with no source is a placeholder, held to the same bar as the
+    // vendor listings: out of the listing, out of search, out of the sitemap.
+    .not("source_url", "is", null);
+
+  if (error) throw error;
+
+  const rows = (data as unknown as MarketListRow[]).filter(
+    (row) => row.islands?.slug === islandSlug,
+  );
+  if (rows.length === 0) return null;
+
+  const events = await verificationsFor(
+    "market",
+    rows.map((row) => row.id),
+  );
+
+  const markets = rows
+    .map((row) => toMarketSummary(row, events.get(row.id) ?? [], now))
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  const clock = hawaiiClock(now);
+
+  const week: MarketDayGroup[] = hawaiiWeek(now).map((day) => {
+    const occurrences: MarketOccurrence[] = [];
+
+    for (const market of markets) {
+      for (const session of market.sessions) {
+        if (session.dayOfWeek !== day.dayOfWeek) continue;
+        occurrences.push({
+          market,
+          starts: session.starts,
+          ends: session.ends,
+          hasEnded: day.isToday && minutesFromTime(session.ends) <= clock.minutes,
+        });
+      }
+    }
+
+    occurrences.sort(
+      (a, b) =>
+        minutesFromTime(a.starts) - minutesFromTime(b.starts) ||
+        a.market.name.localeCompare(b.market.name),
+    );
+
+    return { ...day, occurrences };
+  });
+
+  const today = week[0];
+  const stillToCome = today.occurrences.filter((entry) => !entry.hasEnded);
+
+  return {
+    islandName: rows[0].islands?.name ?? islandSlug,
+    markets,
+    week,
+    stats: {
+      total: markets.length,
+      onNow: markets.filter((market) => market.status.isOnNow).length,
+      today: today.occurrences.length,
+    },
+    nextDay:
+      stillToCome.length > 0
+        ? today
+        : (week.slice(1).find((day) => day.occurrences.length > 0) ?? null),
+  };
+}
+
+export const loadMarketListing = cache(async (islandSlug: string) => {
+  const now = new Date();
+  return { now, listing: await getMarketListing(islandSlug, now) };
+});
+
 // Market detail ---------------------------------------------------------------
 
 export interface MarketVendor {
@@ -590,6 +772,11 @@ export interface MarketDetail {
   instagram: string | null;
   gettingThere: string | null;
   distanceMi: number | null;
+  operator: string | null;
+  ebtTokens: boolean | null;
+  lat: number | null;
+  lng: number | null;
+  sourceUrl: string | null;
   status: MarketStatus;
   freshness: Freshness;
   sessions: MarketSession[];
@@ -603,6 +790,7 @@ export async function getMarketDetail(slug: string, now: Date): Promise<MarketDe
     .from("markets")
     .select(
       `id, slug, name, area, description, location_notes, instagram, getting_there, distance_mi,
+       operator, ebt_tokens, lat, lng, source_url,
        islands ( name ),
        market_sessions ( day_of_week, starts, ends ),
        market_vendors (
@@ -627,6 +815,11 @@ export async function getMarketDetail(slug: string, now: Date): Promise<MarketDe
     instagram: string | null;
     getting_there: string | null;
     distance_mi: number | string | null;
+    operator: string | null;
+    ebt_tokens: boolean | null;
+    lat: number | string | null;
+    lng: number | string | null;
+    source_url: string | null;
     islands: { name: string } | null;
     market_sessions: { day_of_week: number; starts: string; ends: string }[];
     market_vendors: {
@@ -693,6 +886,11 @@ export async function getMarketDetail(slug: string, now: Date): Promise<MarketDe
     instagram: row.instagram,
     gettingThere: row.getting_there,
     distanceMi: toNumber(row.distance_mi),
+    operator: row.operator,
+    ebtTokens: row.ebt_tokens,
+    lat: toNumber(row.lat),
+    lng: toNumber(row.lng),
+    sourceUrl: row.source_url,
     status: getMarketStatus({ sessions, verifications: events }, now),
     freshness: getFreshness(events, now),
     sessions,
@@ -735,11 +933,19 @@ async function getPopups(now: Date): Promise<Popup[]> {
   }));
 }
 
-export async function getMarketSlugs(): Promise<string[]> {
-  const { data, error } = await supabase.from("markets").select("slug").eq("is_active", true);
+export async function getMarketSlugs(options: { sourcedOnly?: boolean } = {}): Promise<string[]> {
+  let query = supabase.from("markets").select("slug").eq("is_active", true);
+  if (options.sourcedOnly) query = query.not("source_url", "is", null);
+
+  const { data, error } = await query;
   if (error) throw error;
   return (data ?? []).map((row) => row.slug);
 }
+
+export const loadMarket = cache(async (slug: string) => {
+  const now = new Date();
+  return { now, market: await getMarketDetail(slug, now) };
+});
 
 /** Days since a verification, for the freshness explainer copy. */
 export function daysSince(event: LogEntry, now: Date): number {

@@ -13,6 +13,7 @@ import {
   hawaiiClock,
   hawaiiDaysBetween,
   isSameHawaiiDay,
+  longDayName,
   minutesFromTime,
   monthAbbr,
   relativeAgo,
@@ -484,6 +485,45 @@ export function nextMarketDates(sessions: MarketSession[], now: Date, count = 3)
 
 function pad(value: number): string {
   return String(value).padStart(2, "0");
+}
+
+export interface WeekDay {
+  /** Hawaii calendar date as YYYY-MM-DD. */
+  date: string;
+  dayOfWeek: number;
+  isToday: boolean;
+  /** "Today", "Tomorrow", then the weekday name. */
+  label: string;
+  /** "Thu Aug 27", for the smaller line beside the label. */
+  dateLabel: string;
+}
+
+/**
+ * The next `days` Hawaii calendar days, starting today.
+ *
+ * The markets listing is grouped by day rather than by open or closed the way
+ * the vendor listings are. A People's Open Market site runs for one hour a
+ * week, so "open now" is false for essentially all of them essentially all of
+ * the time; grouping on it would render an empty page most hours of the week.
+ * The useful question is which day to turn up on, so the day is the grouping
+ * and open-now becomes a state inside today.
+ */
+export function hawaiiWeek(now: Date, days = 7): WeekDay[] {
+  const clock = hawaiiClock(now);
+  const week: WeekDay[] = [];
+
+  for (let offset = 0; offset < days; offset += 1) {
+    const day = addDays(clock, offset);
+    week.push({
+      date: `${day.year}-${pad(day.month)}-${pad(day.day)}`,
+      dayOfWeek: day.dayOfWeek,
+      isToday: offset === 0,
+      label: offset === 0 ? "Today" : offset === 1 ? "Tomorrow" : longDayName(day.dayOfWeek),
+      dateLabel: `${dayName(day.dayOfWeek)} ${monthAbbr(day.month, false)} ${day.day}`,
+    });
+  }
+
+  return week;
 }
 
 /** Calendar arithmetic on a Hawaii date, done in UTC so no zone shifts creep in. */

@@ -29,8 +29,25 @@ export function dialable(phone: string): string {
   return phone.replace(/[^\d+]/g, "");
 }
 
-/** Maps link. Coordinates are not seeded yet, so this searches by name and area. */
+/** Maps link. Most listings have no coordinates, so this searches by name and area. */
 export function directionsUrl(name: string, area: string): string {
   const query = encodeURIComponent(`${name}, ${area}, Hawaii`);
   return `https://www.google.com/maps/search/?api=1&query=${query}`;
+}
+
+/**
+ * Maps link that uses real coordinates when the source gave them.
+ *
+ * The City pins each People's Open Market site on its own schedule page, so
+ * those listings can point at the pin rather than at a name search, which for
+ * a market inside a large park lands people in the wrong corner of it.
+ */
+export function mapUrl(place: {
+  name: string;
+  area: string;
+  lat: number | null;
+  lng: number | null;
+}): string {
+  if (place.lat === null || place.lng === null) return directionsUrl(place.name, place.area);
+  return `https://www.google.com/maps/search/?api=1&query=${place.lat},${place.lng}`;
 }

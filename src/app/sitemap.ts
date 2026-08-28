@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { CAPTURE_SLUGS, GRADUATION } from "@/content/pages";
-import { getVendorSlugs } from "@/lib/queries";
+import { getMarketSlugs, getVendorSlugs } from "@/lib/queries";
 import { absoluteUrl } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
@@ -20,6 +20,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: absoluteUrl("/"), lastModified, changeFrequency: "daily", priority: 1 },
     { url: absoluteUrl("/oahu/lei"), lastModified, changeFrequency: "daily", priority: 0.9 },
     {
+      url: absoluteUrl("/oahu/farmers-markets"),
+      lastModified,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
       url: absoluteUrl(`/guides/${GRADUATION.slug}`),
       lastModified,
       changeFrequency: "monthly",
@@ -34,7 +40,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  const vendors = await getVendorSlugs({ sourcedOnly: true });
+  const [vendors, markets] = await Promise.all([
+    getVendorSlugs({ sourcedOnly: true }),
+    getMarketSlugs({ sourcedOnly: true }),
+  ]);
+
   const vendorPages: MetadataRoute.Sitemap = vendors.map((vendor) => ({
     url: absoluteUrl(`/${vendor.category}/${vendor.slug}`),
     lastModified,
@@ -42,5 +52,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...capturePages, ...vendorPages];
+  // A market's page changes only when its operator changes the schedule, but
+  // what the page renders changes hourly, so weekly is the honest middle.
+  const marketPages: MetadataRoute.Sitemap = markets.map((slug) => ({
+    url: absoluteUrl(`/farmers-markets/${slug}`),
+    lastModified,
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...capturePages, ...vendorPages, ...marketPages];
 }

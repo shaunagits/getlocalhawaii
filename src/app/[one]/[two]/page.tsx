@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { getSlugSets, loadCategory, loadVendor } from "@/lib/queries";
+import { getSlugSets, loadCategory, loadMarket, loadMarketListing, loadVendor } from "@/lib/queries";
+import { dayName, longTime } from "@/lib/time";
 
 import { CategoryResults } from "./CategoryResults";
+import { MarketDetail } from "./MarketDetail";
+import { MarketResults } from "./MarketResults";
 import { VendorDetail } from "./VendorDetail";
 
 /**
@@ -11,7 +14,13 @@ import { VendorDetail } from "./VendorDetail";
  * listing and /lei/napua-lei-stand is a vendor. Next allows only one dynamic
  * segment name per level, so the first segment is resolved against the island
  * and category slugs here and the page dispatches on the answer.
+ *
+ * Farmers markets take the same two shapes but come from the markets tables
+ * rather than the vendors ones, so they branch to their own components at
+ * both depths.
  */
+
+export const MARKETS = "farmers-markets";
 
 export const dynamic = "force-dynamic";
 
@@ -36,6 +45,20 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const kind = await kindOf(one);
   const path = `/${one}/${two}`;
 
+  if (kind === "island" && two === MARKETS) {
+    const { listing } = await loadMarketListing(one);
+    if (!listing) return {};
+
+    const title = "Farmers markets on Oahu: this week's schedule";
+    const description = `All ${listing.markets.length} Oʻahu farmers markets by day, including the 13 City People's Open Market stops. Times as the operators post them.`;
+    return {
+      title,
+      description,
+      alternates: { canonical: path },
+      openGraph: { title, description, url: path },
+    };
+  }
+
   if (kind === "island") {
     const { listing } = await loadCategory(one, two);
     if (!listing) return {};
@@ -48,6 +71,38 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       description,
       alternates: { canonical: path },
       openGraph: { title, description, url: path },
+    };
+  }
+
+  if (kind === "category" && one === MARKETS) {
+    const { market } = await loadMarket(two);
+    if (!market) return {};
+
+    const when = [...market.sessions]
+      .sort((a, b) => a.dayOfWeek - b.dayOfWeek)
+      .map((session) => `${dayName(session.dayOfWeek)} ${longTime(session.starts)}`)
+      .join(", ");
+
+    const title = `${market.name}: days, times and location`;
+    const description = clamp(
+      [
+        `${market.name} runs ${when} in ${market.area}.`,
+        market.description ?? null,
+        market.operator ? `Schedule as ${market.operator} posts it.` : null,
+      ]
+        .filter(Boolean)
+        .join(" "),
+      158,
+    );
+
+    return {
+      title,
+      description,
+      alternates: { canonical: path },
+      openGraph: { title, description, url: path },
+      // Same bar as the vendor listings: a market with no source is a
+      // placeholder and stays out of the index.
+      robots: market.sourceUrl ? undefined : { index: false, follow: true },
     };
   }
 
@@ -100,6 +155,8 @@ export default async function Page({
   const kind = await kindOf(one);
 
   if (kind === "island") {
+    if (two === MARKETS) return <MarketResults islandSlug={one} />;
+
     const { filter, product } = await searchParams;
     return (
       <CategoryResults islandSlug={one} categorySlug={two} filter={filter} product={product} />
@@ -107,6 +164,8 @@ export default async function Page({
   }
 
   if (kind === "category") {
+    if (one === MARKETS) return <MarketDetail slug={two} />;
+
     return <VendorDetail categorySlug={one} slug={two} />;
   }
 

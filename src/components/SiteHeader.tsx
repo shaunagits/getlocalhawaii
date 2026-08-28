@@ -13,14 +13,18 @@ import { mailto } from "@/lib/site";
  */
 
 /**
- * Nav points only at pages meant to be found. The market calendar and the
- * produce listing used to sit here, which meant a third of the site chrome
- * linked to a noindexed placeholder and to four unsourced vendors. Both come
- * back when they have real data behind them.
+ * Nav points only at pages meant to be found. The market calendar used to sit
+ * here pointing at a noindexed placeholder; it comes back now that there are
+ * seventeen sourced markets behind it, and it points at the listing rather
+ * than at a second calendar page, because the listing is the calendar.
+ *
+ * Chinatown came out to make room. It is an area page one level down and is
+ * still linked from the BY AREA block on /oahu/lei, which is where someone
+ * looking for it would be.
  */
 export const NAV_LINKS = [
   { href: "/oahu/lei", label: "All lei shops" },
-  { href: "/oahu/lei/chinatown", label: "Chinatown" },
+  { href: "/oahu/farmers-markets", label: "Farmers markets" },
   { href: "/guides/graduation-lei", label: "Graduation" },
   { href: "/oahu/lei/delivery", label: "Delivery" },
   { href: mailto("Add a listing"), label: "Add a listing" },

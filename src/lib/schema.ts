@@ -93,6 +93,83 @@ export function itemListSchema(
   });
 }
 
+/**
+ * A market as a recurring Event rather than a LocalBusiness.
+ *
+ * A People's Open Market stop is not a business at an address that keeps
+ * opening hours; it is the same vendors turning up in a park for an hour a
+ * week. Event with an eventSchedule describes that honestly, and it is the
+ * type Google reads for the "when is it on" answer.
+ */
+export function marketEventSchema(
+  market: {
+    name: string;
+    area: string;
+    description: string | null;
+    locationNotes: string | null;
+    operator: string | null;
+    lat: number | null;
+    lng: number | null;
+    sessions: OpeningHours[] | { dayOfWeek: number; starts: string; ends: string }[];
+  },
+  path: string,
+) {
+  const sessions = market.sessions as { dayOfWeek: number; starts: string; ends: string }[];
+
+  return prune({
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: market.name,
+    url: absoluteUrl(path),
+    description: market.description ?? undefined,
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    organizer: market.operator ? { "@type": "Organization", name: market.operator } : undefined,
+    location: prune({
+      "@type": "Place",
+      name: market.locationNotes ?? market.name,
+      address: prune({
+        "@type": "PostalAddress",
+        addressLocality: market.area,
+        addressRegion: "HI",
+        addressCountry: "US",
+      }),
+      geo:
+        market.lat !== null && market.lng !== null
+          ? { "@type": "GeoCoordinates", latitude: market.lat, longitude: market.lng }
+          : undefined,
+    }),
+    eventSchedule: sessions.map((session) => ({
+      "@type": "Schedule",
+      repeatFrequency: "P1W",
+      byDay: `https://schema.org/${DAY_NAMES[session.dayOfWeek]}`,
+      startTime: session.starts.slice(0, 5),
+      endTime: session.ends.slice(0, 5),
+      scheduleTimezone: "Pacific/Honolulu",
+    })),
+  });
+}
+
+/** The markets listing. Markets live on their own path, so this is separate. */
+export function marketListSchema(
+  markets: { slug: string; name: string }[],
+  options: { name: string; path: string },
+) {
+  return prune({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: options.name,
+    url: absoluteUrl(options.path),
+    numberOfItems: markets.length,
+    itemListElement: markets.map((market, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: absoluteUrl(`/farmers-markets/${market.slug}`),
+      name: market.name,
+    })),
+  });
+}
+
 export function breadcrumbSchema(trail: { name: string; path: string }[]) {
   return {
     "@context": "https://schema.org",

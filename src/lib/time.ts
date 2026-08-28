@@ -142,9 +142,28 @@ export function sentenceDate(instant: Date, now: Date = new Date()): string {
 
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+const LONG_DAY_NAMES = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
 /** Three-letter weekday name for a day_of_week value. */
 export function dayName(dayOfWeek: number): string {
   return DAY_NAMES[((dayOfWeek % 7) + 7) % 7];
+}
+
+/**
+ * Full weekday name. Chips and dense metadata use the short form; this is for
+ * the day headings on the markets listing, where "Fri" would sit next to
+ * "Fri Aug 21" and read as a stutter.
+ */
+export function longDayName(dayOfWeek: number): string {
+  return LONG_DAY_NAMES[((dayOfWeek % 7) + 7) % 7];
 }
 
 /** "1H 19M", "19M", "2H". Used by countdowns and relative timestamps. */

@@ -1,13 +1,15 @@
-import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { JsonLd } from "@/components/JsonLd";
 import { SectionHeader } from "@/components/SectionHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { StatusChip } from "@/components/StatusChip";
 import { VerificationChip } from "@/components/VerificationChip";
 import { VerificationPanel } from "@/components/VerificationLog";
-import { type MarketVendor, type Popup, getMarketDetail, productSentence } from "@/lib/queries";
+import { type MarketVendor, type Popup, loadMarket, productSentence } from "@/lib/queries";
+import { breadcrumbSchema, marketEventSchema } from "@/lib/schema";
 import { nextMarketDates } from "@/lib/status";
 import {
   clockLabel,
@@ -15,43 +17,24 @@ import {
   hawaiiClock,
   hawaiiInstant,
   icsStamp,
+  longDayName,
   longTime,
   monthAbbr,
   shortTime,
 } from "@/lib/time";
-import { directionsUrl } from "@/lib/types";
-
-export const dynamic = "force-dynamic";
-
-/**
- * The only market on the site is still the seeded placeholder from the design
- * mockups, so it stays out of the index until it carries real vendor data.
- * It is also excluded from the sitemap.
- */
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  const { slug } = await params;
-  return {
-    robots: { index: false, follow: true },
-    // Without this the page would inherit the site-root canonical.
-    alternates: { canonical: `/markets/${slug}` },
-  };
-}
+import { mapUrl } from "@/lib/types";
 
 const BUTTON = "rounded-[11px] px-3 py-[13px] text-center text-[14.5px] font-semibold md:py-[14px]";
 
-export default async function MarketPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const now = new Date();
+const LISTING = "/oahu/farmers-markets";
 
-  const market = await getMarketDetail(slug, now);
+export async function MarketDetail({ slug }: { slug: string }) {
+  const { now, market } = await loadMarket(slug);
   if (!market) notFound();
 
-  const dates = nextMarketDates(market.sessions, now, 3);
+  const dates = nextMarketDates(market.sessions, now, 4);
   const next = dates[0];
+  const path = `/farmers-markets/${slug}`;
 
   const here = market.vendors.filter((vendor) => vendor.isHereToday);
   const meta = [
@@ -62,13 +45,23 @@ export default async function MarketPage({ params }: { params: Promise<{ slug: s
     .filter(Boolean)
     .join(" · ");
 
+  // The weekly shape, spelled out. For a one-hour market this is the whole
+  // point of the page, so it says the day in full rather than in a chip.
+  const schedule = [...market.sessions]
+    .sort((a, b) => a.dayOfWeek - b.dayOfWeek)
+    .map(
+      (session) =>
+        `${longDayName(session.dayOfWeek)} ${longTime(session.starts)} to ${longTime(session.ends)}`,
+    )
+    .join(", ");
+
   // Rendered twice: once in the dark hero on desktop, once on the cream shelf
   // under the header on a phone. The secondaries need opposite palettes.
   const actions = (onDark: boolean) => (
     <>
       <a
         className={`${BUTTON} block bg-coral-light text-coral-ink`}
-        href={directionsUrl(market.name, market.area)}
+        href={mapUrl(market)}
         target="_blank"
         rel="noreferrer"
       >
@@ -101,9 +94,18 @@ export default async function MarketPage({ params }: { params: Promise<{ slug: s
 
   return (
     <>
+      <JsonLd data={marketEventSchema(market, path)} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Farmers markets", path: LISTING },
+          { name: market.name, path },
+        ])}
+      />
+
       <SiteHeader
         clock={clockLabel(now)}
-        back={{ href: "/", label: "Markets" }}
+        back={{ href: LISTING, label: "Farmers markets" }}
         actions={
           <div className="flex gap-3.5 text-[13px] font-medium text-cream-muted">
             <span>Share</span>
@@ -146,17 +148,35 @@ export default async function MarketPage({ params }: { params: Promise<{ slug: s
       <div className="mx-auto max-w-(--container-column) px-4 md:grid md:max-w-(--container-shell) md:grid-cols-[minmax(0,1fr)_320px] md:gap-[30px] md:px-8 md:pt-7 md:pb-9">
         <main>
           <section className="mt-7 md:mt-0">
-            <SectionHeader
-              title="Here today"
-              count={`${here.length} of ${market.vendors.length} vendors`}
-              rule
-            />
-            <div className="mt-3 flex flex-col gap-3 md:grid md:grid-cols-2 md:gap-3">
-              {market.vendors.map((vendor) => (
-                <MarketVendorRow key={vendor.slug} vendor={vendor} />
-              ))}
-            </div>
+            <SectionHeader title="This week" rule />
+            <p className="mt-3 text-[14.5px] leading-[1.55] text-kai-800 md:mt-2.5">{schedule}</p>
+            <p className="mt-2 text-[13.5px] leading-[1.6] text-slate">
+              {market.operator ? `Run by ${market.operator}. ` : null}
+              {market.ebtTokens === true
+                ? "EBT tokens are handed out at this site."
+                : market.ebtTokens === false
+                  ? "EBT is accepted; this site does not hand out tokens."
+                  : null}
+            </p>
           </section>
+
+          {/* Nobody has published a stall list for the City markets, so this
+              section only appears where a roster actually exists. An empty
+              "0 of 0 vendors" would imply we looked and found nobody there. */}
+          {market.vendors.length > 0 ? (
+            <section className="mt-7">
+              <SectionHeader
+                title="Here today"
+                count={`${here.length} of ${market.vendors.length} vendors`}
+                rule
+              />
+              <div className="mt-3 flex flex-col gap-3 md:grid md:grid-cols-2 md:gap-3">
+                {market.vendors.map((vendor) => (
+                  <MarketVendorRow key={vendor.slug} vendor={vendor} />
+                ))}
+              </div>
+            </section>
+          ) : null}
 
           {market.popups.length > 0 ? (
             <section className="mt-7">
@@ -196,19 +216,50 @@ export default async function MarketPage({ params }: { params: Promise<{ slug: s
             <VerificationPanel entries={market.log} subject={market.name} />
           </div>
 
-          {market.gettingThere ? (
+          {market.gettingThere || market.locationNotes ? (
             <section className="mt-7 md:mt-6">
               <SectionHeader title="Getting there" rule />
-              <p className="mt-3 text-[14px] leading-[1.55] text-kai-800 md:mt-2 md:text-[13.5px] md:leading-[1.65]">
-                {market.gettingThere}
-              </p>
               {market.locationNotes ? (
-                <p className="mt-2 text-[13.5px] text-slate md:text-[13px]">
+                <p className="mt-3 text-[14px] leading-[1.55] text-kai-800 md:mt-2 md:text-[13.5px] md:leading-[1.65]">
                   {market.locationNotes}
+                </p>
+              ) : null}
+              {market.gettingThere ? (
+                <p className="mt-2 text-[13.5px] leading-[1.6] text-slate md:text-[13px]">
+                  {market.gettingThere}
+                </p>
+              ) : null}
+              {market.lat !== null && market.lng !== null ? (
+                <p className="mt-2 text-[13px] leading-[1.6] text-slate-light">
+                  The Directions button opens the operator&rsquo;s own map pin, not a search for the
+                  name, so it lands in the right corner of the park.
                 </p>
               ) : null}
             </section>
           ) : null}
+
+          <section className="mt-7 md:mt-6">
+            <SectionHeader title="Where this comes from" rule />
+            <p className="mt-3 text-[13.5px] leading-[1.6] text-slate md:mt-2">
+              Read from {market.operator ?? "the operator"}&rsquo;s published schedule. We have not
+              called or visited, so the times are theirs, not ours.
+            </p>
+            {market.sourceUrl ? (
+              <a
+                className="mt-2 inline-block text-[13.5px] font-medium text-coral"
+                href={market.sourceUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Operator schedule
+              </a>
+            ) : null}
+            <p className="mt-4 text-[13px] leading-[1.6] text-slate-light">
+              <Link href={LISTING} className="font-medium text-kai-800 hover:text-coral">
+                All {market.islandName} farmers markets
+              </Link>
+            </p>
+          </section>
         </aside>
       </div>
 

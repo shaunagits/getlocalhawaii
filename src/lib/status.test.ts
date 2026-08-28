@@ -7,6 +7,7 @@ import {
   getFreshness,
   getMarketStatus,
   getStatus,
+  hawaiiWeek,
   nextMarketDates,
 } from "./status";
 
@@ -303,6 +304,55 @@ describe("getMarketStatus", () => {
   it("drops today from the next dates once its session has ended", () => {
     const dates = nextMarketDates(sessions, hst("2026-08-19T12:00"));
     expect(dates[0].label).toBe("Sat Aug 22");
+  });
+});
+
+describe("hawaiiWeek", () => {
+  it("starts today and runs seven days by default", () => {
+    const week = hawaiiWeek(NOW);
+    expect(week).toHaveLength(7);
+    expect(week[0].date).toBe("2026-08-19");
+    expect(week[6].date).toBe("2026-08-25");
+  });
+
+  it("names the first two days rather than numbering them", () => {
+    const week = hawaiiWeek(NOW);
+    expect(week.map((day) => day.label)).toEqual([
+      "Today",
+      "Tomorrow",
+      "Friday",
+      "Saturday",
+      "Sunday",
+      "Monday",
+      "Tuesday",
+    ]);
+  });
+
+  it("flags only the first day as today", () => {
+    expect(hawaiiWeek(NOW).filter((day) => day.isToday)).toHaveLength(1);
+  });
+
+  it("carries the weekday matching getDay, Sunday as 0", () => {
+    const week = hawaiiWeek(NOW);
+    // 2026-08-19 is a Wednesday.
+    expect(week[0].dayOfWeek).toBe(3);
+    expect(week[4].dayOfWeek).toBe(0);
+    expect(week[0].dateLabel).toBe("Wed Aug 19");
+  });
+
+  it("rolls into the next month without a zone shift", () => {
+    const week = hawaiiWeek(hst("2026-08-30T22:30"), 4);
+    expect(week.map((day) => day.date)).toEqual([
+      "2026-08-30",
+      "2026-08-31",
+      "2026-09-01",
+      "2026-09-02",
+    ]);
+  });
+
+  it("reads the Hawaii date, not the UTC one, late in the evening", () => {
+    // 8:30p in Hawaii on the 19th is already the 20th in UTC.
+    expect(hawaiiWeek(hst("2026-08-19T20:30"), 1)[0].date).toBe("2026-08-19");
   });
 });
 
