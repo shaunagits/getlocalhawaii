@@ -229,31 +229,42 @@ export async function MarketDetail({ slug }: { slug: string }) {
                   {market.gettingThere}
                 </p>
               ) : null}
-              {market.lat !== null && market.lng !== null ? (
-                <p className="mt-2 text-[13px] leading-[1.6] text-slate-light">
-                  The Directions button opens the operator&rsquo;s own map pin, not a search for the
-                  name, so it lands in the right corner of the park.
-                </p>
-              ) : null}
             </section>
+          ) : null}
+
+          {market.lat !== null && market.lng !== null ? (
+            <p className="mt-3 text-[13px] leading-[1.6] text-slate-light">
+              The Directions button opens the operator&rsquo;s own map pin rather than a search for
+              the name, so it lands in the right corner of the park.
+            </p>
           ) : null}
 
           <section className="mt-7 md:mt-6">
             <SectionHeader title="Where this comes from" rule />
-            <p className="mt-3 text-[13.5px] leading-[1.6] text-slate md:mt-2">
-              Read from {market.operator ?? "the operator"}&rsquo;s published schedule. We have not
-              called or visited, so the times are theirs, not ours.
-            </p>
+            {/* Only claim a source where there is one. The seeded placeholder
+                has a log with visits in it, so asserting "we have not called
+                or visited" on every market page would contradict the panel
+                directly above this one. */}
             {market.sourceUrl ? (
-              <a
-                className="mt-2 inline-block text-[13.5px] font-medium text-coral"
-                href={market.sourceUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Operator schedule
-              </a>
-            ) : null}
+              <>
+                <p className="mt-3 text-[13.5px] leading-[1.6] text-slate md:mt-2">
+                  Read from {market.operator ?? "the operator"}&rsquo;s published schedule. The
+                  times are theirs, not ours.
+                </p>
+                <a
+                  className="mt-2 inline-block text-[13.5px] font-medium text-coral"
+                  href={market.sourceUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Operator schedule
+                </a>
+              </>
+            ) : (
+              <p className="mt-3 text-[13.5px] leading-[1.6] text-slate md:mt-2">
+                This listing carries no source yet, so it is kept out of search and the sitemap.
+              </p>
+            )}
             <p className="mt-4 text-[13px] leading-[1.6] text-slate-light">
               <Link href={LISTING} className="font-medium text-kai-800 hover:text-coral">
                 All {market.islandName} farmers markets

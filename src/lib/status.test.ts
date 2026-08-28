@@ -305,6 +305,21 @@ describe("getMarketStatus", () => {
     const dates = nextMarketDates(sessions, hst("2026-08-19T12:00"));
     expect(dates[0].label).toBe("Sat Aug 22");
   });
+
+  /**
+   * The search horizon has to grow with the count. Every market on the site
+   * runs once a week, so a fixed two week window silently capped the answer at
+   * two dates however many the caller asked for.
+   */
+  it("reaches far enough ahead to return the count it was asked for", () => {
+    const weekly = [{ dayOfWeek: 4, starts: "09:00", ends: "10:00" }];
+    expect(nextMarketDates(weekly, NOW, 4)).toHaveLength(4);
+    expect(nextMarketDates(weekly, NOW, 6)).toHaveLength(6);
+  });
+
+  it("returns what exists when a market has no sessions at all", () => {
+    expect(nextMarketDates([], NOW, 4)).toEqual([]);
+  });
 });
 
 describe("hawaiiWeek", () => {

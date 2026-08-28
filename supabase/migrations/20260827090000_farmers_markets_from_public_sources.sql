@@ -159,10 +159,17 @@ join markets mk on mk.slug = s.slug;
 
 -- These were read off the operators' own schedule pages, never called or
 -- visited, so they log as source_check and render as CHECKED, not VERIFIED.
+--
+-- least(..., now()) matters: getFreshness discards an event dated in the
+-- future, so stamping a flat 9am would leave every market UNCONFIRMED, with no
+-- countdown and no open-now, whenever this runs before 9am in Hawaii.
 insert into verification_events (subject_type, subject_id, verified_at, method, note)
 select 'market', mk.id,
-       ((timezone('Pacific/Honolulu', now())::date) + time '09:00')
-         at time zone 'Pacific/Honolulu',
+       least(
+         ((timezone('Pacific/Honolulu', now())::date) + time '09:00')
+           at time zone 'Pacific/Honolulu',
+         now()
+       ),
        'source_check',
        $t$checked the operator's posted schedule$t$
 from markets mk

@@ -455,7 +455,12 @@ export function nextMarketDates(sessions: MarketSession[], now: Date, count = 3)
   const clock = hawaiiClock(now);
   const dates: MarketDate[] = [];
 
-  for (let offset = 0; offset < 14 && dates.length < count; offset += 1) {
+  // The horizon has to scale with the count. Every market on the site runs
+  // once a week, so a fixed 14 day window could never return more than two
+  // dates however many were asked for, and asking for four silently gave two.
+  const horizon = Math.max(14, count * 7 + 1);
+
+  for (let offset = 0; offset < horizon && dates.length < count; offset += 1) {
     const day = addDays(clock, offset);
     const todays = sessions
       .filter((session) => session.dayOfWeek === day.dayOfWeek)

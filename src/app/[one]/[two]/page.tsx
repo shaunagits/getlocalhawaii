@@ -9,6 +9,7 @@ import {
   loadMarketListing,
   loadVendor,
 } from "@/lib/queries";
+import { asciiText } from "@/lib/slug";
 import { dayName, longTime } from "@/lib/time";
 
 import { CategoryResults } from "./CategoryResults";
@@ -54,8 +55,13 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     const { listing } = await loadMarketListing(one);
     if (!listing) return {};
 
-    const title = "Farmers markets on Oahu: this week's schedule";
-    const description = `All ${listing.markets.length} Oʻahu farmers markets by day, including the 13 City People's Open Market stops. Times as the operators post them.`;
+    // ASCII in the title, diacriticals in the page copy.
+    const city = listing.markets.filter((market) =>
+      market.operator?.startsWith("City and County"),
+    ).length;
+
+    const title = `Farmers markets on ${asciiText(listing.islandName)}: this week's schedule`;
+    const description = `All ${listing.markets.length} ${listing.islandName} farmers markets by day, including the ${city} City People's Open Market stops. Times as the operators post them.`;
     return {
       title,
       description,

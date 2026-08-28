@@ -851,7 +851,7 @@ export async function getMarketDetail(slug: string, now: Date): Promise<MarketDe
     freshness: getFreshness(events, now),
     sessions,
     vendors,
-    popups: await getPopups(now),
+    popups: await getPopups(row.id, now),
     log: events.map((event) => ({
       verifiedAt: toDate(event.verifiedAt),
       method: event.method,
@@ -860,13 +860,21 @@ export async function getMarketDetail(slug: string, now: Date): Promise<MarketDe
   };
 }
 
-/** Pop-ups starting in the next week, verified or not. */
-async function getPopups(now: Date): Promise<Popup[]> {
+/**
+ * Pop-ups at one market in the next week, verified or not.
+ *
+ * Scoped to the market on purpose. This used to return every pop-up on the
+ * site, which was invisible while there was one market and became a lie the
+ * moment there were eighteen: a market page would list a fish drop happening
+ * somewhere else entirely under its own "pop-ups this week".
+ */
+async function getPopups(marketId: string, now: Date): Promise<Popup[]> {
   const weekOut = new Date(now.getTime() + 7 * 86_400_000);
 
   const { data, error } = await supabase
     .from("popups")
     .select("id, name, location_note, starts_at, ends_at, status")
+    .eq("market_id", marketId)
     .gte("starts_at", now.toISOString())
     .lte("starts_at", weekOut.toISOString())
     .order("starts_at");

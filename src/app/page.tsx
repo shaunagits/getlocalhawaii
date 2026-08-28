@@ -43,17 +43,24 @@ export default async function Home({
 
       <main className="mx-auto max-w-(--container-column) px-4 md:max-w-(--container-shell) md:px-8">
         <div className="md:mt-[46px] md:rounded-[18px] md:bg-cream md:px-7 md:py-6">
-          <div className="flex items-baseline justify-between gap-4 pt-4 pb-2 md:border-b md:border-hairline md:pt-0 md:pb-3.5">
-            <h2 className="text-[13.5px] font-semibold text-kai-800 md:text-[15px]">
-              {stats.total} {stats.total === 1 ? "answer" : "answers"} · {stats.openNow} open now
-            </h2>
-            <p className="mono-label hidden text-slate-light md:block md:text-[12px]">
-              Sorted by open, then distance
-            </p>
-          </div>
-          <p className="mono-label pb-3 text-slate-light md:hidden">
-            Sorted by open, then distance
-          </p>
+          {/* A markets query is answered by a link, not by cards, so the count
+              and the sort note would both be describing nothing. */}
+          {match.kind === "markets" ? null : (
+            <>
+              <div className="flex items-baseline justify-between gap-4 pt-4 pb-2 md:border-b md:border-hairline md:pt-0 md:pb-3.5">
+                <h2 className="text-[13.5px] font-semibold text-kai-800 md:text-[15px]">
+                  {stats.total} {stats.total === 1 ? "answer" : "answers"} · {stats.openNow} open
+                  now
+                </h2>
+                <p className="mono-label hidden text-slate-light md:block md:text-[12px]">
+                  Sorted by open, then distance
+                </p>
+              </div>
+              <p className="mono-label pb-3 text-slate-light md:hidden">
+                Sorted by open, then distance
+              </p>
+            </>
+          )}
 
           <GuideLink match={match} />
 

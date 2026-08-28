@@ -79,7 +79,9 @@ Header: category title "Lei on Oʻahu", stats line "23 sellers · 9 open now · 
 
 Answer first, then proof. Top: back link, Share, Save. Hero block: status chip + verification chip, name, category/area/distance, one-line story ("Auntie Nāpua and her daughter, same corner since 1998"), primary actions Call, Directions, Text. Then sections in order: THIS WEEK (hours table, today highlighted), WHAT THEY HAVE (product tags, including notes like "Maile - order 2 days ahead"), GOOD TO KNOW (freeform tips: parking, cash and Venmo, graduation weeks sell out by 9a), VERIFICATION LOG (dated entries: "Aug 18 · called, hours confirmed"), "Something changed? Tell us" link, ALSO NEARBY (2 cards with status).
 
-### 4.4 Market detail `/markets/[slug]` (e.g. `/markets/kaimuki-neighborhood`)
+### 4.4 Market detail `/farmers-markets/[slug]` (e.g. `/farmers-markets/kalakaua-peoples-open-market`)
+
+The listing lives at `/oahu/farmers-markets` and is also the markets calendar; there is no separate calendar page. It groups by day, not by open or closed, because most markets run under an hour a week.
 
 Hero: "◆ ON NOW · 1H 19M LEFT" countdown chip + verification chip, market name, schedule summary, description, actions (Directions, Instagram, Add to calendar). Sections: HERE TODAY with vendor count and per-vendor confirmation ("CONFIRMED 7:02A", stall numbers, "NOT HERE TODAY, usually Wed and Sat"), seasonal chips ("◆ MANGO IN SEASON · THRU SEP"), "See all vendors" link, POP-UPS THIS WEEK (dated one-off events, some UNCONFIRMED), NEXT DATES list, VERIFICATION LOG, GETTING THERE (parking/bus/tips).
 
@@ -95,7 +97,7 @@ Hero: "◆ ON NOW · 1H 19M LEFT" countdown chip + verification chip, market nam
 
 ```
 islands: id, name, slug
-categories: id, name, slug (lei, poi, fish, produce, markets)
+categories: id, name, slug (lei, poi, fish, produce, farmers-markets)
 vendors: id, slug, name, category_id, island_id, area, description,
   story, lat, lng, phone, contact_method (call|text), payment_notes,
   good_to_know, is_active
@@ -103,6 +105,7 @@ vendor_hours: id, vendor_id, day_of_week, opens, closes
 vendor_products: id, vendor_id, label, note (e.g. "order 2 days ahead"),
   in_season_until (nullable)
 markets: id, slug, name, island_id, area, description, location_notes,
+  operator, ebt_tokens, lat, lng, source_url,
   instagram, getting_there
 market_sessions: id, market_id, day_of_week, starts, ends
 market_vendors: market_id, vendor_id, stall, usual_days, confirmed_at

@@ -7,7 +7,7 @@ import { MarketCard } from "@/components/MarketCard";
 import { SectionHeader } from "@/components/SectionHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { type MarketDayGroup, loadMarketListing } from "@/lib/queries";
+import { MARKETS_CATEGORY, type MarketDayGroup, loadMarketListing } from "@/lib/queries";
 import { breadcrumbSchema, marketListSchema } from "@/lib/schema";
 import { clockLabel, longTime } from "@/lib/time";
 
@@ -23,11 +23,13 @@ export interface MarketResultsProps {
   islandSlug: string;
 }
 
-const BASE = "/oahu/farmers-markets";
-
 export async function MarketResults({ islandSlug }: MarketResultsProps) {
   const { now, listing } = await loadMarketListing(islandSlug);
   if (!listing) notFound();
+
+  // Built from the island in the URL, not hardcoded: the heading already says
+  // which island this is, so the links underneath it had better agree.
+  const base = `/${islandSlug}/${MARKETS_CATEGORY}`;
 
   const today = listing.week[0];
   const rest = listing.week.slice(1).filter((day) => day.occurrences.length > 0);
@@ -57,13 +59,13 @@ export async function MarketResults({ islandSlug }: MarketResultsProps) {
       <JsonLd
         data={marketListSchema(listing.markets, {
           name: `Farmers markets on ${listing.islandName}`,
-          path: BASE,
+          path: base,
         })}
       />
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: `Farmers markets on ${listing.islandName}`, path: BASE },
+          { name: `Farmers markets on ${listing.islandName}`, path: base },
         ])}
       />
 
@@ -104,8 +106,10 @@ export async function MarketResults({ islandSlug }: MarketResultsProps) {
                 >
                   {nextUp.occurrences[0].market.name}
                 </Link>{" "}
-                on {nextUp.label.toLowerCase() === "tomorrow" ? "tomorrow" : nextUp.label}, opening
-                at {longTime(nextUp.occurrences[0].starts)}.
+                {/* "Tomorrow" is an adverb and "Saturday" is a noun, so only
+                    one of the two takes a preposition. */}
+                {nextUp.label === "Tomorrow" ? "tomorrow" : `on ${nextUp.label}`}, opening at{" "}
+                {longTime(nextUp.occurrences[0].starts)}.
               </p>
             </div>
           ) : null}
@@ -116,7 +120,7 @@ export async function MarketResults({ islandSlug }: MarketResultsProps) {
         </main>
 
         <aside className="md:border-l md:border-hairline md:pl-6">
-          <Explainer />
+          <Explainer variant="markets" />
 
           {/* The City's shopping rules are the same at all thirteen sites, so
               they live here once instead of padding thirteen market pages. */}
