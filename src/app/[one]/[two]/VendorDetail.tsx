@@ -62,7 +62,25 @@ export async function VendorDetail({
       >
         <div className="md:grid md:grid-cols-[minmax(0,1fr)_330px] md:items-end md:gap-[34px]">
           <div>
-            <div className="flex flex-wrap items-center gap-2.5">
+            {/* The name leads: you arrived here deliberately, so the page opens
+                by confirming which shop this is and the h1 leads the document.
+                The chip sits directly beneath, still above the fold and beside
+                the actions. Result cards keep the opposite order, where a chip
+                in a fixed slot is what makes a list scannable. */}
+            <h1 className="font-display text-[30px] leading-[1.1] tracking-[-0.7px] text-cream md:text-[44px] md:leading-[1.05] md:tracking-[-1.3px]">
+              {vendor.name}
+            </h1>
+
+            <p className="mt-1.5 text-[13.5px] leading-[1.5] text-cream-dim md:mt-2 md:max-w-[56ch] md:text-[15px] md:leading-[1.55]">
+              {meta}
+              {vendor.address ? <br /> : null}
+              {vendor.address}
+              {story ? <br className="md:hidden" /> : null}
+              {story ? <span className="hidden md:inline">. </span> : null}
+              {story}
+            </p>
+
+            <div className="mt-3 flex flex-wrap items-center gap-2.5">
               <StatusChip
                 status={vendor.status}
                 label={
@@ -78,19 +96,6 @@ export async function VendorDetail({
                 <VerificationChip freshness={vendor.freshness} onDark />
               )}
             </div>
-
-            <h1 className="mt-3 font-display text-[30px] leading-[1.1] tracking-[-0.7px] text-cream md:text-[44px] md:leading-[1.05] md:tracking-[-1.3px]">
-              {vendor.name}
-            </h1>
-
-            <p className="mt-1.5 text-[13.5px] leading-[1.5] text-cream-dim md:mt-2 md:max-w-[56ch] md:text-[15px] md:leading-[1.55]">
-              {meta}
-              {vendor.address ? <br /> : null}
-              {vendor.address}
-              {story ? <br className="md:hidden" /> : null}
-              {story ? <span className="hidden md:inline">. </span> : null}
-              {story}
-            </p>
           </div>
 
           {/* Desktop keeps the actions in the hero; the phone puts them on the

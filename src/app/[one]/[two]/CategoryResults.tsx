@@ -81,13 +81,15 @@ export async function CategoryResults({
       <SiteHeader clock={clockLabel(now)} back={{ href: "/", label: "Back" }}>
         <div className="md:flex md:items-end md:justify-between md:gap-8">
           <div>
-            <p className="mono-label hidden text-mint md:block">{clockLabel(now)}</p>
-            <h1 className="font-display text-[28px] leading-[1.1] tracking-[-0.6px] text-cream md:mt-2 md:text-[42px] md:leading-[1.05] md:tracking-[-1.2px]">
+            {/* Title leads, clock stamp underneath. The phone gets the clock in
+                the header row instead, so this copy is desktop only. */}
+            <h1 className="font-display text-[28px] leading-[1.1] tracking-[-0.6px] text-cream md:text-[42px] md:leading-[1.05] md:tracking-[-1.2px]">
               {listing.categoryName} on {listing.islandName}
             </h1>
             <p className="mt-1.5 text-[13px] leading-[1.45] text-cream-dim md:text-[14.5px]">
               {stats}
             </p>
+            <p className="mono-label mt-2 hidden text-mint md:block">{clockLabel(now)}</p>
           </div>
 
           <div className="mt-3.5 flex flex-wrap gap-2 md:mt-0 md:shrink-0">

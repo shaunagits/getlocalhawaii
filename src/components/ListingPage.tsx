@@ -56,14 +56,19 @@ export function ListingPage({
 
       <SiteHeader clock={clockLabel(now)} back={back}>
         <div>
-          <p className="mono-label hidden text-mint md:block">{clockLabel(now)}</p>
-          <h1 className="font-display text-[28px] leading-[1.1] tracking-[-0.6px] text-cream md:mt-2 md:text-[42px] md:leading-[1.05] md:tracking-[-1.2px]">
+          {/* Title leads, then the stats and the clock share one mono row. The
+              two used to sit on separate lines in the same colour, which read
+              as one label wrapping rather than two facts. */}
+          <h1 className="font-display text-[28px] leading-[1.1] tracking-[-0.6px] text-cream md:text-[42px] md:leading-[1.05] md:tracking-[-1.2px]">
             {heading}
           </h1>
           <p className="mt-1.5 text-[13.5px] leading-[1.5] text-cream-dim md:max-w-[58ch] md:text-[15px] md:leading-[1.55]">
             {intro}
           </p>
-          <p className="mono-label mt-2.5 text-mint">{stats}</p>
+          <div className="mt-2.5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <p className="mono-label text-mint">{stats}</p>
+            <p className="mono-label hidden text-mint/70 md:block">{clockLabel(now)}</p>
+          </div>
         </div>
       </SiteHeader>
 

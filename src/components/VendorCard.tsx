@@ -10,6 +10,12 @@ import type { VendorSummary } from "@/lib/types";
  * The result card for the category sections. Status chip first, last-verified
  * beside it, then the name, then the actions. On desktop the card turns into a
  * row: everything left, the action buttons in a fixed column on the right.
+ *
+ * Cards lead with the chip and detail pages lead with the name, deliberately.
+ * A card is read by scanning a grid, and the chip only forms a scannable
+ * column if it sits in the same slot on every card; descriptions wrap to one
+ * or two lines, so anything placed after them lands at a different height.
+ * A detail page has one chip and no column to keep, so the name leads there.
  */
 export interface VendorCardProps {
   vendor: VendorSummary;

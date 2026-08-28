@@ -113,12 +113,9 @@ export default async function MarketPage({ params }: { params: Promise<{ slug: s
       >
         <div className="md:grid md:grid-cols-[minmax(0,1fr)_330px] md:items-end md:gap-[34px]">
           <div>
-            <div className="flex flex-wrap items-center gap-2.5">
-              <StatusChip status={market.status} onDark />
-              <VerificationChip freshness={market.freshness} onDark />
-            </div>
-
-            <h1 className="mt-3 font-display text-[30px] leading-[1.1] tracking-[-0.7px] text-cream md:text-[42px] md:leading-[1.05] md:tracking-[-1.2px]">
+            {/* Name leads on detail pages; the countdown chip follows it. See
+                the note in VendorDetail for why cards do the opposite. */}
+            <h1 className="font-display text-[30px] leading-[1.1] tracking-[-0.7px] text-cream md:text-[42px] md:leading-[1.05] md:tracking-[-1.2px]">
               {market.name}
             </h1>
 
@@ -131,6 +128,11 @@ export default async function MarketPage({ params }: { params: Promise<{ slug: s
                 {market.description}
               </p>
             ) : null}
+
+            <div className="mt-3 flex flex-wrap items-center gap-2.5">
+              <StatusChip status={market.status} onDark />
+              <VerificationChip freshness={market.freshness} onDark />
+            </div>
           </div>
 
           <div className="mt-4 hidden flex-col gap-2.5 md:flex">{actions(true)}</div>
