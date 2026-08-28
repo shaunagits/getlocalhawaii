@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { getSlugSets, loadCategory, loadMarket, loadMarketListing, loadVendor } from "@/lib/queries";
+import {
+  MARKETS_CATEGORY,
+  getSlugSets,
+  loadCategory,
+  loadMarket,
+  loadMarketListing,
+  loadVendor,
+} from "@/lib/queries";
 import { dayName, longTime } from "@/lib/time";
 
 import { CategoryResults } from "./CategoryResults";
@@ -19,8 +26,6 @@ import { VendorDetail } from "./VendorDetail";
  * rather than the vendors ones, so they branch to their own components at
  * both depths.
  */
-
-export const MARKETS = "farmers-markets";
 
 export const dynamic = "force-dynamic";
 
@@ -45,7 +50,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const kind = await kindOf(one);
   const path = `/${one}/${two}`;
 
-  if (kind === "island" && two === MARKETS) {
+  if (kind === "island" && two === MARKETS_CATEGORY) {
     const { listing } = await loadMarketListing(one);
     if (!listing) return {};
 
@@ -74,7 +79,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     };
   }
 
-  if (kind === "category" && one === MARKETS) {
+  if (kind === "category" && one === MARKETS_CATEGORY) {
     const { market } = await loadMarket(two);
     if (!market) return {};
 
@@ -155,7 +160,7 @@ export default async function Page({
   const kind = await kindOf(one);
 
   if (kind === "island") {
-    if (two === MARKETS) return <MarketResults islandSlug={one} />;
+    if (two === MARKETS_CATEGORY) return <MarketResults islandSlug={one} />;
 
     const { filter, product } = await searchParams;
     return (
@@ -164,7 +169,7 @@ export default async function Page({
   }
 
   if (kind === "category") {
-    if (one === MARKETS) return <MarketDetail slug={two} />;
+    if (one === MARKETS_CATEGORY) return <MarketDetail slug={two} />;
 
     return <VendorDetail categorySlug={one} slug={two} />;
   }

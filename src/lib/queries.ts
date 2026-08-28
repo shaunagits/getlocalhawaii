@@ -22,7 +22,7 @@ import {
   getStatus,
   hawaiiWeek,
 } from "./status";
-import { LEI_TYPES } from "../content/lei-types";
+import { type QueryMatch, MARKETS_CATEGORY, resolveQuery } from "./search";
 import { asciiSlug } from "./slug";
 import { supabase } from "./supabase";
 import { hawaiiClock, hawaiiDaysBetween, isSameHawaiiDay, minutesFromTime, toDate } from "./time";
@@ -326,20 +326,6 @@ export interface AnswerList {
   subjects: string[];
 }
 
-/**
- * What a typed query resolved to.
- *
- * "none" matters: the old behaviour returned the entire directory when nothing
- * matched, which is invisible while nobody can type but reads as a broken
- * search the moment there is a box on the page.
- */
-export type QueryMatch =
-  | { kind: "all" }
-  | { kind: "category"; slug: string; label: string }
-  | { kind: "leiType"; slug: string; label: string }
-  | { kind: "product"; label: string }
-  | { kind: "none"; term: string };
-
 export interface AnswerQuery {
   /** What they are looking for. */
   q?: string;
@@ -375,7 +361,8 @@ export async function getAnswers(input: AnswerQuery, now: Date): Promise<AnswerL
   // location control still offers areas the current query has ruled out.
   const areas = areaOptions(vendors);
 
-  if (match.kind === "none") vendors = [];
+  // A markets query has no vendor answer; the page links out to the listing.
+  if (match.kind === "none" || match.kind === "markets") vendors = [];
   if (match.kind === "leiType" || match.kind === "product") {
     const wanted = match.kind === "leiType" ? match.slug : asciiSlug(match.label);
     vendors = vendors.filter((vendor) =>
@@ -412,37 +399,6 @@ function areaOptions(vendors: VendorSummary[]) {
   return [...counts.entries()]
     .map(([slug, entry]) => ({ slug, ...entry }))
     .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
-}
-
-/** Matched most specific first, so a lei type beats the category it sits in. */
-function resolveQuery(
-  query: string | undefined,
-  categories: { slug: string; name: string }[],
-  labels: string[],
-): QueryMatch {
-  const term = query?.trim();
-  if (!term) return { kind: "all" };
-
-  const needle = asciiSlug(term);
-  if (!needle) return { kind: "all" };
-
-  const leiType = LEI_TYPES.find(
-    (type) => needle === type.slug || needle.split("-").includes(type.slug),
-  );
-  if (leiType) return { kind: "leiType", slug: leiType.slug, label: leiType.name };
-
-  const category = categories.find(
-    (entry) => needle === entry.slug || needle.split("-").includes(entry.slug),
-  );
-  if (category) return { kind: "category", slug: category.slug, label: category.name };
-
-  const label = labels.find((entry) => {
-    const slug = asciiSlug(entry);
-    return needle === slug || needle.includes(slug) || slug.includes(needle);
-  });
-  if (label) return { kind: "product", label };
-
-  return { kind: "none", term };
 }
 
 async function categoryList(): Promise<{ slug: string; name: string }[]> {
@@ -952,7 +908,8 @@ export function daysSince(event: LogEntry, now: Date): number {
   return hawaiiDaysBetween(event.verifiedAt, now);
 }
 
-export type { VendorStatus, Freshness };
+export type { VendorStatus, Freshness, QueryMatch };
+export { MARKETS_CATEGORY };
 
 /**
  * Island and category slugs share the first URL segment: /oahu/lei is a

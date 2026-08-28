@@ -57,7 +57,9 @@ export default async function Home({
 
           <GuideLink match={match} />
 
-          {vendors.length === 0 ? (
+          {match.kind === "markets" ? (
+            <MarketsLink />
+          ) : vendors.length === 0 ? (
             <EmptyState match={match} areaName={areaName} openOnly={when === "open"} />
           ) : (
             <div className="flex flex-col gap-2.5 md:mt-[18px] md:grid md:grid-cols-3 md:gap-3.5">
@@ -95,6 +97,28 @@ function GuideLink({ match }: { match: QueryMatch }) {
         Read the {type.name.toLowerCase()} guide →
       </Link>
     </p>
+  );
+}
+
+/**
+ * Markets are not vendors, so the search underneath this page cannot answer a
+ * market query in place. Without this it fell through to "we do not have
+ * anything listed for farmers market", which is the opposite of the truth.
+ */
+function MarketsLink() {
+  return (
+    <div className="mt-4 rounded-2xl border border-hairline bg-white p-4 md:mt-[18px]">
+      <p className="text-[14px] leading-[1.55] text-kai-800">
+        Farmers markets keep a weekly schedule rather than daily hours, so they have their own
+        page laid out as the week.
+      </p>
+      <Link
+        href="/oahu/farmers-markets"
+        className="mt-3 inline-block rounded-[10px] bg-kai-800 px-4 py-2.5 text-[13.5px] font-semibold text-cream"
+      >
+        See this week&rsquo;s markets →
+      </Link>
+    </div>
   );
 }
 
