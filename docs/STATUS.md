@@ -1,20 +1,22 @@
 # Status
 
 ## What works
-- Live at https://getlocalhawaii.com, building from GitHub on every push to `main`. Typecheck and lint clean.
-- 14 real Oʻahu lei vendors and, new today, 23 real Oʻahu fish vendors from public sources (data/fish-vendors-oahu.csv, migration 20260826090000). Each carries source_url and a dated source_check; TBC fields import as NULL.
-- Fish covers Pier 38, Kalihi, Chinatown, town, windward, north shore and Waiʻanae, poke counters included. Tamashiro Market excluded: closed permanently 2026-04-30.
-- Hero search, nine lei capture pages, JSON-LD, sitemap (26 urls), robots.txt all unchanged and working.
+- Live at https://getlocalhawaii.com, building from GitHub on every push to `main`. Typecheck and lint clean, 59 unit tests passing.
+- Three real categories now: 14 lei vendors, 23 fish vendors, and new today 17 farmers markets (13 City People's Open Market sites, 4 Hawaii Farm Bureau) in data/farmers-markets-oahu.csv, migration 20260827090000.
+- /oahu/farmers-markets is the listing and the calendar in one page, grouped Today then the rest of the week, with a next-opening state when today is finished. Each market has a page at /farmers-markets/[slug] carrying Event schema, next four dates and a countdown.
+- The People's Open Market rows are the first records with real coordinates, taken from the City's own map pins, so their Directions buttons point at a pin rather than a name search.
+- Cards lead with the status chip; detail pages and category headers now lead with the name, per the updated canvas.
 
 ## In progress
-- Fish vendors are in the database but /oahu/fish has no prose yet and fish pages are not in the sitemap; capture pages and SEO wiring are the next build step.
+- Nothing half-built. The markets work is complete and committed.
 
 ## Next 3 steps
-1. Write /oahu/fish category prose plus Kalihi and Chinatown fish area coverage ("kalihi fish market" and "chinatown honolulu fish market" are the keyword targets).
-2. Phone-check the four fish vendors imported without hours (Blue Seafood, Kahuku Superette, Ono Seafood, K.Bay Bros) and Alicia's magazine-sourced hours.
-3. Still outstanding: Supabase env vars in Vercel Preview, Search Console property + sitemap submission, lei data gaps (6 of 14 without hours).
+1. Run `npm run dev` and eyeball /oahu/farmers-markets, a market page, and /oahu/lei. Nothing in this batch has been seen rendered: the sandbox cannot run next build or the dev server against macOS node_modules.
+2. Decide what /oahu/produce should be. The design added a "produce" home chip but the category holds 2 unsourced vendors, so that chip currently answers "nothing listed".
+3. Fish still has no category prose and is not in the sitemap; /oahu/fish renders but was left out of the nav.
 
 ## Known issues
-- "near" is area equality, not proximity: no vendor has lat or lng. Fish makes this bite harder since fish buyers search by proximity.
-- The Kaimukī market placeholders remain seeded but suppressed; the Windward Fish Guy placeholder still sits in the fish category without a source_url, so it stays out of search and sitemap.
+- "near" is still area equality, not proximity. Markets have coordinates now, vendors do not.
+- Hawaii Farm Bureau markets have no coordinates or addresses, and no vendor rosters yet; their per-market pages are the thinnest on the site.
+- The City schedule page was last modified Aug 2025 and links a 2025 holiday PDF, so it may lag its own flyer. Worth a scheduled weekly fetch-and-diff.
 - Preview deployments have no Supabase env vars, so branch builds fail.

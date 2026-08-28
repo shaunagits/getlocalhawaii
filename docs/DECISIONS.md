@@ -54,3 +54,13 @@ Append-only. One line per entry: date, decision, one-phrase reason.
 2026-08-26: Conflicting or stale third-party hours import as no hours with a call-ahead note in good_to_know (Blue Seafood, Kahuku Superette, Ono Seafood, K.Bay Bros) - a wrong open-now is worse than a blank.
 2026-08-26: Honolulu Fish Company imports with ships_mainland true and no hours - its posted range reads as operating hours and walk-in retail is unconfirmed.
 2026-08-26: Multi-location vendors get one row per location (Fresh Catch, Maguro Brothers, Tamura's) - hours and open-now are per location.
+2026-08-27: Cards lead with the status chip, detail pages lead with the name - the updated canvas put the name first everywhere, but descriptions wrap to one or two lines, so a chip after them loses the scannable status column down a grid.
+2026-08-27: Markets move to /oahu/farmers-markets and /farmers-markets/[slug], retiring /markets/[slug] - the generic slug is worthless as a URL and markets now follow the same shape as lei and fish.
+2026-08-27: The farmers markets category page is the markets calendar; there is no separate calendar page - Shauna's call, two surfaces listing the same seventeen markets is duplicate content.
+2026-08-27: The markets listing groups by day, not by open or closed - thirteen of seventeen run under an hour a week, so an open-now grouping renders an empty page for most of the week.
+2026-08-27: Only today's market cards get a live status chip; later days show the window - "opens 10a" is meaningless for a market three days out.
+2026-08-27: Market pages carry Event schema with eventSchedule, not LocalBusiness - a People's Open Market stop is vendors in a park for an hour a week, not a business keeping opening hours.
+2026-08-27: Query resolution matches categories before market phrases - "kalihi fish market" is a fish keyword target, and a market-first test sent it to the wrong page.
+2026-08-27: People's Open Market coordinates come from the City's own Google Maps pins, linked off its schedule page - not a geocode of the park name, which lands in the wrong corner of a large park.
+2026-08-27: Hawaii Farm Bureau markets import with null coordinates and null addresses - their page names the venue and the parking and publishes neither.
+2026-08-27: The City's shared shopping rules and pricing sit once in the listing sidebar, not on each of the thirteen market pages - identical text thirteen times is what thin content means.
