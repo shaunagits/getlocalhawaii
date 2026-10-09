@@ -1,0 +1,146 @@
+# Get Local Hawaii: Strategy and Site Plan
+
+Written 2026-10-08. The working plan after the October restart. Update in place as decisions change; one-line decisions also go in DECISIONS.md.
+
+## Direction
+
+A small, low-upkeep content site about lei and lūʻau on Oʻahu, written by someone who lives here and keeps it current. Not a local "open now" directory and not a marketplace.
+
+Audiences, in order of value:
+1. Visitors planning a trip (lūʻau, lei on arrival, lei classes, Lei Day).
+2. Visitors and locals at the airport now (where to buy a lei, which stands are open).
+3. Mainland buyers sending a lei (graduations, memorials, weddings).
+
+Locals searching for a lei shop are the lowest-value audience: they already know their stand, and Google Maps answers "near me".
+
+## How it makes money
+
+- Lūʻau and activity affiliate links: Viator 8%, GetYourGuide about 8%, Polynesian Cultural Center 5% via Impact. A lūʻau for two earns roughly $24 to $36.
+- Lei greeting affiliate links: $3 to $12 per booking. Small.
+- Shop referral codes on the shipping comparison: negotiate about 10%, roughly $8 to $15 per order. No shop advertises a program; ask directly.
+- Later, once traffic exists: clearly labeled paid placements for lei stands or lūʻau.
+- Not now: display ads (pennies at current traffic), paid search ads ("ship lei to mainland" bids reach $7.87 a click), self-fulfilled shipping (see Research).
+
+Phases:
+- Phase 0, Oct to Dec 2026: design and build the first pages, set up tracking, apply to affiliate programs once the lūʻau guide is live. $0.
+- Phase 1, Jan to Jun 2027: winter visitor season tests lūʻau and airport pages; Apr to May tests the shipping comparison and email reminder. Tens to low hundreds of dollars a month.
+- Phase 2, mid 2027: double down on what earned. Target $100 to $500 a month.
+- Checkpoint, end of June 2027: under about 1,000 visits a month and under $50 a month means maintenance mode.
+
+Approval for affiliate programs comes from useful content, not sales: build pages with plain links to operators first, apply, then swap in affiliate links. Route every outbound link through one central partner list so the swap is one change.
+
+## Site map
+
+```
+/                          Home: plain site, three photo doors (airport, luau, send a lei)   new, designed
+/oahu/airport-lei          Honolulu airport lei stands                                      new, designed
+/oahu/luau                 Oʻahu lūʻau guide, 2026                                          new, designed
+/send-a-lei                Shipping comparison + arrival checker + April reminder signup   new, designed
+/guides/taking-a-lei-home  TSA, agriculture inspection, flowers that can't leave Hawaiʻi    new, not designed
+/oahu/lei                  Lei hub                                                          exists
+/oahu/lei/[type]           Pikake, maile, etc. Add "buy on Oʻahu" and "ship one"            exists
+/lei/[slug]                Lei shop pages, feed the airport page                            exists
+/guides/...                Graduation (exists), etiquette                                   partly
+/about                     Who writes this and how pages are checked                        new
+/disclosure, /privacy      Affiliate disclosure, privacy policy (GA4 cookies, email)        new
+```
+
+Navigation: Lūʻau guide, Airport lei, Send a lei, Lei guide.
+
+Home is a plain website, not an app or quiz: most visitors land on inner pages from search, the doors ask "what do you need?" in one tap, and Google needs plain links and text.
+
+Out of the navigation, pages stay live: fish (/oahu/fish) and farmers markets (/oahu/farmers-markets, /farmers-markets/[slug]). Blue Seafood brought 2 of the first 7 search clicks. Fix their expired UNCONFIRMED labels. Possible later return as visitor guides: "best poke near Waikīkī", "farmers markets worth a visit" (KCC Saturday).
+
+Shelved: the Lei Finder request flow and the For Lei Shops pilot page (Sep 12 design).
+
+Keep existing indexed URLs; redirect anything that moves. Store the new comparisons as content files, not database tables.
+
+Spelling: Hawaiian spellings in page copy; plain spellings (Hawaii, Oahu, luau) in titles and URLs, plus once naturally in the intro.
+
+## Pages, in build order
+
+### 1. Honolulu airport lei stands (/oahu/airport-lei)
+Answers: where are the stands, which are open, what does a lei cost, buy your own or book a greeting.
+Sections: hero, where to find them (drawn map + 3 steps + cell phone lots), the stands (card per stand with its own hours and open now), what a lei costs (photo per lei type + price), buy or book a greeting (affiliate later), flying home with a lei (TSA, USDA rules), Since 1945 (history, Maile Lee quote, HPR 2023).
+Needs a site visit: which stands operate in 2026 (8 names found: Maile's, Gladys', Sophia's, Pua Melia #12, Harriet's #1, Dorothy's, Martha's, Rachel's), each stand's hours, payment, phone, stall number, prices by lei type, walking route from baggage claim, photos.
+Sourced facts already in the design: stands on the left of the entry road before Terminal 1, generally 6a to 10p (HDOT); parking first 15 min free, $1 to 30 min, $3 to 1 hr from Jul 1 2026 (HDOT); free cell phone lots on Aolele St near Lagoon Dr and Service Road A by the airport post office; greetings $30 to $50 per person, about 48 hours notice, meet at baggage claim (not past security); USDA: lei allowed after agriculture inspection, jade vine, Mauna Loa and citrus family prohibited.
+
+### 2. Oʻahu lūʻau guide, 2026 (/oahu/luau)
+Comparison table of every Oʻahu lūʻau: price, location and drive time, food, show, transport, who it suits, checked date. "What changed in 2026": Paradise Cove closed Dec 31 2025, Kaula Lūʻau opened Feb 27 2026, many ranking guides are stale. Attending a few makes it first-hand. Biggest money page; "luau oahu" is 10K to 100K US searches a month.
+
+### 3. Send a lei to the mainland (/send-a-lei)
+Independent comparison of 6 to 8 Hawaiʻi shops that ship: lei price, real shipping cost, order deadline, overnight vs 2-day by region, delay and refund policy, Hawaiʻi-grown vs imported. "Will it arrive in time" checker. April graduation reminder signup (one email around early April). Neutral ranking: shops that pay referral fees are not ranked higher, and the page says so.
+
+### 4. Home, About, Disclosure, Privacy
+### 5. Lei type page updates, then supporting guides
+
+## Getting traffic
+
+1. Google search (main source, 3 to 9 months to rank). Quickest wins: airport stands (no good page exists; Search Console already shows "airport lei stand" searches), 2026 lūʻau update.
+2. Pinterest (lūʻau, graduation lei, lei types; works within weeks).
+3. Reddit and forums (r/VisitingHawaii, r/Oahu, Tripadvisor Oʻahu, Cruise Critic). Link the page, never an affiliate link.
+4. Local press: data stories ("what 8 lei shops really charge to ship", "where to get a lei at the airport now"), Lei Day May 1 each year. Featured shops may link to the comparison.
+5. Email: April graduation reminder.
+6. Short video (Reels, TikTok, Shorts) as time allows.
+
+Seasons: Oct to Dec build; Dec to Mar visitor high season; Mar to May graduation; June checkpoint.
+
+## Setup checklist
+
+- [ ] GA4 with outbound click tracking, plus a cookie notice
+- [ ] Confirm aloha@getlocalhawaii.com forwards to hello@shauna.digital (send a test)
+- [ ] Privacy policy and affiliate disclosure pages
+- [ ] Pinterest business account, claim the domain (DNS on Cloudflare)
+- [ ] After the lūʻau guide is live: Viator, GetYourGuide, Polynesian Cultural Center (Impact); W-9 and bank details for each
+- [ ] Ask Cindy's, Hawaii Lei Stand, Buy Hawaiian Lei for referral codes once the shipping page draft exists
+- [ ] Email tool (Buttondown or Kit) by February, with DNS records
+- [ ] Hawaiʻi GET license ($20) for commission income; confirm with a tax preparer
+- [ ] Delete the keyword plan "Plan from Oct 8, 2026, 5 PM" in Google Ads (Shauna, optional)
+- [ ] GA4 chosen for analytics; aloha@getlocalhawaii.com is the contact address (confirm it forwards to hello@shauna.digital)
+- [ ] Fix or hide the expired UNCONFIRMED labels on the live directory before applying to affiliate programs
+
+## Design (in progress)
+
+Canvas: https://claude.ai/artifact/WDtrJ1ZWb74eENEW5J2fcu (copies in docs/designs_100826/). Mobile and desktop boards for airport, home, lūʻau, send a lei.
+- Fonts: LINE Seed JP for body and headings (400/700/800); Playwrite NG Modern for headlines, the logo and small human touches. Two fonts only. LINE Seed JP lacks ō/Ō.
+- Colors: one accent, orchid purple #8E4FB8 (the classic orchid lei). Charcoal #15181B and white as neutrals. Light orchid #D9C2F0 for accent text on dark. Green #4ADE80 only for the "open" light. White text and icons on purple.
+- Logo: "Get Local Hawaii" in Playwrite on a white hanging shop sign, two cords, straight.
+- Hero: full-bleed photo with text on a smoked glass panel (charcoal 55% with blur). Mobile panel slides up over the bottom of the photo. Hero status line: glowing green dot + "[N] of [M] stands open now" once per-stand hours exist.
+- Wayfinding signs: section headings drawn as signs (purple arrow box + charcoal bar + white fact tag such as "The stands | 8 stands"). A tag must carry a real fact or it is left off.
+- Arrow: bold solid wayfinding arrow. Direction has meaning everywhere: down = this page, right = another page on the site, up-right = leaves the site (bookings, shops).
+- One way to jump per page: long pages get an "On this page" directory under the hero; short pages get one hero sign button. Never both.
+- Airport page (v2, chosen): route line with icons (car, parking, walking, cell phone lot), dark "arrivals board" stand list (open light, name, stall and hours, phone icon; no per-stand directions), stand-row photo strip (several photos, one wide photo, or hidden; Instagram handles as tags, feeds only with each stand's permission), lei price circles, buy-or-book split card, 3-milestone history timeline, Maile Lee quote. Flying-home rules moved to the taking-a-lei-home guide.
+- Lūʻau page: 2026 changes note, filter chips (Families, Couples, Budget, Big show, North Shore day; "good for" tags to confirm), one card per lūʻau with "Check dates" up-right link, island map, how to choose.
+- Send a lei page: arrival checker (event date + west or east of the Rockies gives an order-by date; estimate only), neutral A to Z shipper list (table on desktop), which lei travel well, before you order, April reminder signup.
+- Images, ideal hero per page: home, a lei being placed over someone's shoulders; airport, the stand row at golden hour; lūʻau, dancers or fire knife at sunset (operator press kit or own visit); send a lei, a lei coiled in its open shipping box. No stock or AI images at launch; recognizable people need releases. Test photos on the canvas are placeholders.
+- Before visits: missing details are hidden, never shown as brackets; public info shows its source and date; the live open count waits for per-stand hours.
+
+## Vendors and outreach
+
+Tracker: docs/vendor-tracker.xlsx (status dropdown, action column, summary tab, how-to tab).
+- Listing depends on verification (own visit, or a vendor's own published info, dated), not on replies. Outreach is for photos, Instagram permission, referral deals and corrections.
+- Round 1 launch list (17): 8 airport stands to confirm in person; Germaine's, Toa, Ka Moana, Polynesian Cultural Center, Chief's; Cindy's, Flower Leis, Buy Hawaiian Lei, Hawaii Flower Lei.
+- Round 2 (6): Kaula Lūʻau, Hawaii Lei Stand, Shaka Lei, The Hawaiian Lei Company, Aloha Island Lei, Greeters of Hawaii.
+- Monthly check day: process replies, add verified, remove anything flagged, update dates.
+- Removal rule: closed, or no confirmation after two attempts or 30 days.
+- Never show pending vendors publicly.
+
+## Research summary (Oct 2026)
+
+Demand, US-wide Keyword Planner, Sep 2025 to Aug 2026 (ranges because no active campaign):
+- 10K to 100K: luau oahu; graduation leis (includes ribbon, candy, money lei); hawaiian lei
+- 1K to 10K: best luau oahu; polynesian cultural center luau; lei day; fresh flower lei; fresh flower leis for graduation; maile, pikake, plumeria, puakenikeni, orchid, haku lei
+- 100 to 1K: ship lei to mainland (highest bids, up to $7.87); four lei greeting variants; funeral lei; tuberose lei; real hawaiian lei; lei making class oahu
+- 10 to 100: order lei online; fresh lei delivery; hawaiian lei delivery; lei delivery california
+- Too small to report: lei delivery utah, lei delivery las vegas, airport lei stand variants
+The August 2026 exports in ~/Desktop/claudecode/research/search were geo-targeted to Hawaiʻi, so they measure local demand only. Flower-name searches look mostly local.
+
+Search Console, Aug 18 to Oct 6 2026: 289 impressions, 7 clicks, average position 12.6. Top queries: blue seafood company, gladys lei stand, airport lei stand(s).
+
+Competition:
+- Gifting: about 8 Hawaiʻi shippers own the buying searches (Hawaii Flower Lei dominates flower names; also Hawaii Lei Stand, Buy Hawaiian Lei, Cindy's, Flower Leis, Aloha Island Lei, Shaka Lei, The Hawaiian Lei Company). Not real rivals: Leilani's Leis (mainland maker, Las Vegas and San Diego), FiftyFlowers (Thai bulk), Party City and Walmart (silk), mainland florists. Only independent comparison is a short 2022 Hawaii Magazine piece. Gaps: real shipping cost, cutoffs, delay policy, Hawaiʻi-grown vs imported.
+- Visitors: greetings and "best luau" are hard (OTAs, to-hawaii.com, Shaka Guide, hawaii-guide.com, big blogs). Easy to moderate: airport stands vendor by vendor, buying your own lei, current lei class calendar.
+
+Self-fulfilled shipping, rejected for now: UPS Next Day Air from Hawaiʻi is $84 to $119 retail for a small box; Cindy's charges $55 for 1 to 2 lei, which only works with negotiated rates. A single orchid lei loses about $11 per order at retail freight. Every box needs USDA inspection (or a compliance agreement). Peak season is extreme. Revisit only for bundles and premium lei, after negotiated freight under about $45 a box.
+
+Sources: Cindy's shipping page; UPS AK/HI retail rates 2026; USDA APHIS shipping from Hawaiʻi; Viator partner resources; polynesia.com/affiliates; Shaka Guide lūʻau guide; Hawaii News Now on Paradise Cove (Oct 28 2025); HDOT HNL lei greeting page; HDOT parking release Jun 9 2025; HDOT Pua Melia permit Jul 2 2026; Hawaiʻi Public Radio Apr 28 2023; Hawaii Business Oct 5 2020; Civil Beat Jan 6 2015; Beat of Hawaii Sep 2 2025 and May 21 2025; hawaiitravelwithkids.com; thehawaiivacationguide.com; hawaii-guide.com; Hawaii Magazine shipping guide.

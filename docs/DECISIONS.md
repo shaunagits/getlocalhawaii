@@ -64,3 +64,32 @@ Append-only. One line per entry: date, decision, one-phrase reason.
 2026-08-27: People's Open Market coordinates come from the City's own Google Maps pins, linked off its schedule page - not a geocode of the park name, which lands in the wrong corner of a large park.
 2026-08-27: Hawaii Farm Bureau markets import with null coordinates and null addresses - their page names the venue and the parking and publishes neither.
 2026-08-27: The City's shared shopping rules and pricing sit once in the listing sidebar, not on each of the thirteen market pages - identical text thirteen times is what thin content means.
+2026-09-12: The Lei Finder pilot is Oʻahu-only; no island selector, no other-island examples in the design - every listing we hold is Oʻahu, and a multi-island design promises coverage we cannot launch.
+2026-09-12: The homepage hero asks only occasion, date, and Oʻahu town or ZIP; quantity, fulfillment, flowers, budget and note move to one request-details screen - the first design asked every question twice.
+2026-09-12: Matching results appear before any personal information is requested, and contact plus consent is a modal opened by "Send my request" - people should see who they are sharing details with before sharing them.
+2026-09-12: Pilot shops are labeled "Participating" with a "Listed" month, never "Verified" - Verified is reserved for a shop we actually reached, per the freshness-chip rule.
+2026-09-12: The design carries no shop counts, prices, notice times, response-time promises, distances, or availability claims until participating shops supply them - same rule as the directory: never state what no source gave us.
+2026-09-12: Consent text names the channels ("by text, call, or email") and drops "I can opt out at any time" - text consent is held to a stricter standard and the opt-out line read as marketing consent.
+2026-09-12: Structural design changes are made in the Claude Design project and re-exported, not by hand-editing the .dc.html in docs/ - the export references support files that are not in the repo and hand edits fall out of sync with the design history.
+2026-09-12: "Airport greeting, met at the gate" becomes "Arrival lei greeting" - "at the gate" implies access past airport security that greeters do not have.
+2026-10-08: The site pivots to a visitor and mainland-gifting content site (airport lei, lūʻau, sending a lei); the local open-now directory stops being the product - locals already know their stand and Google Maps owns "near me".
+2026-10-08: Revenue comes from activity affiliates (Viator, GetYourGuide, Polynesian Cultural Center) and shop referral codes; no paid search or display ads - ad clicks cost more than a referral earns.
+2026-10-08: No self-fulfilled lei shipping for now - overnight freight from Hawaiʻi costs more than most orders earn; revisit only for bundles with negotiated freight under about $45 a box.
+2026-10-08: The Honolulu airport lei stands page is built first - weakest competition and Search Console already shows those searches.
+2026-10-08: The Lei Finder request flow and the For Lei Shops pilot are shelved - they serve the local audience the site is moving away from.
+2026-10-08: Fish and farmers markets leave the navigation but their pages stay live - they still earn search clicks.
+2026-10-08: Page copy keeps Hawaiian spellings; titles and URLs use plain spellings - that is how people search.
+2026-10-08: Two fonts only, LINE Seed JP and Playwrite NG Modern - a third font added nothing the bold weights could not do.
+2026-10-08: Hero text sits on a smoked glass panel over a full-bleed photo - a dark fade muddied the lei colors.
+2026-10-08: The hero shows a live "N of M stands open now" instead of fact tiles - a single hours range misleads on a page about many stands with their own hours.
+2026-10-08: No stock or AI-generated images at launch - the page's value is that someone local checked it.
+2026-10-08: The August keyword exports were Hawaiʻi-only and measure local demand; US-wide volumes come from the Oct 8 Keyword Planner run in STRATEGY.md.
+2026-10-08: The accent is orchid purple #8E4FB8 with white text on it - the orchid lei is the most recognized lei and no Hawaiʻi travel site uses purple; yellow and gold read as generic.
+2026-10-08: The airport page uses the v2 layout (route line, arrivals-board stand list, icon rows) - boxes only for content that earns one, everything else as icons and wayfinding.
+2026-10-08: Section headings are wayfinding signs carrying one real fact; arrow direction means down = this page, right = another page, up-right = leaves the site - visitors learn it once and can predict every click.
+2026-10-08: Each page gets one way to jump, a directory on long pages or a single hero sign on short ones, never both - they did the same job twice.
+2026-10-08: Home is a plain website with three photo doors, not an app or quiz - most traffic lands on inner pages and Google needs plain links.
+2026-10-08: Flying-home lei rules move to a "taking a lei home" guide - the airport page is about arriving.
+2026-10-08: Vendors are listed on verification (own visit or their own published info, dated), not on replying to outreach; removal rule is closed or no confirmation after two attempts or 30 days.
+2026-10-08: Missing details are hidden rather than shown as placeholders, so the site looks complete while outreach is in progress.
+2026-10-08: Instagram feeds only with each stand's permission and setup; otherwise own photos with a link to their account - Instagram requires the account owner to connect a feed.

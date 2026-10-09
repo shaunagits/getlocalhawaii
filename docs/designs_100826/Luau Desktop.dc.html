@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Oahu luau guide, desktop</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=LINE+Seed+JP:wght@400;700;800&amp;family=Playwrite+NG+Modern&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#15181B}a:hover{color:#3A4047}
+.wf-arrow,.wf-arrow-r{transition:transform .2s ease}
+a:hover .wf-arrow,h2:hover .wf-arrow{transform:translateY(3px)}
+a:hover .wf-arrow-r{transform:translateX(3px)}
+</style>
+</helmet>
+<div style="width: 100%; min-height: 100vh; background: #FFFFFF; color: #15181B; font-family: 'LINE Seed JP', system-ui, sans-serif; font-size: 16px; line-height: 1.6; display: flex; flex-direction: column">
+
+<section id="top" style="position: relative; min-height: 620px; color: #FFFFFF; overflow: hidden; background: #3E4A5C; display: flex; flex-direction: column">
+<div style="position: absolute; top: 0; left: 45%; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; padding: 32px; text-align: center; color: rgba(255,255,255,0.75); font-size: 13px; font-weight: 800; letter-spacing: 0.08em">[PHOTO: A LŪʻAU AT SUNSET, FIRE KNIFE OR HULA]</div>
+<div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(21,24,27,0.5) 0%, rgba(21,24,27,0) 22%)"></div>
+<div style="position: relative; max-width: 1160px; width: 100%; margin: 0 auto; padding: 0 32px; box-sizing: border-box; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap">
+<a href="HomeDesktop.dc.html" aria-label="Get Local Hawaii home" style="display: block; position: relative; width: 196px; height: 88px; text-decoration: none; flex: none">
+<span style="position: absolute; top: 4px; left: 46px; width: 8px; height: 8px; border-radius: 50%; background: #AEB4BA"></span>
+<span style="position: absolute; top: 4px; left: 142px; width: 8px; height: 8px; border-radius: 50%; background: #AEB4BA"></span>
+<span style="position: absolute; top: 9px; left: 49px; width: 2px; height: 22px; background: #CDB98E"></span>
+<span style="position: absolute; top: 9px; left: 145px; width: 2px; height: 22px; background: #CDB98E"></span>
+<span style="position: absolute; top: 28px; left: 14px; width: 168px; height: 54px; box-sizing: border-box; border-radius: 8px; background: #FFFFFF; border: 3px solid #15181B; box-shadow: 0 0 0 2px #FFFFFF, 0 6px 10px rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; color: #15181B; font-family: 'Playwrite NG Modern', cursive; font-size: 17px; line-height: 1">Get Local Hawaii</span>
+<span style="position: absolute; top: 25px; left: 46px; width: 8px; height: 8px; border-radius: 50%; background: #15181B"></span>
+<span style="position: absolute; top: 25px; left: 142px; width: 8px; height: 8px; border-radius: 50%; background: #15181B"></span>
+</a>
+<nav aria-label="Site" style="display: flex; flex-wrap: wrap; gap: 4px 28px; margin-top: 30px; font-weight: 700; font-size: 15px; text-shadow: 0 1px 8px rgba(0,0,0,0.5)">
+<a href="#top" style="color: #FFFFFF; text-decoration: none; padding: 8px 0; border-bottom: 3px solid {{accent}}">Lūʻau guide</a>
+<a href="DesktopV2.dc.html" style="color: #FFFFFF; text-decoration: none; padding: 8px 0">Airport lei</a>
+<a href="SendLeiDesktop.dc.html" style="color: #FFFFFF; text-decoration: none; padding: 8px 0">Send a lei</a>
+<a href="HomeDesktop.dc.html" style="color: #FFFFFF; text-decoration: none; padding: 8px 0">Lei guide</a>
+</nav>
+</div>
+<div style="position: relative; max-width: 1160px; width: 100%; margin: auto auto 0; padding: 40px 32px 48px; box-sizing: border-box">
+<div style="max-width: 560px; display: flex; flex-direction: column; gap: 16px; border-radius: 18px; padding: 32px 36px; background: rgba(21,24,27,0.55); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 16px 48px rgba(0,0,0,0.3)">
+<h1 style="margin: 0; font-family: 'Playwrite NG Modern', cursive; font-weight: 400; font-size: 46px; line-height: 1.4">Lūʻau on Oʻahu</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.5; color: #EEF0F2">Every lūʻau on the island, compared by price, place and who it suits. Updated for 2026.</p>
+<span style="font-size: 14px; color: #D9DCDF">{{ count }} lūʻau · prices checked [DATE]</span>
+<a href="#compare" aria-label="Jump to the comparison" style="align-self: flex-start; display: flex; align-items: stretch; min-height: 52px; border-radius: 8px; overflow: hidden; border: 1px solid #15181B; text-decoration: none; color: #15181B"><span style="flex: none; display: flex; align-items: center; justify-content: center; width: 52px; background: {{accent}}; color: #FFFFFF"><svg class="wf-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5v8.5h4.5L12 20.5 5 12h4.5z" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg></span><span style="display: flex; align-items: center; background: #FFFFFF; padding: 0 20px; font-weight: 800; font-size: 16px; letter-spacing: 0.08em">COMPARE ALL</span></a>
+</div>
+</div>
+</section>
+
+<div style="max-width: 1160px; width: 100%; margin: 0 auto; padding: 0 32px; box-sizing: border-box; display: flex; flex-direction: column">
+
+<section style="padding: 36px 0 8px; display: flex; gap: 16px; align-items: flex-start; max-width: 820px">
+<span style="flex: none; width: 44px; height: 44px; border-radius: 50%; background: {{accent}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v5M12 16.5v.5"></path><circle cx="12" cy="12" r="9"></circle></svg></span>
+<div><strong style="display: block">What changed in 2026</strong><span style="color: #4A5158">Paradise Cove closed on Dec 31, 2025 after nearly 50 years. Kaula Lūʻau opened on Feb 27, 2026. Many guides online still list Paradise Cove.</span></div>
+</section>
+
+<section id="compare" style="padding: 40px 0 16px; display: flex; flex-direction: column; gap: 18px">
+<h2 style="margin: 0; align-self: flex-start; display: flex; align-items: stretch; border-radius: 6px; overflow: hidden; border: 1px solid #15181B; font-weight: 800; font-size: 24px; line-height: 1.25"><span style="flex: none; display: flex; align-items: center; justify-content: center; width: 48px; background: {{accent}}"><svg class="wf-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5v8.5h4.5L12 20.5 5 12h4.5z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.6" stroke-linejoin="round"></path></svg></span><span style="background: #15181B; color: #FFFFFF; padding: 10px 18px">Compare the lūʻau</span><span style="background: #FFFFFF; color: #15181B; padding: 10px 16px; font-size: 16px; font-weight: 700; border-left: 1px solid #15181B; display: flex; align-items: center">{{ count }} lūʻau</span></h2>
+<div role="group" aria-label="Filter by what suits you" style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{ chips }}" as="c" hint-placeholder-count="6">
+<button onClick="{{ c.pick }}" style="min-height: 42px; padding: 0 16px; border-radius: 999px; font-family: inherit; font-weight: 700; font-size: 15px; cursor: pointer; {{ c.style }}">{{ c.label }}</button>
+</sc-for>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+<sc-for list="{{ visible }}" as="l" hint-placeholder-count="4">
+<article style="border: 1px solid #DCDDD8; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column">
+<div style="display: flex; gap: 16px; padding: 16px; flex-grow: 1">
+<div style="flex: none; width: 120px; height: 120px; border-radius: 10px; background: #F2F2EE; border: 1px dashed #A3A9AE; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: #5B6268">PHOTO</div>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+<sc-if value="{{ l.isNew }}" hint-placeholder-val="{{ false }}"><span style="align-self: flex-start; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; background: {{accent}}; color: #FFFFFF; padding: 2px 6px; border-radius: 4px">NEW IN 2026</span></sc-if>
+<h3 style="margin: 0; font-weight: 800; font-size: 20px; line-height: 1.25">{{ l.name }}</h3>
+<span style="display: flex; align-items: center; gap: 6px; font-size: 15px; color: #4A5158"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>{{ l.place }}</span>
+<span style="font-weight: 800; font-size: 18px">{{ l.price }} <span style="font-weight: 400; font-size: 14px; color: #5B6268">per person</span></span>
+</div>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 16px; border-top: 1px solid #ECECE8; background: #FAFAF8">
+<span style="font-size: 14px; color: #4A5158">{{ l.tagText }}</span>
+<a href="#compare" style="flex: none; display: flex; align-items: center; gap: 6px; min-height: 42px; padding: 0 16px; border-radius: 8px; background: #15181B; color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 14px">Check dates<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+</div>
+</article>
+</sc-for>
+</div>
+</section>
+
+<section id="map" style="padding: 48px 0 24px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start">
+<div style="flex: 3 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<h2 style="margin: 0; align-self: flex-start; display: flex; align-items: stretch; border-radius: 6px; overflow: hidden; border: 1px solid #15181B; font-weight: 800; font-size: 24px; line-height: 1.25"><span style="flex: none; display: flex; align-items: center; justify-content: center; width: 48px; background: {{accent}}"><svg class="wf-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5v8.5h4.5L12 20.5 5 12h4.5z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.6" stroke-linejoin="round"></path></svg></span><span style="background: #15181B; color: #FFFFFF; padding: 10px 18px">Where they are</span><span style="background: #FFFFFF; color: #15181B; padding: 10px 16px; font-size: 16px; font-weight: 700; border-left: 1px solid #15181B; display: flex; align-items: center">Island map</span></h2>
+<div style="aspect-ratio: 16 / 10; border-radius: 16px; background: #F2F2EE; border: 1px dashed #A3A9AE; display: flex; align-items: center; justify-content: center; text-align: center; padding: 24px; box-sizing: border-box; font-size: 15px; color: #4A5158">[DRAWN ISLAND MAP: a pin per lūʻau, Waikīkī marked for reference]</div>
+</div>
+<div style="flex: 2 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 16px; padding-top: 4px">
+<h2 style="margin: 0; font-weight: 800; font-size: 24px; line-height: 1.25">How to choose</h2>
+<div style="display: flex; gap: 14px; align-items: flex-start"><span style="flex: none; width: 44px; height: 44px; border-radius: 50%; background: #15181B; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13l2-5h12l2 5v4H4z"></path><path d="M6 17v2M18 17v2"></path></svg></span><div><strong style="display: block">Drive time</strong><span style="color: #4A5158">North Shore lūʻau make a full evening from Waikīkī. [DRIVE TIMES FROM OUR VISITS]</span></div></div>
+<div style="display: flex; gap: 14px; align-items: flex-start"><span style="flex: none; width: 44px; height: 44px; border-radius: 50%; background: #15181B; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="13" rx="2"></rect><path d="M5 11h14M8 20v-3M16 20v-3"></path></svg></span><div><strong style="display: block">Getting there</strong><span style="color: #4A5158">Some packages include a bus from Waikīkī. Check before you book a rental car.</span></div></div>
+<div style="display: flex; gap: 14px; align-items: flex-start"><span style="flex: none; width: 44px; height: 44px; border-radius: 50%; background: #15181B; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h16v3a2 2 0 0 0 0 4v3H4v-3a2 2 0 0 0 0-4z"></path></svg></span><div><strong style="display: block">Package tiers</strong><span style="color: #4A5158">Higher tiers usually add closer seats and drinks. [CONFIRM PER LŪʻAU]</span></div></div>
+</div>
+</section>
+
+<section style="padding: 32px 0 72px">
+<p style="margin: 0; font-family: 'Playwrite NG Modern', cursive; font-size: 22px; line-height: 1.7">A lei is often part of the welcome. Want your own? <a href="DesktopV2.dc.html">Where to buy one</a></p>
+</section>
+
+</div>
+
+<footer style="margin-top: auto; background: #15181B; color: #D9DCDF">
+<div style="max-width: 1160px; margin: 0 auto; padding: 32px; display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between; font-size: 14px">
+<a href="#top" style="color: #FFFFFF; font-weight: 700; font-size: 15px">Something changed? Tell us</a>
+<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 8px 20px"><a href="HomeDesktop.dc.html" style="color: #D9DCDF">Home</a><a href="DesktopV2.dc.html" style="color: #D9DCDF">Airport lei</a><a href="SendLeiDesktop.dc.html" style="color: #D9DCDF">Send a lei</a><a href="#top" style="color: #D9DCDF">About</a></nav>
+<span style="color: #AEB4BA; flex-basis: 100%">Some links may earn us a commission. It never changes what we recommend.</span>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","options":["#8E4FB8","#E8912D","#3F7A4A"],"default":"#8E4FB8","section":"Look"},"$preview":{"width":1280,"height":2700}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { filter: 'All' };
+  }
+  renderVals() {
+    const all = [
+      { name: "Germaine's Luau", place: 'Kapolei, west side', price: 'From $128', tags: ['Families'] },
+      { name: 'Toa Luau', place: 'Waimea Valley, North Shore', price: '$115 to $170', tags: ['North Shore day', 'Couples'] },
+      { name: 'Ka Moana Luau', place: 'Sea Life Park, Waimānalo', price: '$80 to $170', tags: ['Budget', 'Families'] },
+      { name: 'Aliʻi Lūʻau, Polynesian Cultural Center', place: 'Lāʻie, North Shore', price: '$60 to $250', tags: ['Big show', 'North Shore day', 'Budget'] },
+      { name: "Chief's Luau", place: "Wet'n'Wild, Kapolei", price: '$100 to $150', tags: ['Families'] },
+      { name: 'Kaula Lūʻau', place: '[LOCATION]', price: '[PRICE]', tags: ['Couples'], isNew: true }
+    ].map((l) => ({ ...l, tagText: 'Good for: ' + l.tags.join(', ') + ' [CONFIRM]' }));
+    const f = this.state.filter;
+    const labels = ['All', 'Families', 'Couples', 'Budget', 'Big show', 'North Shore day'];
+    return {
+      accent: this.props.accent ?? '#8E4FB8',
+      count: all.length,
+      visible: f === 'All' ? all : all.filter((l) => l.tags.indexOf(f) !== -1),
+      chips: labels.map((label) => ({
+        label: label,
+        pick: () => this.setState({ filter: label }),
+        style: label === f ? 'background: #15181B; color: #FFFFFF; border: 1px solid #15181B' : 'background: #FFFFFF; color: #15181B; border: 1px solid #C9CBC5'
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

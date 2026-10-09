@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Send a lei to the mainland, desktop</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=LINE+Seed+JP:wght@400;700;800&amp;family=Playwrite+NG+Modern&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#15181B}a:hover{color:#3A4047}
+.wf-arrow,.wf-arrow-r{transition:transform .2s ease}
+a:hover .wf-arrow,h2:hover .wf-arrow{transform:translateY(3px)}
+a:hover .wf-arrow-r{transform:translateX(3px)}
+</style>
+</helmet>
+<div style="width: 100%; min-height: 100vh; background: #FFFFFF; color: #15181B; font-family: 'LINE Seed JP', system-ui, sans-serif; font-size: 16px; line-height: 1.6; display: flex; flex-direction: column">
+
+<section id="top" style="position: relative; min-height: 580px; color: #FFFFFF; overflow: hidden; background: #5A3B4A; display: flex; flex-direction: column">
+<div style="position: absolute; top: 0; left: 45%; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; padding: 32px; text-align: center; color: rgba(255,255,255,0.75); font-size: 13px; font-weight: 800; letter-spacing: 0.08em">[PHOTO: A FRESH LEI NESTLED IN ITS SHIPPING BOX]</div>
+<div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(21,24,27,0.5) 0%, rgba(21,24,27,0) 22%)"></div>
+<div style="position: relative; max-width: 1160px; width: 100%; margin: 0 auto; padding: 0 32px; box-sizing: border-box; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap">
+<a href="HomeDesktop.dc.html" aria-label="Get Local Hawaii home" style="display: block; position: relative; width: 196px; height: 88px; text-decoration: none; flex: none">
+<span style="position: absolute; top: 4px; left: 46px; width: 8px; height: 8px; border-radius: 50%; background: #AEB4BA"></span>
+<span style="position: absolute; top: 4px; left: 142px; width: 8px; height: 8px; border-radius: 50%; background: #AEB4BA"></span>
+<span style="position: absolute; top: 9px; left: 49px; width: 2px; height: 22px; background: #CDB98E"></span>
+<span style="position: absolute; top: 9px; left: 145px; width: 2px; height: 22px; background: #CDB98E"></span>
+<span style="position: absolute; top: 28px; left: 14px; width: 168px; height: 54px; box-sizing: border-box; border-radius: 8px; background: #FFFFFF; border: 3px solid #15181B; box-shadow: 0 0 0 2px #FFFFFF, 0 6px 10px rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; color: #15181B; font-family: 'Playwrite NG Modern', cursive; font-size: 17px; line-height: 1">Get Local Hawaii</span>
+<span style="position: absolute; top: 25px; left: 46px; width: 8px; height: 8px; border-radius: 50%; background: #15181B"></span>
+<span style="position: absolute; top: 25px; left: 142px; width: 8px; height: 8px; border-radius: 50%; background: #15181B"></span>
+</a>
+<nav aria-label="Site" style="display: flex; flex-wrap: wrap; gap: 4px 28px; margin-top: 30px; font-weight: 700; font-size: 15px; text-shadow: 0 1px 8px rgba(0,0,0,0.5)">
+<a href="LuauDesktop.dc.html" style="color: #FFFFFF; text-decoration: none; padding: 8px 0">Lūʻau guide</a>
+<a href="DesktopV2.dc.html" style="color: #FFFFFF; text-decoration: none; padding: 8px 0">Airport lei</a>
+<a href="#top" style="color: #FFFFFF; text-decoration: none; padding: 8px 0; border-bottom: 3px solid {{accent}}">Send a lei</a>
+<a href="HomeDesktop.dc.html" style="color: #FFFFFF; text-decoration: none; padding: 8px 0">Lei guide</a>
+</nav>
+</div>
+<div style="position: relative; max-width: 1160px; width: 100%; margin: auto auto 0; padding: 40px 32px 48px; box-sizing: border-box">
+<div style="max-width: 560px; display: flex; flex-direction: column; gap: 16px; border-radius: 18px; padding: 32px 36px; background: rgba(21,24,27,0.55); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 16px 48px rgba(0,0,0,0.3)">
+<h1 style="margin: 0; font-family: 'Playwrite NG Modern', cursive; font-weight: 400; font-size: 44px; line-height: 1.4">Send a lei to the mainland</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.5; color: #EEF0F2">Fresh lei from Hawaiʻi shops that ship overnight. What it really costs, when to order, and which lei survive the trip.</p>
+</div>
+</div>
+</section>
+
+<nav aria-label="On this page" style="background: #15181B">
+<div style="max-width: 1160px; margin: 0 auto; padding: 18px 32px 22px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 12px; font-weight: 800; letter-spacing: 0.1em; color: #AEB4BA">ON THIS PAGE</span>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{ directory }}" as="d" hint-placeholder-count="4">
+<a href="{{ d.href }}" style="display: flex; align-items: stretch; min-height: 56px; border-radius: 6px; overflow: hidden; background: #23282D; text-decoration: none; color: #FFFFFF"><span style="flex: none; width: 40px; display: flex; align-items: center; justify-content: center; background: {{accent}}; color: #FFFFFF"><svg class="wf-arrow" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5v8.5h4.5L12 20.5 5 12h4.5z" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg></span><span style="display: flex; flex-direction: column; justify-content: center; padding: 6px 12px; line-height: 1.25"><span style="font-weight: 800; font-size: 15px">{{ d.label }}</span><span style="font-size: 13px; color: #AEB4BA">{{ d.tag }}</span></span></a>
+</sc-for>
+</div>
+</div>
+</nav>
+
+<div style="max-width: 1160px; width: 100%; margin: 0 auto; padding: 0 32px; box-sizing: border-box; display: flex; flex-direction: column">
+
+<section id="checker" style="padding: 56px 0 16px; display: flex; flex-direction: column; gap: 18px">
+<h2 style="margin: 0; align-self: flex-start; display: flex; align-items: stretch; border-radius: 6px; overflow: hidden; border: 1px solid #15181B; font-weight: 800; font-size: 24px; line-height: 1.25"><span style="flex: none; display: flex; align-items: center; justify-content: center; width: 48px; background: {{accent}}"><svg class="wf-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5v8.5h4.5L12 20.5 5 12h4.5z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.6" stroke-linejoin="round"></path></svg></span><span style="background: #15181B; color: #FFFFFF; padding: 10px 18px">Will it arrive in time?</span><span style="background: #FFFFFF; color: #15181B; padding: 10px 16px; font-size: 16px; font-weight: 700; border-left: 1px solid #15181B; display: flex; align-items: center">Order-by date</span></h2>
+<div style="background: #15181B; color: #FFFFFF; border-radius: 16px; padding: 24px 28px; display: flex; flex-wrap: wrap; gap: 24px 40px; align-items: flex-end">
+<label for="event-date-d" style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700">Event date
+<input id="event-date-d" type="date" value="{{ eventDate }}" onChange="{{ setDate }}" style="min-height: 50px; padding: 0 12px; border-radius: 10px; border: 1px solid #4A5158; background: #23282D; color: #FFFFFF; font-family: inherit; font-size: 16px; color-scheme: dark">
+</label>
+<div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 14px; font-weight: 700">Shipping to</span>
+<div role="group" aria-label="Shipping region" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{ regions }}" as="r" hint-placeholder-count="2">
+<button onClick="{{ r.pick }}" style="min-height: 50px; border-radius: 10px; font-family: inherit; font-weight: 700; font-size: 15px; cursor: pointer; {{ r.style }}">{{ r.label }}</button>
+</sc-for>
+</div>
+</div>
+<div style="flex: 1 1 260px; display: flex; flex-direction: column; gap: 4px; border-left: 1px solid #2E3439; padding-left: 28px">
+<span style="font-size: 13px; color: #AEB4BA; font-weight: 800; letter-spacing: 0.08em">ORDER BY</span>
+<span style="font-size: 32px; font-weight: 800; line-height: 1.2; color: #D9C2F0">{{ orderBy }}</span>
+<span style="font-size: 14px; color: #D9DCDF">{{ explain }}</span>
+</div>
+</div>
+<p style="margin: 0; font-size: 14px; color: #5B6268">An estimate, not a guarantee. Carriers deliver Tuesday to Saturday, and weather or inspections can add a day.</p>
+</section>
+
+<section id="shops" style="padding: 48px 0 16px; display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; align-self: flex-start; display: flex; align-items: stretch; border-radius: 6px; overflow: hidden; border: 1px solid #15181B; font-weight: 800; font-size: 24px; line-height: 1.25"><span style="flex: none; display: flex; align-items: center; justify-content: center; width: 48px; background: {{accent}}"><svg class="wf-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5v8.5h4.5L12 20.5 5 12h4.5z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.6" stroke-linejoin="round"></path></svg></span><span style="background: #15181B; color: #FFFFFF; padding: 10px 18px">Shops that ship, compared</span><span style="background: #FFFFFF; color: #15181B; padding: 10px 16px; font-size: 16px; font-weight: 700; border-left: 1px solid #15181B; display: flex; align-items: center">6 shops</span></h2>
+<p style="margin: 0; color: #4A5158">Listed A to Z. Some links earn us a referral fee; that never changes the order or what we say.</p>
+<div style="overflow-x: auto; border: 1px solid #DCDDD8; border-radius: 14px">
+<table style="width: 100%; border-collapse: collapse; font-size: 15px">
+<thead><tr style="background: #15181B; color: #FFFFFF; text-align: left"><th style="padding: 12px 16px; font-weight: 800">Shop</th><th style="padding: 12px 16px; font-weight: 800">Single orchid lei</th><th style="padding: 12px 16px; font-weight: 800">Shipping</th><th style="padding: 12px 16px; font-weight: 800">Speed</th><th style="padding: 12px 16px; font-weight: 800">Delays</th><th style="padding: 12px 16px"></th></tr></thead>
+<tbody>
+<sc-for list="{{ shops }}" as="s" hint-placeholder-count="6">
+<tr style="border-top: 1px solid #ECECE8; vertical-align: top">
+<td style="padding: 14px 16px; font-weight: 800">{{ s.name }}</td>
+<td style="padding: 14px 16px">{{ s.orchid }}</td>
+<td style="padding: 14px 16px">{{ s.ship }}</td>
+<td style="padding: 14px 16px; color: #4A5158">{{ s.speed }}</td>
+<td style="padding: 14px 16px; color: #4A5158">{{ s.policy }}</td>
+<td style="padding: 10px 16px; text-align: right"><a href="#shops" style="display: inline-flex; align-items: center; gap: 4px; min-height: 38px; padding: 0 12px; border-radius: 8px; border: 1px solid #15181B; text-decoration: none; font-weight: 700; font-size: 14px; white-space: nowrap">Visit<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></td>
+</tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+<p style="margin: 0; font-size: 14px; color: #5B6268">Prices and policies checked [DATE].</p>
+</section>
+
+<section style="padding: 48px 0 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px">
+<div id="travel" style="display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-weight: 800; font-size: 24px; line-height: 1.25">Which lei travel well</h2>
+<div style="display: flex; gap: 14px; align-items: flex-start"><span style="flex: none; width: 44px; height: 44px; border-radius: 50%; background: #E3F1E8; color: #135C33; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><div><strong style="display: block">Sturdy</strong><span style="color: #4A5158">Orchid and ti leaf hold up well, even on 2-day shipping.</span></div></div>
+<div style="display: flex; gap: 14px; align-items: flex-start"><span style="flex: none; width: 44px; height: 44px; border-radius: 50%; background: #FEF3D7; color: #7A5A00; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 7v6M12 16.5v.5"></path></svg></span><div><strong style="display: block">Delicate</strong><span style="color: #4A5158">Plumeria, tuberose and pikake bruise and brown. Pay for priority overnight, and skip them east of the Rockies.</span></div></div>
+</div>
+<div id="before" style="display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-weight: 800; font-size: 24px; line-height: 1.25">Before you order</h2>
+<div style="display: flex; gap: 14px; align-items: flex-start"><span style="flex: none; width: 44px; height: 44px; border-radius: 50%; background: #15181B; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg></span><div><strong style="display: block">Have it arrive the day before</strong><span style="color: #4A5158">Keep it in the fridge overnight. A day of slack covers most delays.</span></div></div>
+<div style="display: flex; gap: 14px; align-items: flex-start"><span style="flex: none; width: 44px; height: 44px; border-radius: 50%; background: #15181B; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14z"></path><path d="M5 19l7-7"></path></svg></span><div><strong style="display: block">California inspects some boxes</strong><span style="color: #4A5158">Random agriculture checks on packages from Hawaiʻi can add time. Order a day earlier.</span></div></div>
+</div>
+</section>
+
+<section id="remind" style="padding: 48px 0 72px">
+<div style="border: 2px solid #15181B; border-radius: 16px; padding: 28px 32px; display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: flex-end">
+<div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Playwrite NG Modern', cursive; font-size: 24px; line-height: 1.6">Graduation in May?</span>
+<span style="color: #4A5158">Get one email in early April when it’s time to order. Nothing else.</span>
+</div>
+<div style="flex: 1 1 420px; display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end">
+<label for="remind-email-d" style="flex: 1 1 240px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700">Email
+<input id="remind-email-d" type="email" placeholder="you@example.com" style="min-height: 50px; padding: 0 12px; border-radius: 10px; border: 1px solid #A3A9AE; font-family: inherit; font-size: 16px">
+</label>
+<button style="min-height: 50px; padding: 0 22px; border-radius: 10px; border: none; background: {{accent}}; color: #FFFFFF; font-family: inherit; font-weight: 800; font-size: 16px; cursor: pointer">Remind me in April</button>
+</div>
+</div>
+</section>
+
+</div>
+
+<footer style="margin-top: auto; background: #15181B; color: #D9DCDF">
+<div style="max-width: 1160px; margin: 0 auto; padding: 32px; display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between; font-size: 14px">
+<a href="#top" style="color: #FFFFFF; font-weight: 700; font-size: 15px">Something changed? Tell us</a>
+<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 8px 20px"><a href="HomeDesktop.dc.html" style="color: #D9DCDF">Home</a><a href="LuauDesktop.dc.html" style="color: #D9DCDF">Lūʻau guide</a><a href="DesktopV2.dc.html" style="color: #D9DCDF">Airport lei</a><a href="#top" style="color: #D9DCDF">About</a></nav>
+<span style="color: #AEB4BA; flex-basis: 100%">Some links may earn us a commission. It never changes what we recommend.</span>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","options":["#8E4FB8","#E8912D","#3F7A4A"],"default":"#8E4FB8","section":"Look"},"$preview":{"width":1280,"height":2900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { date: '2027-05-22', region: 'west' };
+  }
+  renderVals() {
+    const accent = this.props.accent ?? '#8E4FB8';
+    const transit = this.state.region === 'west' ? 1 : 2;
+    const parts = this.state.date.split('-').map(Number);
+    const d = new Date(parts[0], parts[1] - 1, parts[2]);
+    d.setDate(d.getDate() - 1 - transit - 3);
+    const orderBy = isNaN(d.getTime()) ? 'Pick a date' : d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    return {
+      accent: accent,
+      eventDate: this.state.date,
+      setDate: (e) => this.setState({ date: e.target.value }),
+      orderBy: orderBy,
+      explain: (transit === 1 ? 'Overnight shipping' : 'Usually 2-day shipping') + ', arriving the day before, plus about 3 days for the shop to make it.',
+      regions: [
+        { id: 'west', label: 'West of the Rockies' },
+        { id: 'east', label: 'East of the Rockies' }
+      ].map((r) => ({
+        label: r.label,
+        pick: () => this.setState({ region: r.id }),
+        style: r.id === this.state.region ? 'background: ' + accent + '; color: #FFFFFF; border: 1px solid transparent' : 'background: transparent; color: #FFFFFF; border: 1px solid #4A5158'
+      })),
+      directory: [
+        { label: 'Shops', tag: '6 compared', href: '#shops' },
+        { label: 'Before you order', tag: '2 tips', href: '#before' },
+        { label: 'Travel well', tag: 'Sturdy or delicate', href: '#travel' },
+        { label: 'Graduation', tag: 'April reminder', href: '#remind' }
+      ],
+      shops: [
+        { name: 'Buy Hawaiian Lei', orchid: '$14.99', ship: '[RATE]; 7-lei packs ship free', speed: 'Next day [CONFIRM REGIONS]', policy: 'Freshness guarantee' },
+        { name: "Cindy's Lei Shoppe", orchid: '[PRICE]', ship: '$55 for 1 to 2 lei', speed: 'FedEx Priority; 72 hours notice', policy: 'No delivery guarantee' },
+        { name: 'Flower Leis', orchid: '$13.99', ship: 'From $38.50, about $3 per extra lei', speed: 'Overnight to the West Coast', policy: '[POLICY]' },
+        { name: 'Hawaii Flower Lei', orchid: '$16 to $25', ship: '[RATE]', speed: 'Overnight to 9 western states, 2 days east', policy: '[POLICY]' },
+        { name: 'Hawaii Lei Stand', orchid: '$19.99', ship: '[RATE]', speed: 'FedEx [SPEED]', policy: 'No refunds for FedEx delays' },
+        { name: 'Shaka Lei', orchid: '$14.79', ship: '[RATE]', speed: 'Next day west of the Rockies, 2 days east', policy: '[POLICY]' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
