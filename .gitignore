@@ -11,3 +11,6 @@ next-env.d.ts
 .vercel
 npm-debug.log*
 yarn-error.log*
+
+# Local project documents
+get-local-hawaii-mvp-spec.docx

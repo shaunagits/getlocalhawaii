@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=LINE+Seed+JP:wght@400;700;800&amp;family=Playwrite+NG+Modern&amp;display=swap" rel="stylesheet">
 <style>
+:root{color-scheme:light}
 body{margin:0;background:#FFFFFF}
 a{color:#15181B}a:hover{color:#3A4047}
 .wf-arrow,.wf-arrow-r{transition:transform .2s ease}
@@ -23,14 +24,14 @@ a:hover .wf-arrow-r{transform:translateX(3px)}
 
 <section id="top" style="position: relative; min-height: 600px; color: #FFFFFF; overflow: hidden; background: #6F5B4E; display: flex; flex-direction: column">
 <img src="/_blob/3a7eb1af3021e9996d88337cdf5b4839" alt="Rows of fresh flower lei" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center">
-<div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(21,24,27,0.5) 0%, rgba(21,24,27,0) 22%)"></div>
+<div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(21,24,27,0.65) 0%, rgba(21,24,27,0) 24%)"></div>
 <div style="position: relative; max-width: 1160px; width: 100%; margin: 0 auto; padding: 0 32px; box-sizing: border-box; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap">
-<a href="#top" aria-label="Get Local Hawaii home" style="display: block; position: relative; width: 196px; height: 88px; text-decoration: none; flex: none">
+<a href="#top" aria-label="Get Local Hawaiʻi home" style="display: block; position: relative; width: 196px; height: 88px; text-decoration: none; flex: none">
 <span style="position: absolute; top: 4px; left: 46px; width: 8px; height: 8px; border-radius: 50%; background: #AEB4BA"></span>
 <span style="position: absolute; top: 4px; left: 142px; width: 8px; height: 8px; border-radius: 50%; background: #AEB4BA"></span>
 <span style="position: absolute; top: 9px; left: 49px; width: 2px; height: 22px; background: #CDB98E"></span>
 <span style="position: absolute; top: 9px; left: 145px; width: 2px; height: 22px; background: #CDB98E"></span>
-<span style="position: absolute; top: 28px; left: 14px; width: 168px; height: 54px; box-sizing: border-box; border-radius: 8px; background: #FFFFFF; border: 3px solid #15181B; box-shadow: 0 0 0 2px #FFFFFF, 0 6px 10px rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; color: #15181B; font-family: 'Playwrite NG Modern', cursive; font-size: 17px; line-height: 1">Get Local Hawaii</span>
+<span style="position: absolute; top: 28px; left: 14px; width: 168px; height: 54px; box-sizing: border-box; border-radius: 8px; background: #FFFFFF; border: 3px solid #15181B; box-shadow: 0 0 0 2px #FFFFFF, 0 6px 10px rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; color: #15181B; font-family: 'Playwrite NG Modern', cursive; font-size: 16px; line-height: 1">Get Local Hawaiʻi</span>
 <span style="position: absolute; top: 25px; left: 46px; width: 8px; height: 8px; border-radius: 50%; background: #15181B"></span>
 <span style="position: absolute; top: 25px; left: 142px; width: 8px; height: 8px; border-radius: 50%; background: #15181B"></span>
 </a>
@@ -42,9 +43,9 @@ a:hover .wf-arrow-r{transform:translateX(3px)}
 </nav>
 </div>
 <div style="position: relative; max-width: 1160px; width: 100%; margin: auto auto 0; padding: 40px 32px 48px; box-sizing: border-box">
-<div style="max-width: 560px; display: flex; flex-direction: column; gap: 16px; border-radius: 18px; padding: 32px 36px; background: rgba(21,24,27,0.55); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 16px 48px rgba(0,0,0,0.3)">
-<h1 style="margin: 0; font-family: 'Playwrite NG Modern', cursive; font-weight: 400; font-size: 44px; line-height: 1.4">Lei and lūʻau on Oʻahu</h1>
-<p style="margin: 0; font-size: 19px; line-height: 1.5; color: #EEF0F2">From someone who lives here and checks in person. Where to get a lei, which lūʻau to book, and how to send one home.</p>
+<div style="max-width: 560px; display: flex; flex-direction: column; gap: 16px; border-radius: 18px; padding: 32px 36px; background: rgba(21,24,27,0.70); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 16px 48px rgba(0,0,0,0.3)">
+<h1 style="margin: 0; font-weight: 800; font-size: 48px; line-height: 1.15; letter-spacing: -0.01em">Lei and lūʻau on Oʻahu</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.5; color: #EEF0F2">Where to get a lei at the airport, which lūʻau to book, and how to send a lei to the mainland. From someone born and raised here, with every page dated.</p>
 </div>
 </div>
 </section>
@@ -57,8 +58,8 @@ a:hover .wf-arrow-r{transform:translateX(3px)}
 <sc-for list="{{ doors }}" as="d" hint-placeholder-count="3">
 <a href="{{ d.href }}" style="position: relative; display: block; height: 340px; border-radius: 16px; overflow: hidden; text-decoration: none; color: #FFFFFF; background: {{ d.tone }}">
 <span style="position: absolute; top: 16px; left: 18px; right: 18px; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; color: rgba(255,255,255,0.75)">{{ d.photo }}</span>
-<span style="position: absolute; left: 14px; right: 14px; bottom: 14px; display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 12px; background: rgba(21,24,27,0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.18)">
-<span style="flex-grow: 1; display: flex; flex-direction: column"><span style="font-size: 12px; font-weight: 800; letter-spacing: 0.08em; color: #D9C2F0">{{ d.kicker }}</span><span style="font-weight: 800; font-size: 20px; line-height: 1.25">{{ d.title }}</span></span>
+<span style="position: absolute; left: 14px; right: 14px; bottom: 14px; display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 12px; background: rgba(21,24,27,0.70); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.18)">
+<span style="flex-grow: 1; display: flex; flex-direction: column"><span style="font-size: 12px; font-weight: 800; letter-spacing: 0.08em; color: #E6D6F5">{{ d.kicker }}</span><span style="font-weight: 800; font-size: 20px; line-height: 1.25">{{ d.title }}</span><span style="font-size: 14px; color: #EEF0F2">{{ d.checked }}</span></span>
 <span style="flex: none; width: 44px; height: 44px; border-radius: 8px; background: {{accent}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg class="wf-arrow-r" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 9.5h8.5V5l8.5 7-8.5 7v-4.5H3.5z" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg></span>
 </span>
 </a>
@@ -67,11 +68,11 @@ a:hover .wf-arrow-r{transform:translateX(3px)}
 </section>
 
 <section id="flowers" style="padding: 48px 0 16px; display: flex; flex-direction: column; gap: 20px">
-<h2 style="margin: 0; font-weight: 800; font-size: 26px; line-height: 1.25">Lei by flower</h2>
+<h2 style="margin: 0; align-self: flex-start; display: flex; align-items: stretch; border-radius: 6px; overflow: hidden; border: 1px solid #15181B; font-weight: 800; font-size: 24px; line-height: 1.25"><span style="flex: none; display: flex; align-items: center; justify-content: center; width: 48px; background: {{accent}}"><svg class="wf-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5v8.5h4.5L12 20.5 5 12h4.5z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.6" stroke-linejoin="round"></path></svg></span><span style="background: #15181B; color: #FFFFFF; padding: 10px 18px">Lei by flower and style</span></h2>
 <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px">
 <sc-for list="{{ leis }}" as="l" hint-placeholder-count="6">
 <a href="#flowers" style="display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; text-align: center">
-<span style="width: 100%; max-width: 140px; aspect-ratio: 1 / 1; border-radius: 50%; background: #F2F2EE; border: 1px dashed #A3A9AE; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; color: #5B6268">PHOTO</span>
+<span style="width: 100%; max-width: 112px; aspect-ratio: 1 / 1; border-radius: 50%; background: #F5F0E8; border: 1px dashed #A3A9AE; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; color: #5B6268">PHOTO</span>
 <span style="font-size: 16px; font-weight: 700">{{ l }}</span>
 </a>
 </sc-for>
@@ -79,10 +80,10 @@ a:hover .wf-arrow-r{transform:translateX(3px)}
 </section>
 
 <section style="padding: 56px 0 72px; display: flex; gap: 20px; align-items: center; max-width: 760px">
-<span style="flex: none; width: 88px; height: 88px; border-radius: 50%; background: #F2F2EE; border: 1px dashed #A3A9AE; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: #5B6268">YOU</span>
+<span style="flex: none; width: 88px; height: 88px; border-radius: 50%; background: #F5F0E8; border: 1px dashed #A3A9AE; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: #5B6268">PHOTO</span>
 <div style="display: flex; flex-direction: column; gap: 4px">
-<span style="font-family: 'Playwrite NG Modern', cursive; font-size: 22px; line-height: 1.6">Aloha, I’m [NAME].</span>
-<span style="color: #4A5158">I live on Oʻahu and check every page in person. When something changes, I update it and date it. <a href="#top" style="font-weight: 700">About this site</a></span>
+<span style="font-family: 'Playwrite NG Modern', cursive; font-size: 22px; line-height: 1.6">Aloha, I’m Shauna.</span>
+<span style="color: #4A5158">Born and raised on Oʻahu. I check what I can in person and put a date on every page, so you know how current it is. <a href="#top" style="font-weight: 700">About this site</a></span>
 </div>
 </section>
 
@@ -90,23 +91,27 @@ a:hover .wf-arrow-r{transform:translateX(3px)}
 
 <footer style="margin-top: auto; background: #15181B; color: #D9DCDF">
 <div style="max-width: 1160px; margin: 0 auto; padding: 32px; display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between; font-size: 14px">
-<a href="#top" style="color: #FFFFFF; font-weight: 700; font-size: 15px">Something changed? Tell us</a>
-<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 8px 20px"><a href="LuauDesktop.dc.html" style="color: #D9DCDF">Lūʻau guide</a><a href="DesktopV2.dc.html" style="color: #D9DCDF">Airport lei</a><a href="SendLeiDesktop.dc.html" style="color: #D9DCDF">Send a lei</a><a href="#top" style="color: #D9DCDF">About</a></nav>
-<span style="color: #AEB4BA; flex-basis: 100%">Some links may earn us a commission. It never changes what we recommend.</span>
+<form aria-label="Email reminders" style="flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding-bottom: 20px; border-bottom: 1px solid #2E3439">
+<div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 2px"><label for="remind-email" style="color: #FFFFFF; font-weight: 700; font-size: 16px">Lei Day and graduation reminders</label><span style="color: #AEB4BA">A few emails a year, just before you need a lei.</span></div>
+<div style="flex: 1 1 420px; max-width: 520px; display: flex; gap: 8px"><input id="remind-email" type="email" placeholder="you@example.com" style="flex-grow: 1; min-width: 0; min-height: 46px; padding: 0 14px; box-sizing: border-box; border-radius: 8px; border: 1px solid #5B6268; background: #FFFFFF; color: #15181B; font-family: inherit; font-size: 15px"><button type="button" style="flex: none; min-height: 46px; padding: 0 20px; border-radius: 8px; border: 0; background: {{accent}}; color: #FFFFFF; font-family: inherit; font-weight: 800; font-size: 15px; cursor: pointer">Remind me</button></div>
+</form>
+<a href="#top" style="color: #FFFFFF; font-weight: 700; font-size: 15px">Something changed? Tell me</a>
+<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 8px 20px"><a href="LuauDesktop.dc.html" style="color: #D9DCDF">Lūʻau guide</a><a href="DesktopV2.dc.html" style="color: #D9DCDF">Airport lei</a><a href="SendLeiDesktop.dc.html" style="color: #D9DCDF">Send a lei</a><a href="#flowers" style="color: #D9DCDF">Lei guide</a><a href="#top" style="color: #D9DCDF">About</a><a href="#top" style="color: #D9DCDF">Disclosure</a><a href="#top" style="color: #D9DCDF">Privacy</a></nav>
+<span style="color: #AEB4BA; flex-basis: 100%">Some links earn me a commission. It never changes what I recommend. <a href="#top" style="color: #D9DCDF">How this works</a></span>
 </div>
 </footer>
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","options":["#8E4FB8","#E8912D","#3F7A4A"],"default":"#8E4FB8","section":"Look"},"$preview":{"width":1280,"height":2300}}'>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#8A3F9E","section":"Look"},"$preview":{"width":1280,"height":2300}}'>
 class Component extends DCLogic {
   renderVals() {
     return {
-      accent: this.props.accent ?? '#8E4FB8',
+      accent: this.props.accent ?? '#8A3F9E',
       doors: [
-        { kicker: 'AT THE AIRPORT NOW', title: 'Lei stands at the Honolulu airport', href: 'DesktopV2.dc.html', tone: '#5E4A3F', photo: '[PHOTO: THE AIRPORT LEI STAND ROW]' },
-        { kicker: 'PLANNING YOUR TRIP', title: 'Every Oʻahu lūʻau, compared', href: 'LuauDesktop.dc.html', tone: '#3E4A5C', photo: '[PHOTO: A LŪʻAU AT SUNSET]' },
-        { kicker: 'SENDING A LEI HOME', title: 'Ship a fresh lei to the mainland', href: 'SendLeiDesktop.dc.html', tone: '#5A3B4A', photo: '[PHOTO: A LEI PACKED IN ITS BOX]' }
+        { kicker: 'PLANNING YOUR TRIP', title: 'Oʻahu lūʻau', checked: 'Checked [DATE]', href: 'LuauDesktop.dc.html', tone: '#3E4A5C', photo: '[PHOTO: A LŪʻAU AT SUNSET]' },
+        { kicker: 'AT THE AIRPORT NOW', title: 'Honolulu airport lei', checked: 'Checked [DATE]', href: 'DesktopV2.dc.html', tone: '#5E4A3F', photo: '[PHOTO: THE AIRPORT LEI STAND ROW]' },
+        { kicker: 'SENDING A LEI', title: 'Send a lei to the mainland', checked: 'Checked [DATE]', href: 'SendLeiDesktop.dc.html', tone: '#5A3B4A', photo: '[PHOTO: A LEI PACKED IN ITS BOX]' }
       ],
       leis: ['Plumeria', 'Orchid', 'Pikake', 'Maile', 'Tuberose', 'Haku']
     };

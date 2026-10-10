@@ -93,3 +93,13 @@ Append-only. One line per entry: date, decision, one-phrase reason.
 2026-10-08: Vendors are listed on verification (own visit or their own published info, dated), not on replying to outreach; removal rule is closed or no confirmation after two attempts or 30 days.
 2026-10-08: Missing details are hidden rather than shown as placeholders, so the site looks complete while outreach is in progress.
 2026-10-08: Instagram feeds only with each stand's permission and setup; otherwise own photos with a link to their account - Instagram requires the account owner to connect a feed.
+2026-10-08: README expanded past the 10-line cap (about 25 lines, screenshot in .github/) at Shauna's request, because the public GitHub repo page is now part of her portfolio presence.
+2026-10-09: Page names are plain and identical on the Home door, the page headline and the menu: Oʻahu lūʻau, Honolulu airport lei, Send a lei to the mainland - plain names read faster and match searches; freshness goes in a "Checked" date line, not the title.
+2026-10-09: Home doors run lūʻau, airport, send a lei - airport visitors land on the airport page from search, while Home visitors are mostly planning, and lūʻau is the money page.
+2026-10-09: Headlines are LINE Seed JP 800; Playwrite NG Modern is kept for the logo, the byline greeting and small human touches - script headlines were harder to read and made the signature font a template look.
+2026-10-09: The logo reads "Get Local Hawaiʻi"; title tags, URLs and the schema site name stay "Get Local Hawaii" - search reads the title and site name, so the logo can follow the spelling rule.
+2026-10-09: Accent is red-violet #8A3F9E, replacing #8E4FB8 - it reads as an orchid lei rather than an app, and white on it reaches 6.4:1.
+2026-10-09: Smoked glass is charcoal at 70% and glass kicker text is #E6D6F5 - 55% and #D9C2F0 fail contrast over pale lei photos.
+2026-10-09: One warm sand neutral #F5F0E8 replaces #F2F2EE and #E9E9E4; pages declare color-scheme light - the cool and yellow greys clashed, and phone dark modes inverted the photos and the logo sign.
+2026-10-09: The site speaks as "I": Shauna, born and raised on Oʻahu (never implying Native Hawaiian ancestry); copy never claims more in-person checking than happened - one voice builds trust, and overclaiming risks Google and affiliate approval.
+2026-10-09: An email signup ("Lei Day and graduation reminders") sits in every page footer except Send a lei, which has its own - an owned audience is the hedge against search and AI answers, so it starts now, not in February.
