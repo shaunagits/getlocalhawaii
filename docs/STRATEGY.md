@@ -103,7 +103,7 @@ Seasons: Oct to Dec build; Dec to Mar visitor high season; Mar to May graduation
 ## Design (in progress)
 
 Canvas: https://claude.ai/artifact/WDtrJ1ZWb74eENEW5J2fcu (copies in docs/designs_100826/). Mobile and desktop boards for airport, home, lūʻau, send a lei.
-- Fonts: LINE Seed JP for body and all headings, headlines at 800; Playwrite NG Modern only for the logo, the byline greeting and small human touches. Two fonts only. LINE Seed JP lacks ō/Ō.
+- Fonts: Figtree for body and all headings, headlines at 800; Playwrite NG Modern only for the logo, the byline greeting and small human touches. Two fonts only. LINE Seed JP was dropped on Oct 9: its macrons land on the following letter (Pīkake renders as "Pik̄ake"), and it has no ō.
 - Colors: one accent, red-violet orchid #8A3F9E (white on it 6.4:1). Charcoal #15181B and white as neutrals, warm sand #F5F0E8 as the one light fill. Light orchid #E6D6F5 for accent text on glass, #D9C2F0 only on solid charcoal. Green #4ADE80 only for the "open" light, on dark, never next to purple. White text and icons on purple. Pages declare color-scheme light.
 - Logo: "Get Local Hawaiʻi" in white Playwrite on an orchid #8A3F9E hanging sign with white cords and a thin white edge, orchid and white only. Title tags and schema keep "Get Local Hawaii". Profile picture and tab icon: orchid square, white lettering.
 - Hero: full-bleed photo with text on a smoked glass panel (charcoal 70% with blur, so text passes over pale lei photos). Mobile panel slides up over the bottom of the photo. Hero status line: glowing green dot + "[N] stands open now" once per-stand hours exist.
