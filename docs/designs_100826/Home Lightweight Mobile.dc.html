@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Get Local Hawaiʻi, home, mobile</title>
+<title>Get Local Hawaiʻi, lightweight home, mobile</title>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -39,13 +39,13 @@ a:hover .wf-arrow-r{transform:translateX(3px)}
 </div>
 <div style="position: relative; margin-top: 240px; padding: 24px 16px 28px; border-radius: 22px 22px 0 0; background: rgba(21,24,27,0.70); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-top: 1px solid rgba(255,255,255,0.18); display: flex; flex-direction: column; gap: 12px">
 <h1 style="margin: 0; font-weight: 800; font-size: 36px; line-height: 1.15; letter-spacing: -0.01em">Lei and lūʻau on Oʻahu</h1>
-<p style="margin: 0; font-size: 18px; line-height: 1.45; color: #EEF0F2">Where to get a lei at the airport, which lūʻau to book, and how to send a lei to the mainland. From someone born and raised here, with every page dated.</p>
+<p style="margin: 0; font-size: 18px; line-height: 1.45; color: #EEF0F2">Where to get a lei at the Honolulu airport and how to send a lei to the mainland. From someone born and raised here, with every page dated.</p>
 </div>
 </section>
 
 <section style="padding: 28px 16px 8px; display: flex; flex-direction: column; gap: 14px">
 <h2 style="margin: 0; align-self: flex-start; display: flex; align-items: stretch; border-radius: 6px; overflow: hidden; border: 1px solid #15181B; font-weight: 800; font-size: 20px; line-height: 1.25"><span style="flex: none; display: flex; align-items: center; justify-content: center; width: 40px; background: {{accent}}"><svg class="wf-arrow" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5v8.5h4.5L12 20.5 5 12h4.5z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.6" stroke-linejoin="round"></path></svg></span><span style="background: #15181B; color: #FFFFFF; padding: 9px 14px">What do you need?</span></h2>
-<sc-for list="{{ doors }}" as="d" hint-placeholder-count="3">
+<sc-for list="{{ doors }}" as="d" hint-placeholder-count="2">
 <a href="{{ d.href }}" style="position: relative; display: block; height: 200px; border-radius: 16px; overflow: hidden; text-decoration: none; color: #FFFFFF; background: {{ d.tone }}">
 <span style="position: absolute; top: 14px; left: 16px; right: 16px; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; color: rgba(255,255,255,0.75)">{{ d.photo }}</span>
 <span style="position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; background: rgba(21,24,27,0.70); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.18)">
@@ -56,8 +56,18 @@ a:hover .wf-arrow-r{transform:translateX(3px)}
 </sc-for>
 </section>
 
+<section style="padding: 28px 16px 8px">
+<form aria-label="Get the lūʻau guide by email" style="display: flex; flex-direction: column; gap: 12px; padding: 20px 16px; border-radius: 16px; background: #F5F0E8">
+<h2 style="margin: 0; align-self: flex-start; display: flex; align-items: stretch; border-radius: 6px; overflow: hidden; border: 1px solid #15181B; font-weight: 800; font-size: 20px; line-height: 1.25"><span style="flex: none; display: flex; align-items: center; justify-content: center; width: 40px; background: {{accent}}"><svg class="wf-arrow" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5v8.5h4.5L12 20.5 5 12h4.5z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.6" stroke-linejoin="round"></path></svg></span><span style="background: #15181B; color: #FFFFFF; padding: 9px 12px">Coming next</span><span style="background: #FFFFFF; color: #15181B; padding: 9px 12px; font-size: 14px; font-weight: 700; border-left: 1px solid #15181B; display: flex; align-items: center">Lūʻau guide</span></h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.5">Every Oʻahu lūʻau compared for 2026: price, place and who each one suits. Get it by email when it is up.</p>
+<label for="lite-email" style="font-weight: 700; font-size: 15px">Your email</label>
+<div style="display: flex; gap: 8px"><input id="lite-email" type="email" placeholder="you@example.com" style="flex-grow: 1; min-width: 0; min-height: 48px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; border: 1px solid #8C9196; background: #FFFFFF; color: #15181B; font-family: inherit; font-size: 16px"><button type="button" style="flex: none; min-height: 48px; padding: 0 16px; border-radius: 8px; border: 0; background: {{accent}}; color: #FFFFFF; font-family: inherit; font-weight: 800; font-size: 15px; cursor: pointer">Send it to me</button></div>
+<span style="font-size: 13px; color: #4A5158">Plus Lei Day and graduation reminders. A few emails a year, and you can unsubscribe anytime.</span>
+</form>
+</section>
+
 <section style="padding: 28px 16px 8px; display: flex; flex-direction: column; gap: 14px">
-<h2 style="margin: 0; align-self: flex-start; display: flex; align-items: stretch; border-radius: 6px; overflow: hidden; border: 1px solid #15181B; font-weight: 800; font-size: 20px; line-height: 1.25"><span style="flex: none; display: flex; align-items: center; justify-content: center; width: 40px; background: {{accent}}"><svg class="wf-arrow" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5v8.5h4.5L12 20.5 5 12h4.5z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.6" stroke-linejoin="round"></path></svg></span><span style="background: #15181B; color: #FFFFFF; padding: 9px 14px">Lei by flower and style</span></h2>
+<h2 style="margin: 0; align-self: flex-start; display: flex; align-items: stretch; border-radius: 6px; overflow: hidden; border: 1px solid #15181B; font-weight: 800; font-size: 20px; line-height: 1.25"><span style="flex: none; display: flex; align-items: center; justify-content: center; width: 40px; background: {{accent}}"><svg class="wf-arrow" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5v8.5h4.5L12 20.5 5 12h4.5z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.6" stroke-linejoin="round"></path></svg></span><span style="background: #15181B; color: #FFFFFF; padding: 9px 14px">Lei by flower</span></h2>
 <div style="display: flex; gap: 14px; overflow-x: auto; padding-bottom: 6px">
 <sc-for list="{{ leis }}" as="l" hint-placeholder-count="6">
 <a href="#top" style="flex: none; width: 72px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-decoration: none; text-align: center">
@@ -66,6 +76,7 @@ a:hover .wf-arrow-r{transform:translateX(3px)}
 </a>
 </sc-for>
 </div>
+<a href="#top" style="align-self: flex-start; display: flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 700; text-decoration: none">Graduation lei: what to buy and when to order<span style="flex: none; width: 28px; height: 28px; border-radius: 6px; background: {{accent}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg class="wf-arrow-r" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 9.5h8.5V5l8.5 7-8.5 7v-4.5H3.5z" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg></span></a>
 </section>
 
 
@@ -77,13 +88,8 @@ a:hover .wf-arrow-r{transform:translateX(3px)}
 </section>
 
 <footer style="margin-top: auto; background: #15181B; color: #D9DCDF; padding: 24px 16px 32px; display: flex; flex-direction: column; gap: 14px; font-size: 14px">
-<form aria-label="Email reminders" style="display: flex; flex-direction: column; gap: 8px; padding-bottom: 16px; border-bottom: 1px solid #2E3439">
-<label for="remind-email" style="color: #FFFFFF; font-weight: 700; font-size: 15px">Lei Day and graduation reminders</label>
-<span style="color: #AEB4BA">A few emails a year, just before you need a lei.</span>
-<div style="display: flex; gap: 8px"><input id="remind-email" type="email" placeholder="you@example.com" style="flex-grow: 1; min-width: 0; min-height: 44px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; border: 1px solid #5B6268; background: #FFFFFF; color: #15181B; font-family: inherit; font-size: 15px"><button type="button" style="flex: none; min-height: 44px; padding: 0 16px; border-radius: 8px; border: 0; background: {{accent}}; color: #FFFFFF; font-family: inherit; font-weight: 800; font-size: 15px; cursor: pointer">Remind me</button></div>
-</form>
 <a href="#top" style="color: #FFFFFF; font-weight: 700; font-size: 15px">Something changed? Tell me</a>
-<nav aria-label="Site" style="display: flex; flex-wrap: wrap; gap: 8px 18px"><a href="#top" style="color: #D9DCDF">Lūʻau guide</a><a href="#top" style="color: #D9DCDF">Airport lei</a><a href="#top" style="color: #D9DCDF">Send a lei</a><a href="#top" style="color: #D9DCDF">Lei guide</a><a href="#top" style="color: #D9DCDF">About</a><a href="#top" style="color: #D9DCDF">Disclosure</a><a href="#top" style="color: #D9DCDF">Privacy</a></nav>
+<nav aria-label="Site" style="display: flex; flex-wrap: wrap; gap: 8px 18px"><a href="#top" style="color: #D9DCDF">Airport lei</a><a href="#top" style="color: #D9DCDF">Send a lei</a><a href="#top" style="color: #D9DCDF">Lei guide</a><a href="#top" style="color: #D9DCDF">About</a><a href="#top" style="color: #D9DCDF">Disclosure</a><a href="#top" style="color: #D9DCDF">Privacy</a></nav>
 <span style="color: #AEB4BA">Some links earn me a commission. It never changes what I recommend. <a href="#top" style="color: #D9DCDF">How this works</a></span>
 </footer>
 
@@ -95,11 +101,10 @@ class Component extends DCLogic {
     return {
       accent: this.props.accent ?? '#8A3F9E',
       doors: [
-        { kicker: 'PLANNING YOUR TRIP', title: 'Oʻahu lūʻau', checked: 'Checked [DATE]', href: 'Luau.dc.html', tone: '#3E4A5C', photo: '[PHOTO: A LŪʻAU AT SUNSET]' },
         { kicker: 'AT THE AIRPORT NOW', title: 'Honolulu airport lei', checked: 'Checked [DATE]', href: 'MobileV2.dc.html', tone: '#5E4A3F', photo: '[PHOTO: THE AIRPORT LEI STAND ROW]' },
         { kicker: 'SENDING A LEI', title: 'Send a lei to the mainland', checked: 'Checked [DATE]', href: 'SendLei.dc.html', tone: '#5A3B4A', photo: '[PHOTO: A LEI PACKED IN ITS BOX]' }
       ],
-      leis: ['Plumeria', 'Orchid', 'Pikake', 'Maile', 'Tuberose', 'Haku']
+      leis: ['Pīkake', 'Puakenikeni', 'Maile', 'Plumeria', 'Orchid', 'Carnation']
     };
   }
 }

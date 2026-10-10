@@ -6,12 +6,12 @@
 - Vendor tracker: docs/vendor-tracker.xlsx (23 vendors, 17 in round 1).
 
 ## In progress
-- Design review; images are placeholders and test photos. Logo sign options (A, B, C) on the canvas await a pick.
+- Design review; images are placeholders and test photos. Lightweight home designed (mobile and desktop) for review; logo chosen (orchid sign, white lettering).
 
 ## Next 3 steps
-1. Fix or hide the expired UNCONFIRMED labels and "0 open now" on the live site (blocks affiliate applications).
+1. After design sign-off, build the lightweight home, About, Disclosure and Privacy pages, and hide the expired labels and zero counts on the live site.
 2. Site visit to the airport stands; start round 1 outreach and log it in the tracker.
-3. Set up GA4 and the email tool, confirm the aloha@ alias, then build the airport page in code.
+3. Shauna: create the Buttondown account and the Cloudflare email alias; then GA4 and the airport page in code.
 
 ## Known issues
 - Live home mixes fish into "I need lei" results; the ʻokina renders with stray spaces in card text.

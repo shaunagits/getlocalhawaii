@@ -106,3 +106,8 @@ Append-only. One line per entry: date, decision, one-phrase reason.
 2026-10-09: The site stays anonymous: no name or photo in the byline or About page, only "someone born and raised on Oʻahu"; this replaces the named byline from earlier today - the author does not want to be identified, and the dated checks carry the trust instead.
 2026-10-09: The June 2027 checkpoint is a loose trend check (rankings, click-outs, booked commissions), not a hard maintenance-mode cutoff - affiliate pay lags the tour date and pages take months to rank.
 2026-10-09: The airport hero line reads "[N] stands open now", without "of [M]" - the total adds nothing a visitor acts on.
+2026-10-09: The logo is an orchid sign with white lettering, white cords and a white edge, no charcoal - chosen from three options; it reads as the brand on photos and on its own.
+2026-10-09: A lightweight home replaces the live home first, rather than a coming-soon page; inner pages stay live with expired labels hidden - a coming-soon page would drop the pages that already rank.
+2026-10-09: "Open now" counts never show a total and are hidden at zero - the total adds nothing a visitor acts on, and a zero reads as broken.
+2026-10-09: Buttondown is the email tool - simpler than Kit for a few emails a year.
+2026-10-09: Outreach is signed "Get Local Hawaiʻi" from a Cloudflare email alias, with no personal name - the site stays anonymous.
