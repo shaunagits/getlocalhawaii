@@ -6,7 +6,7 @@
 - Vendor tracker: docs/vendor-tracker.xlsx (23 vendors, 17 in round 1).
 
 ## In progress
-- Design review; images are placeholders and test photos. Byline photo and years on Oʻahu still needed.
+- Design review; images are placeholders and test photos. Logo sign options (A, B, C) on the canvas await a pick.
 
 ## Next 3 steps
 1. Fix or hide the expired UNCONFIRMED labels and "0 open now" on the live site (blocks affiliate applications).
@@ -15,5 +15,4 @@
 
 ## Known issues
 - Live home mixes fish into "I need lei" results; the ʻokina renders with stray spaces in card text.
-- CLAUDE.md and README still describe the old open-now directory.
 - Kaula Lūʻau location and price unknown; several shipper rates and policies unknown.

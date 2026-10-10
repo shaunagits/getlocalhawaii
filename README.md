@@ -1,6 +1,6 @@
 # Get Local Hawaiʻi
 
-A trust-first directory of local Oʻahu vendors: lei stands, fish markets and farmers markets. Every listing shows when it was last verified, and "open now" is computed live, never hardcoded.
+Lei and lūʻau on Oʻahu, for visitors and anyone sending a lei to the mainland: the airport lei stands, every lūʻau compared, and the shops that ship. Every page shows when it was checked, and "open now" is computed live, never hardcoded.
 
 **Live: [getlocalhawaii.com](https://getlocalhawaii.com)**
 
@@ -17,7 +17,7 @@ npm run dev    # run locally
 npm test       # unit tests
 ```
 
-`docs/BUILD_SPEC.md` is the build spec and `docs/STATUS.md` the current state.
+`docs/STRATEGY.md` is the plan and `docs/STATUS.md` the current state.
 
 ---
 

@@ -25,7 +25,7 @@ Phases:
 - Phase 0, Oct to Dec 2026: design and build the first pages, set up tracking, apply to affiliate programs once the lūʻau guide is live. $0.
 - Phase 1, Jan to Jun 2027: winter visitor season tests lūʻau and airport pages; Apr to May tests the shipping comparison and email reminder. Tens to low hundreds of dollars a month.
 - Phase 2, mid 2027: double down on what earned. Target $100 to $500 a month.
-- Checkpoint, end of June 2027: under about 1,000 visits a month and under $50 a month means maintenance mode.
+- Checkpoint, end of June 2027, a loose check rather than a hard cutoff: is the lūʻau guide in the top 10 for 3 or more long-tail searches, are about 8% of its visitors clicking out to book, and are booked commissions (paid or pending) near $50? Commissions pay after the tour date and new pages take 3 to 9 months to rank, so judge the trend, not one month.
 
 Approval for affiliate programs comes from useful content, not sales: build pages with plain links to operators first, apply, then swap in affiliate links. Route every outbound link through one central partner list so the swap is one change.
 
@@ -105,9 +105,9 @@ Canvas: https://claude.ai/artifact/WDtrJ1ZWb74eENEW5J2fcu (copies in docs/design
 - Fonts: LINE Seed JP for body and all headings, headlines at 800; Playwrite NG Modern only for the logo, the byline greeting and small human touches. Two fonts only. LINE Seed JP lacks ō/Ō.
 - Colors: one accent, red-violet orchid #8A3F9E (white on it 6.4:1). Charcoal #15181B and white as neutrals, warm sand #F5F0E8 as the one light fill. Light orchid #E6D6F5 for accent text on glass, #D9C2F0 only on solid charcoal. Green #4ADE80 only for the "open" light, on dark, never next to purple. White text and icons on purple. Pages declare color-scheme light.
 - Logo: "Get Local Hawaiʻi" in Playwrite on a white hanging shop sign, two cords, straight. Title tags and schema keep "Get Local Hawaii".
-- Hero: full-bleed photo with text on a smoked glass panel (charcoal 70% with blur, so text passes over pale lei photos). Mobile panel slides up over the bottom of the photo. Hero status line: glowing green dot + "[N] of [M] stands open now" once per-stand hours exist.
+- Hero: full-bleed photo with text on a smoked glass panel (charcoal 70% with blur, so text passes over pale lei photos). Mobile panel slides up over the bottom of the photo. Hero status line: glowing green dot + "[N] stands open now" once per-stand hours exist.
 - Names: one plain name per page, the same on the Home door, the page headline and the menu: Oʻahu lūʻau, Honolulu airport lei, Send a lei to the mainland. Title tags carry the longer search version in plain spelling (e.g. "Oahu Luau 2026: Every Luau Compared", "Honolulu Airport Lei Stands: Where They Are, Hours and Prices").
-- Home (after the Oct 9 agency review): doors in order lūʻau, airport, send a lei, each with a "Checked [date]" line; "Lei by flower and style" strip as a sign heading; byline "Aloha, I’m Shauna. Born and raised on Oʻahu." with photo; one voice ("I") site-wide; footer has the reminder signup, Disclosure and Privacy links.
+- Home (after the Oct 9 agency review): doors in order lūʻau, airport, send a lei, each with a "Checked [date]" line; "Lei by flower and style" strip as a sign heading; anonymous byline "Aloha from Oʻahu. Written by someone born and raised here." with no name or photo; one voice ("I") site-wide; footer has the reminder signup, Disclosure and Privacy links.
 - Wayfinding signs: section headings drawn as signs (purple arrow box + charcoal bar + white fact tag such as "The stands | 8 stands"). A tag must carry a real fact or it is left off.
 - Arrow: bold solid wayfinding arrow. Direction has meaning everywhere: down = this page, right = another page on the site, up-right = leaves the site (bookings, shops).
 - One way to jump per page: long pages get an "On this page" directory under the hero; short pages get one hero sign button. Never both.

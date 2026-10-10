@@ -1,11 +1,12 @@
 # Get Local Hawaii
 
-Directory site for finding local Hawaii vendors (lei stands, farmers markets, fish, produce) with a freshness/verification system as the core product idea: every listing shows when it was last verified, and "open now" status is computed, never hardcoded.
+Content site about lei and lūʻau on Oʻahu for visitors and for people sending a lei to the mainland: airport lei stands, a lūʻau comparison, and a lei shipping comparison. Written anonymously by someone born and raised here; every page shows when it was checked, and "open now" is computed, never hardcoded. The older vendor directory (lei, fish, farmers markets) stays live but is no longer the product.
 
 ## Key files
 
-- `docs/BUILD_SPEC.md` - full build spec: design tokens, page inventory, data model, business logic. Read this before building anything.
-- `docs/Get Local Hawaii - Home.dc.html` - original design mockups: 4 screens, each with a 390px phone frame AND a 940px desktop frame. Reference for exact visual detail. Do not copy its markup; rebuild as components.
+- `docs/STRATEGY.md` - direction, audiences, revenue, site map, design system and outreach. Read this before building anything.
+- `docs/designs_100826/` - current page designs, copies of the canvas https://claude.ai/artifact/WDtrJ1ZWb74eENEW5J2fcu (mobile 390px and desktop 1280px per page). Rebuild as components; do not copy markup.
+- `docs/BUILD_SPEC.md` - build spec for the original directory: data model and status logic still apply; its page inventory and design tokens are superseded by STRATEGY.md.
 - `docs/SEO_TARGETS.md` - keyword targets from Shauna's Keyword Planner data; drives which pages exist.
 - `data/lei-vendors-oahu.csv` - real vendor dataset from public sources, each row carries source URLs and a confidence rating.
 - `src/lib/status.ts` - all status, freshness and countdown logic. `src/lib/time.ts` - all Hawaii clock math. `src/lib/queries.ts` - data access, returns objects with status already attached.
@@ -21,8 +22,9 @@ Directory site for finding local Hawaii vendors (lei stands, farmers markets, fi
 
 ## Conventions
 
-- Mobile-first, but every screen also has a designed 940px desktop layout in the canvas. Build both, breakpoint around 768px. See BUILD_SPEC section 4 desktop rules.
+- Mobile-first, but every page also has a designed desktop board in the canvas. Build both, breakpoint around 768px.
 - Never use em dashes in any user-facing copy, commit messages, or docs.
+- The site never names or pictures its author; copy speaks as "I", someone born and raised on Oʻahu.
 - Do not credit Claude or AI in commits, code comments, or anywhere in the repo.
 - Hawaiian diacriticals (ʻokina, kahakō) must be preserved exactly: Oʻahu, Kalihi, Waimānalo, Kaimukī, lūʻau, GET LOCAL HAWAIʻI.
 - All status logic (open now, closes 2p, checked today) computed from data in Pacific/Honolulu timezone. Never store a computed status.

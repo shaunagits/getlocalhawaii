@@ -103,3 +103,6 @@ Append-only. One line per entry: date, decision, one-phrase reason.
 2026-10-09: One warm sand neutral #F5F0E8 replaces #F2F2EE and #E9E9E4; pages declare color-scheme light - the cool and yellow greys clashed, and phone dark modes inverted the photos and the logo sign.
 2026-10-09: The site speaks as "I": Shauna, born and raised on Oʻahu (never implying Native Hawaiian ancestry); copy never claims more in-person checking than happened - one voice builds trust, and overclaiming risks Google and affiliate approval.
 2026-10-09: An email signup ("Lei Day and graduation reminders") sits in every page footer except Send a lei, which has its own - an owned audience is the hedge against search and AI answers, so it starts now, not in February.
+2026-10-09: The site stays anonymous: no name or photo in the byline or About page, only "someone born and raised on Oʻahu"; this replaces the named byline from earlier today - the author does not want to be identified, and the dated checks carry the trust instead.
+2026-10-09: The June 2027 checkpoint is a loose trend check (rankings, click-outs, booked commissions), not a hard maintenance-mode cutoff - affiliate pay lags the tour date and pages take months to rank.
+2026-10-09: The airport hero line reads "[N] stands open now", without "of [M]" - the total adds nothing a visitor acts on.
